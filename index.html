@@ -12,7 +12,7 @@
     :root {
       --bg-1: #fdf6f8; --bg-2: #f8e8ee; --rose: #d97b9c; --rose-deep: #a6466b;
       --rose-soft: #f5d8e3; --gold: #d4a373; --ink: #3d2933; --muted: #7d626f;
-      --glass: rgba(255, 255, 255, 0.82); --glass-border: rgba(235, 195, 210, 0.7);
+      --glass: rgba(255, 255, 255, 0.85); --glass-border: rgba(235, 195, 210, 0.7);
       --serif: "Cormorant Garamond", Georgia, serif; --sans: "Plus Jakarta Sans", sans-serif; --script: "Caveat", cursive;
     }
     * { box-sizing: border-box; }
@@ -63,12 +63,12 @@
     .site { position: relative; z-index: 1; }
     .topbar {
       position: sticky; top: 0; z-index: 30; height: 74px; padding: 0 clamp(20px, 6vw, 90px);
-      display: flex; align-items: center; justify-content: space-between; background: rgba(253, 246, 248, 0.85);
+      display: flex; align-items: center; justify-content: space-between; background: rgba(253, 246, 248, 0.9);
       backdrop-filter: blur(16px); border-bottom: 1px solid rgba(230, 190, 206, 0.5);
     }
     .brand { font: 700 22px var(--serif); }
     .brand span { color: var(--rose-deep); }
-    .topbar nav { display: flex; gap: 18px; }
+    .topbar nav { display: flex; gap: 16px; flex-wrap: wrap; }
     .nav-link { font-size: 12px; font-weight: 600; color: var(--muted); transition: 0.2s; }
     .nav-link:hover, .nav-link.active { color: var(--rose-deep); }
     .menu-toggle { display: none; border: 1px solid #e2bccb; background: #fff; border-radius: 10px; padding: 6px 12px; color: var(--rose-deep); }
@@ -142,7 +142,7 @@
     .song-list { display: grid; gap: 12px; }
     .song-item {
       background: rgba(255,255,255,0.85); border: 1px solid #ebd2dd; border-radius: 14px; padding: 14px 18px;
-      display: flex; align-items: center; justify-content: gap; gap: 16px;
+      display: flex; align-items: center; gap: 16px;
     }
     .song-meta { flex: 1; }
     .song-meta strong { display: block; font-size: 15px; color: var(--ink); font-family: var(--serif); }
@@ -157,7 +157,7 @@
     .song-quote { font: italic 13px var(--serif); color: var(--rose-deep) !important; font-weight: 700; }
 
     /* Envelopes */
-    .envelope-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .envelope-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 32px; }
     .envelope {
       position: relative; background: linear-gradient(165deg, #ffffff 0%, #fcf0f4 100%); border: 1px solid #e7c5d3;
       border-radius: 18px; padding: 22px 18px; text-align: left; cursor: pointer; transition: transform 0.25s, box-shadow 0.25s;
@@ -170,42 +170,41 @@
     .envelope strong { display: block; font: 700 19px var(--serif); color: var(--ink); margin-bottom: 4px; }
     .envelope span { font-size: 11px; color: var(--rose-deep); font-weight: 600; }
 
-    /* Virtual Cinema */
-    .cinema-cabinet { border-radius: 24px; padding: 32px; max-width: 900px; margin: 0 auto; }
-    .cinema-screen {
-      width: 100%; aspect-ratio: 16/9; background: #181014; border-radius: 16px; border: 3px solid #422833;
-      display: grid; place-content: center; text-align: center; color: #fff; padding: 20px; position: relative; overflow: hidden;
+    /* Cinema Theater Style */
+    .cinema-cabinet { border-radius: 24px; padding: 32px; max-width: 950px; margin: 0 auto; background: #24161d; color: #fff; border: 1px solid #4a2c3a; }
+    .cinema-screen-box {
+      width: 100%; aspect-ratio: 16/9; background: #12090e; border-radius: 18px; border: 4px solid #573343;
+      display: grid; place-content: center; text-align: center; padding: 30px; position: relative; box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
     }
-    .cinema-screen h3 { font: 700 28px var(--serif); color: #ffd6e6; margin: 0 0 8px; }
-    .cinema-screen p { font-size: 13px; color: #d6b8c4; max-width: 400px; margin: 0; }
-    .cinema-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; justify-content: center; }
-    .cinema-tab {
-      background: #fff; border: 1px solid #ebd0db; color: var(--rose-deep); padding: 8px 16px;
-      border-radius: 99px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s;
+    .cinema-screen-box h3 { font: 700 30px var(--serif); color: #ffc2d9; margin: 0 0 10px; }
+    .cinema-screen-box p { font-size: 14px; color: #d6b8c4; max-width: 480px; margin: 0 auto; }
+    .movie-selector-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
+    .movie-btn {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fce4ec;
+      padding: 12px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; cursor: pointer; text-align: left; transition: 0.2s;
     }
-    .cinema-tab.active, .cinema-tab:hover { background: var(--rose-deep); color: #fff; }
+    .movie-btn.active, .movie-btn:hover { background: var(--rose-deep); border-color: var(--rose); color: #fff; transform: translateY(-2px); }
+    .movie-btn span { display: block; font-size: 10px; opacity: 0.75; text-transform: uppercase; margin-bottom: 2px; }
 
-    /* Distance & World Map */
-    .distance-box { border-radius: 26px; padding: 40px; text-align: center; max-width: 800px; margin: 0 auto; }
-    .world-map-visual {
-      position: relative; height: 160px; background: linear-gradient(135deg, #fceef3, #f5e1e9);
-      border-radius: 16px; border: 1px solid #ebd0db; margin: 24px 0; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; overflow: hidden;
+    /* Google Maps Style Distance */
+    .distance-box { border-radius: 26px; padding: 40px; text-align: center; max-width: 850px; margin: 0 auto; }
+    .gmaps-container {
+      position: relative; height: 260px; background: #e8f4f8; border-radius: 18px; border: 2px solid #cbdde3;
+      margin: 24px 0; overflow: hidden; display: flex; align-items: center; justify-content: space-between; padding: 0 50px;
     }
-    .map-city { z-index: 2; text-align: center; }
-    .map-city strong { display: block; font: 700 16px var(--serif); color: var(--rose-deep); }
-    .map-city small { font-size: 11px; color: var(--muted); }
-    .flight-path { position: absolute; left: 15%; right: 15%; height: 2px; border-bottom: 2px dashed var(--rose); z-index: 1; }
-    .plane-icon { position: absolute; font-size: 18px; animation: flyPlane 4s infinite linear; }
-    @keyframes flyPlane { 0% { left: 15%; transform: translateY(-4px); } 100% { left: 82%; transform: translateY(-4px); } }
-    .distance-stat { font: 700 22px var(--serif); color: var(--ink); margin-top: 8px; }
+    .gmaps-road { position: absolute; left: 15%; right: 15%; height: 6px; background: #9bbcc7; z-index: 1; border-radius: 99px; }
+    .gmaps-pin { position: relative; z-index: 2; background: #fff; padding: 12px 18px; border-radius: 14px; box-shadow: 0 10px 25px rgba(0,0,0,0.12); text-align: center; }
+    .gmaps-pin strong { display: block; font: 700 15px var(--serif); color: var(--rose-deep); }
+    .gmaps-pin small { font-size: 11px; color: var(--muted); }
+    .gmaps-car { position: absolute; font-size: 20px; z-index: 3; animation: driveCar 5s infinite linear; }
+    @keyframes driveCar { 0% { left: 15%; transform: translateY(-7px); } 100% { left: 81%; transform: translateY(-7px); } }
 
-    /* Celestial Kiss Moon & Venus + Drawing */
-    .space-cabinet { border-radius: 24px; padding: 32px; max-width: 800px; margin: 0 auto; text-align: center; }
+    /* Celestial Kiss Venus & Moon */
+    .space-cabinet { border-radius: 24px; padding: 36px; max-width: 850px; margin: 0 auto; text-align: center; background: #120a10; color: #fff; border: 1px solid #3d2230; }
     .space-canvas-wrap {
-      position: relative; width: 100%; border-radius: 16px; overflow: hidden; border: 2px solid #543444; background: #12090d; margin-top: 16px;
+      position: relative; width: 100%; border-radius: 18px; overflow: hidden; border: 2px solid #573343; background: #0b0508; margin-top: 18px;
     }
     #space-canvas { width: 100%; height: auto; display: block; cursor: crosshair; }
-    .space-hint { font-size: 12px; color: var(--muted); margin-top: 10px; }
 
     /* Italian Academy (Medium level) */
     .italian-cabinet { border-radius: 24px; padding: 32px; max-width: 900px; margin: 0 auto; }
@@ -216,8 +215,8 @@
     .italian-card strong { display: block; font: 700 18px var(--serif); color: var(--rose-deep); margin-bottom: 4px; }
     .italian-card p { font-size: 13px; color: var(--muted); margin: 0; }
 
-    /* Couple Quiz */
-    .quiz-cabinet { border-radius: 24px; padding: 28px; max-width: 780px; margin: 0 auto; text-align: center; }
+    /* Couple Quiz (10 Questions) */
+    .quiz-cabinet { border-radius: 24px; padding: 32px; max-width: 800px; margin: 0 auto; }
     .quiz-q { font: 700 22px var(--serif); margin: 12px 0 16px; text-align: left; }
     .quiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .quiz-option {
@@ -302,19 +301,8 @@
       .hero { grid-template-columns: 1fr; text-align: center; }
       .hero-sub { margin-left: auto; margin-right: auto; }
       .hero-actions { justify-content: center; }
-      .story-columns, .games-master-grid, .italian-grid { grid-template-columns: 1fr; }
+      .story-columns, .games-master-grid, .italian-grid, .movie-selector-grid { grid-template-columns: 1fr; }
       .envelope-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 640px) {
-      .menu-toggle { display: block; }
-      .topbar nav {
-        display: none; position: absolute; top: 74px; left: 0; right: 0;
-        background: #fdf6f8; flex-direction: column; padding: 20px; border-bottom: 1px solid #e7c5d3; gap: 16px;
-      }
-      .topbar nav.open { display: flex; }
-      .counter-boxes { grid-template-columns: repeat(2, 1fr); }
-      .cabinet-controls { grid-template-columns: repeat(2, 1fr); }
-      footer { flex-direction: column; text-align: center; gap: 8px; }
     }
   </style>
 </head>
@@ -347,7 +335,7 @@
         <a href="#our-story" class="nav-link">Our Story</a>
         <a href="#music" class="nav-link">Music & Letters</a>
         <a href="#cinema" class="nav-link">Virtual Cinema</a>
-        <a href="#distance" class="nav-link">Distance & Map</a>
+        <a href="#distance" class="nav-link">Distance Map</a>
         <a href="#space" class="nav-link">Celestial Kiss</a>
         <a href="#italian" class="nav-link">Italian Academy</a>
         <a href="#quiz" class="nav-link">Couple Quiz</a>
@@ -361,7 +349,7 @@
         <div class="hero-copy">
           <div class="badge-romantic">✦ ARCORE (ITALY) ⇄ BUGO, CDO (PHILIPPINES)</div>
           <h1>Welcome to<br><em>your universe,</em><br>my Patatina.</h1>
-          <p class="hero-sub">Every letter I wrote, our favorite movies, our music, the exact distance between us, and a special corner dedicated to Tortoro in Bugo — all in English, made exclusively for you.</p>
+          <p class="hero-sub">Every letter I wrote, our movie theater, our favorite music with direct Spotify & YouTube links, the exact distance, and Tortoro in Bugo — fully in English, made exclusively for you.</p>
           <div class="hero-actions">
             <a class="btn-romantic" href="#play">Play with Tortoro <span>🐾</span></a>
             <a class="btn-romantic" href="#quiz" style="background:linear-gradient(135deg, #a6466b, #7d2d4c)">Couple Quiz 💖</a>
@@ -388,7 +376,7 @@
         </div>
       </section>
 
-      <!-- COUNTER & ECG HEARTBEAT -->
+      <!-- COUNTER & ECG -->
       <section class="counter-banner section-shell">
         <div class="counter-grid glass-panel">
           <div class="counter-header"><span class="eyebrow">LOVING YOU SINCE DECEMBER 18, 2025</span></div>
@@ -409,7 +397,7 @@
         </div>
       </section>
 
-      <!-- OUR EXPANDED STORY -->
+      <!-- OUR STORY -->
       <section id="our-story" class="content-section section-shell">
         <div class="section-heading">
           <span class="eyebrow">CHAPTERS OF US</span>
@@ -492,63 +480,66 @@
           </div>
         </div>
 
-        <div id="letter-list" class="envelope-grid" style="margin-top: 40px;"></div>
+        <div id="letter-list" class="envelope-grid"></div>
       </section>
 
-      <!-- VIRTUAL CINEMA -->
+      <!-- VIRTUAL CINEMA (THEATER STYLE WITH ALL FILMS) -->
       <section id="cinema" class="content-section section-shell">
         <div class="section-heading">
-          <span class="eyebrow">INTERACTIVE THEATER</span>
-          <h2>Virtual <em>Cinema</em> Rooms</h2>
-          <p>Switch between screening rooms to see all the movies we watched together across the distance.</p>
+          <span class="eyebrow">VIRTUAL MOVIE THEATER</span>
+          <h2>Our Screening <em>Room</em></h2>
+          <p>Click any film below to load it on our private distance cinema screen.</p>
         </div>
 
-        <div class="cinema-cabinet glass-panel">
-          <div class="cinema-screen" id="cinema-screen-box">
-            <span style="font-size:38px;margin-bottom:10px">🍿🎥</span>
-            <h3 id="cinema-title">The Hangover (Una Notte da Leoni)</h3>
-            <p id="cinema-desc">The legendary recommendation that started our movie talks. Pure laughs on video call!</p>
+        <div class="cinema-cabinet">
+          <div class="cinema-screen-box" id="cinema-screen-box">
+            <span style="font-size:38px;margin-bottom:8px">🍿🎥</span>
+            <h3 id="cinema-title">Una Notte da Leoni (The Hangover)</h3>
+            <p id="cinema-desc">The legendary comedy recommendation that started all our movie discussions on video call!</p>
           </div>
-          <div class="cinema-tabs">
-            <button class="cinema-tab active" data-movie="hangover">Comedy (The Hangover)</button>
-            <button class="cinema-tab" data-movie="americanpie">Classics (American Pie)</button>
-            <button class="cinema-tab" data-movie="romcom">Rom-Com (Amici di Letto)</button>
-            <button class="cinema-tab" data-movie="projectx">Party (Project X & Superbad)</button>
-            <button class="cinema-tab" data-movie="zendaya">Zendaya Films</button>
-            <button class="cinema-tab" data-movie="zombie">Thai Zombie Horror</button>
+          <div class="movie-selector-grid">
+            <button class="movie-btn active" data-title="Una Notte da Leoni (The Hangover)" data-desc="The legendary comedy recommendation that started all our movie discussions!"><span>Comedy</span>Una Notte da Leoni</button>
+            <button class="movie-btn" data-title="American Pie" data-desc="A hilarious classic we enjoyed watching together across the screen."><span>Classic</span>American Pie</button>
+            <button class="movie-btn" data-title="Amici di Letto (Friends with Benefits)" data-desc="A fun romantic comedy shared during our long-distance date nights."><span>Rom-Com</span>Amici di Letto</button>
+            <button class="movie-btn" data-title="Dead End Job" data-desc="Another hilarious movie night filled with laughs and snacks."><span>Comedy</span>Dead End Job</button>
+            <button class="movie-btn" data-title="Project X" data-desc="Pure chaotic party energy and unforgettable laughs!"><span>Party</span>Project X</button>
+            <button class="movie-btn" data-title="Superbad" data-desc="One of our absolute favorite comedy classics to watch together."><span>Comedy</span>Superbad</button>
+            <button class="movie-btn" data-title="Zendaya Films" data-desc="Enjoying fantastic movies starring her incredible acting talent."><span>Starring</span>Zendaya Films</button>
+            <button class="movie-btn" data-title="Thai Zombie Horror Movies" data-desc="Spooky, intense, heart-pounding horror movie nights across the distance!"><span>Thriller</span>Thai Zombie Films</button>
           </div>
         </div>
       </section>
 
-      <!-- DISTANCE & WORLD MAP -->
+      <!-- DISTANCE MAP (GOOGLE MAPS STYLE) -->
       <section id="distance" class="content-section section-shell alt-bg">
         <div class="distance-box glass-panel">
-          <span class="eyebrow">PRECISE DISTANCE CALCULATOR</span>
+          <span class="eyebrow">GOOGLE MAPS DISTANCE SIMULATOR</span>
           <h2>Arcore, Italy ⇄ <em>Bugo, CDO, Philippines</em></h2>
-          <div class="world-map-visual">
-            <div class="map-city">
+          <div class="gmaps-container">
+            <div class="gmaps-road"></div>
+            <div class="gmaps-car">🚗✈️</div>
+            <div class="gmaps-pin">
               <strong>🇮🇹 Arcore</strong>
               <small>Stefanino</small>
             </div>
-            <div class="flight-path"><div class="plane-icon">✈</div></div>
-            <div class="map-city">
+            <div class="gmaps-pin">
               <strong>🇵🇭 Bugo, CDO</strong>
               <small>Chrizza & Tortoro</small>
             </div>
           </div>
-          <div class="distance-stat">Exact Distance: <strong>10,540 km</strong></div>
-          <p style="font:italic 17px var(--serif);color:var(--rose-deep);margin-top:12px">
-            “No matter how many kilometers lie between us, every video call makes the distance disappear.”
+          <div style="font:700 24px var(--serif);color:var(--ink);">Exact Distance: <strong>10,540 km</strong></div>
+          <p style="font:italic 17px var(--serif);color:var(--rose-deep);margin-top:10px">
+            “No matter how many kilometers lie between us, every video call bridges the world.”
           </p>
         </div>
       </section>
 
       <!-- CELESTIAL KISS MOON & VENUS + DRAWING -->
       <section id="space" class="content-section section-shell">
-        <div class="space-cabinet glass-panel">
-          <span class="eyebrow">CELESTIAL MEMORY · MOON & VENUS</span>
+        <div class="space-cabinet">
+          <span class="eyebrow" style="color:#ffd6e6">CELESTIAL MEMORY · MOON & VENUS</span>
           <h2>The Night Sky Kiss</h2>
-          <p style="font-size:14px;color:var(--muted)">Remembering the rare night when the Moon and Venus met in a celestial kiss on our day. Draw your own stars in the sky below!</p>
+          <p style="font-size:13px;color:#d6b8c4;max-width:540px;margin:8px auto 0">Remembering the rare night when the Moon and Venus met in a celestial kiss. Draw your own stars in our night sky below!</p>
           <div class="space-canvas-wrap">
             <canvas id="space-canvas" width="600" height="260"></canvas>
             <div class="canvas-toast">Click & drag to draw stars in our sky ✨</div>
@@ -587,15 +578,15 @@
         </div>
       </section>
 
-      <!-- COUPLE QUIZ (BRAWL STARS & CHEEKY QUESTIONS) -->
+      <!-- COUPLE QUIZ (10 QUESTIONS - BRAWL STARS & CHEEKY) -->
       <section id="quiz" class="content-section section-shell">
         <div class="quiz-cabinet glass-panel">
           <div class="cabinet-header">
             <div>
-              <span class="eyebrow">COUPLE TRIVIA · FUN & PROVOKING</span>
+              <span class="eyebrow">COUPLE TRIVIA · 10 QUESTIONS</span>
               <h3>Our Relationship Quiz</h3>
             </div>
-            <span class="level-badge" id="quiz-progress">1 / 5</span>
+            <span class="level-badge" id="quiz-progress">1 / 10</span>
           </div>
           <h4 id="quiz-question" class="quiz-q"></h4>
           <div id="quiz-options" class="quiz-grid"></div>
@@ -807,7 +798,7 @@
         $("#c-secs").textContent = String(Math.floor((diff / 1000) % 60)).padStart(2, "0");
       }, 1000);
 
-      // Letters
+      // Letters Rendering from letters.js
       const letters = window.CHRIZZA_LETTERS || [];
       $("#letter-list").innerHTML = letters.map((l, i) => `
         <button class="envelope" data-letter="${i}">
@@ -826,35 +817,27 @@
       $("#close-letter").addEventListener("click", closeModal);
       $("#letter-modal").addEventListener("click", e => { if (e.target.dataset.close) closeModal(); });
 
-      // Virtual Cinema Rooms
-      const moviesData = {
-        hangover: { title: "The Hangover (Una Notte da Leoni)", desc: "The legendary movie recommendation that started our movie talks. Pure laughs on video call!" },
-        americanpie: { title: "American Pie Classics", desc: "Hilarious comedy moments shared together across the distance." },
-        romcom: { title: "Amici di Letto (Friends with Benefits)", desc: "A cozy romantic comedy night shared on our video call." },
-        projectx: { title: "Project X & Superbad", desc: "Ultimate party chaos, great humor, and unforgettable laughs!" },
-        zendaya: { title: "Zendaya Films", desc: "Enjoying fantastic movies starring her amazing talent." },
-        zombie: { title: "Thai Zombie Horror Movies", desc: "Spooky, intense, heart-pounding horror nights together!" }
-      };
-      document.querySelectorAll(".cinema-tab").forEach(tab => {
-        tab.addEventListener("click", () => {
-          document.querySelectorAll(".cinema-tab").forEach(t => t.classList.remove("active"));
-          tab.classList.add("active");
-          const m = moviesData[tab.dataset.movie];
-          $("#cinema-title").textContent = m.title;
-          $("#cinema-desc").textContent = m.desc;
+      // Virtual Cinema Selector
+      document.querySelectorAll(".movie-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".movie-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          $("#cinema-title").textContent = btn.dataset.title;
+          $("#cinema-desc").textContent = btn.dataset.desc;
           sfxHeart();
         });
       });
 
-      // Celestial Kiss & Space Drawing Canvas
+      // Moon & Venus Space Canvas
       const spaceCanvas = $("#space-canvas");
       const spaceCtx = spaceCanvas.getContext("2d");
       function drawSpaceSky() {
-        spaceCtx.fillStyle = "#12090d"; spaceCtx.fillRect(0, 0, spaceCanvas.width, spaceCanvas.height);
-        // Moon & Venus
-        spaceCtx.fillStyle = "#ffe8b6"; spaceCtx.beginPath(); spaceCtx.arc(220, 100, 32, 0, Math.PI * 2); spaceCtx.fill();
-        spaceCtx.fillStyle = "#ffffff"; spaceCtx.beginPath(); spaceCtx.arc(265, 110, 8, 0, Math.PI * 2); spaceCtx.fill();
-        spaceCtx.font = "14px sans-serif"; spaceCtx.fillStyle = "#ffb6c1"; spaceCtx.fillText("✨ Celestial Kiss (Moon & Venus)", 20, 30);
+        spaceCtx.fillStyle = "#0b0508"; spaceCtx.fillRect(0, 0, spaceCanvas.width, spaceCanvas.height);
+        // Moon
+        spaceCtx.fillStyle = "#fffae6"; spaceCtx.beginPath(); spaceCtx.arc(200, 100, 35, 0, Math.PI * 2); spaceCtx.fill();
+        // Venus Kiss
+        spaceCtx.fillStyle = "#ffffff"; spaceCtx.beginPath(); spaceCtx.arc(250, 112, 9, 0, Math.PI * 2); spaceCtx.fill();
+        spaceCtx.font = "13px sans-serif"; spaceCtx.fillStyle = "#ffb6c1"; spaceCtx.fillText("✨ The Celestial Kiss of Moon & Venus", 20, 30);
       }
       drawSpaceSky();
       let drawing = false;
@@ -865,18 +848,24 @@
         const rect = spaceCanvas.getBoundingClientRect();
         const x = (e.clientX - rect.left) * (spaceCanvas.width / rect.width);
         const y = (e.clientY - rect.top) * (spaceCanvas.height / rect.height);
-        spaceCtx.fillStyle = "#ffc0cb"; spaceCtx.beginPath(); spaceCtx.arc(x, y, 4, 0, Math.PI * 2); spaceCtx.fill();
+        spaceCtx.fillStyle = "#ffc0cb"; spaceCtx.beginPath(); spaceCtx.arc(x, y, 3.5, 0, Math.PI * 2); spaceCtx.fill();
       });
       $("#clear-space").addEventListener("click", drawSpaceSky);
 
-      // Cheeky Couple Quiz (Brawlstars & Relationship)
+      // 10 Cheeky Couple Quiz Questions
       const questions = [
         { q: "Who is better at Brawl Stars between us?", a: ["Stefanino (obviously)", "Chrizza (the undisputed pro)", "We are both equally good", "Tortoro carries us"], c: 1, why: "Chrizza is the true Brawl Stars champion! 🎮🔥" },
         { q: "Where did our story begin?", a: ["Instagram", "OmeTV", "A movie app", "At the gym"], c: 1, why: "OmeTV — one random night, a white T-shirt and two seconds of your face." },
         { q: "What did I use to illuminate my face?", a: ["My phone flashlight", "A lamp", "My white T-shirt", "A candle"], c: 2, why: "My white T-shirt! The most iconic flashlight ever." },
         { q: "Who sent the first Instagram message?", a: ["Stefanino", "Chrizza", "Both at once", "Nobody"], c: 1, why: "You sent me that first Reel after two days!" },
-        { q: "When did we officially become a couple?", a: ["18 November 2025", "18 December 2025", "18 January 2026", "14 February 2026"], c: 1, why: "18 December 2025 — right after a Reel. AHAHAHA." }
+        { q: "When did we officially become a couple?", a: ["18 November 2025", "18 December 2025", "18 January 2026", "14 February 2026"], c: 1, why: "18 December 2025 — right after a Reel. AHAHAHA." },
+        { q: "Which movie did Stefanino recommend on night one?", a: ["Titanic", "The Hangover", "Interstellar", "Avatar"], c: 1, why: "The Hangover (Una Notte da Leoni)!" },
+        { q: "Who is the sleepiest out of us two?", a: ["Stefanino", "Chrizza", "Tortoro the cat", "Equally sleepy"], c: 2, why: "King Tortoro sleeps 18 hours a day in Bugo! 🐱💤" },
+        { q: "What is Stefanino's favorite nickname for Chrizza?", a: ["Patatina", "Bambina", "Principessa", "All of the above"], c: 3, why: "All of them! Especially Patatina and Principessa. ♡" },
+        { q: "How many kilometers separate Arcore and Bugo?", a: ["5,000 km", "8,200 km", "10,540 km", "15,000 km"], c: 2, why: "Exact distance: 10,540 km! But video calls make it zero." },
+        { q: "What is our ultimate future goal?", a: ["To meet in person and hold each other tight", "To eat all the food together", "To pet Tortoro in Bugo", "All of the above!"], c: 3, why: "All of the above and so much more! ♡" }
       ];
+
       let qi = 0, answered = false, qScore = 0;
       function renderQuiz() {
         const q = questions[qi];
@@ -900,22 +889,21 @@
         else {
           $("#quiz-question").textContent = `You scored ${qScore} / ${questions.length}!`;
           $("#quiz-options").innerHTML = "";
-          $("#quiz-feedback").textContent = "You know us best, my love! ♡";
+          $("#quiz-feedback").textContent = qScore === 10 ? "Flawless! You know every single detail of us ♡" : "Every memory with you is my favourite!";
           $("#quiz-next").textContent = "Play Quiz Again";
           $("#quiz-next").onclick = () => { qi = 0; qScore = 0; $("#quiz-next").onclick = null; renderQuiz(); };
         }
       });
       renderQuiz();
 
-      // Tortoro Games (Cozy Room & Runner)
+      // Tortoro Games
       const cCanvas = $("#cozy-canvas"), cCtx = cCanvas.getContext("2d");
       let pet = { x: 280, y: 265, targetX: 280, facing: 1, hunger: 85, happy: 90, energy: 80, state: "idle" };
       cCanvas.addEventListener("pointerdown", e => {
         const rect = cCanvas.getBoundingClientRect();
         const mx = (e.clientX - rect.left) * (cCanvas.width / rect.width);
-        if (Math.hypot(mx - pet.x, 240 - pet.y) < 65) {
-          pet.state = "happy"; sfxHeart();
-        } else { pet.targetX = Math.max(80, Math.min(520, mx)); pet.state = "run"; }
+        if (Math.hypot(mx - pet.x, 240 - pet.y) < 65) { pet.state = "happy"; sfxHeart(); }
+        else { pet.targetX = Math.max(80, Math.min(520, mx)); pet.state = "run"; }
       });
       $("#act-feed").addEventListener("click", () => { pet.hunger = Math.min(100, pet.hunger + 15); sfxHeart(); });
       $("#act-toy").addEventListener("click", () => { pet.happy = Math.min(100, pet.happy + 15); sfxJump(); });
