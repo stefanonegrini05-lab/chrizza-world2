@@ -378,6 +378,27 @@ document.getElementById('resetMemory').addEventListener('click',setupMemory);set
 /* Love note generator */
 const notes=['You are my favourite notification. 💗','Even the boring days are better with you.','Somewhere between Italy and the Philippines, my heart found its home.','I would choose you in every lifetime.','You are my favourite hello and my hardest goodbye.','One day, no screens. Just hugs, kisses and us.','My favourite place is wherever you are.','Ti amo, my beautiful patatina. 🍓','You are the plot twist I never knew I needed.','Distance is temporary. Annoying you forever is the plan. 😋','Somehow, you make every ordinary day feel special.'];
 document.getElementById('newNote').addEventListener('click',()=>{const el=document.getElementById('loveNote');let n=notes[Math.floor(Math.random()*notes.length)];if(notes.length>1&&n===el.textContent)n=notes[(notes.indexOf(n)+1)%notes.length];el.textContent=n});
+<div style="text-align: center; background: rgba(255, 255, 255, 0.7); border-radius: 20px; padding: 15px; margin: 20px auto; max-width: 400px; border: 1px solid #f5cbde;">
+    <div style="font-size: 0.8rem; font-weight: bold; color: #bd7297; text-transform: uppercase; margin-bottom: 8px;">Dal 18 Dicembre 2025 insieme ♡</div>
+    <div style="display: flex; justify-content: center; gap: 8px;">
+        <div style="background: #fff; padding: 8px; border-radius: 10px; min-width: 50px;"><span id="days" style="font-size: 1.3rem; font-weight: bold; color: #b66d96; display: block;">0</span><span style="font-size: 0.65rem; color: #9c879e;">Giorni</span></div>
+        <div style="background: #fff; padding: 8px; border-radius: 10px; min-width: 50px;"><span id="hours" style="font-size: 1.3rem; font-weight: bold; color: #b66d96; display: block;">0</span><span style="font-size: 0.65rem; color: #9c879e;">Ore</span></div>
+        <div style="background: #fff; padding: 8px; border-radius: 10px; min-width: 50px;"><span id="minutes" style="font-size: 1.3rem; font-weight: bold; color: #b66d96; display: block;">0</span><span style="font-size: 0.65rem; color: #9c879e;">Minuti</span></div>
+        <div style="background: #fff; padding: 8px; border-radius: 10px; min-width: 50px;"><span id="seconds" style="font-size: 1.3rem; font-weight: bold; color: #b66d96; display: block;">0</span><span style="font-size: 0.65rem; color: #9c879e;">Secondi</span></div>
+    </div>
+</div>
+<script>
+    function updateCountdown() {
+        const diff = new Date().getTime() - new Date("2025-12-18T00:00:00").getTime();
+        if (diff > 0) {
+            document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerText = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+        }
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 </script>
 </body>
 </html>
