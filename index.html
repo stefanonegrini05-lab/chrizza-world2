@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,62 +18,120 @@ nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-con
 .hero{min-height:83vh;display:grid;place-items:center;text-align:center;padding:70px 20px;position:relative;overflow:hidden}.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;filter:blur(2px);opacity:.55;animation:bob 5s ease-in-out infinite}.hero:before{width:210px;height:210px;background:#ffe0ed;left:-70px;top:15%}.hero:after{width:170px;height:170px;background:#e8ddff;right:-40px;bottom:12%}.hero-content{position:relative;z-index:1;max-width:850px}.eyebrow{letter-spacing:3px;text-transform:uppercase;font-size:.72rem;font-weight:700;color:#bb83a1}.hero h1{font-family:Pacifico,cursive;font-size:clamp(3.1rem,9vw,6.7rem);line-height:1.15;margin:16px 0;color:#d77da7;text-shadow:3px 4px #ffe0ec}.hero p{font-size:clamp(1rem,2.5vw,1.2rem);line-height:1.8;max-width:680px;margin:20px auto;color:#88738d}.hero-heart{font-size:3rem;display:inline-block;animation:pulse 1.7s infinite}
 .pill,.tag{display:inline-block;padding:9px 16px;border-radius:30px;background:#fff;border:1px solid #f7d3e2;color:#bd7297;font-weight:700;box-shadow:var(--shadow);margin:5px}.btn{border:0;border-radius:30px;padding:12px 20px;background:linear-gradient(120deg,#f4a9c9,#bfa6ed);color:white;font-weight:700;box-shadow:0 7px 17px #dfa9c855;transition:.2s}.btn:hover{transform:translateY(-3px)}.btn.secondary{background:white;color:#b66d96;border:1px solid #f2cadd;box-shadow:none}
 section{padding:70px max(5vw,18px);scroll-margin-top:75px}.container{max-width:1120px;margin:auto}.heading{text-align:center;margin-bottom:32px}.heading .mini{font-size:1.5rem}.heading h2{font-family:Pacifico,cursive;color:var(--deep);font-size:clamp(2rem,5vw,3rem);margin:8px 0}.heading p{color:var(--muted);line-height:1.7;max-width:680px;margin:auto}.card{background:#ffffffc9;border:1px solid #f5cbdecc;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);backdrop-filter:blur(10px)}.card h3{color:#bd7399}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}.tag{font-size:.75rem;background:#fff0f6;box-shadow:none;border:0}
-.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}.about-note{line-height:1.9}.about-art{min-height:280px;border-radius:var(--radius);display:grid;place-items:center;background:linear-gradient(145deg,#ffe0ed,#eee4ff);font-size:5rem}.about-art span{animation:bob 4s infinite}
 .story-timeline{max-width:850px;margin:auto;display:grid;gap:14px}.story-step{display:grid;grid-template-columns:62px 1fr;gap:15px;align-items:start}.story-number{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#f5b5d0,#d7c3fa);color:white;font-weight:700;font-size:1.1rem;box-shadow:var(--shadow)}.story-step .card{line-height:1.85}.story-step h3{margin:0 0 8px}
 .heart-card{text-align:center;max-width:850px;margin:auto}.heart-button{border:0;background:none;font-size:3rem;color:#e77fae;animation:pulse 1.5s infinite}.ecg{width:100%;height:105px;display:block;margin:12px auto}.ecg path{fill:none;stroke:#df80aa;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:500;stroke-dashoffset:0;animation:ecg 2.5s linear infinite}.heart-card.fast .ecg path{animation-duration:.65s;stroke:#e34d91}@keyframes ecg{to{stroke-dashoffset:-500}}.heart-message{min-height:35px;color:#c66c99;font-weight:700;font-size:1.08rem}
 .letters-wrap{max-width:850px;margin:auto}.letter{margin:14px 0;padding:0;overflow:hidden}.letter-top{display:flex;align-items:center;justify-content:space-between;padding:17px 21px;background:linear-gradient(100deg,#fff0f6,#f5efff);cursor:pointer}.letter-top h3{margin:0;font-family:Pacifico,cursive;font-size:1.12rem}.letter-content{display:none;padding:22px;line-height:1.9;white-space:pre-wrap}.letter.open .letter-content{display:block;animation:appear .25s}.arrow{transition:.2s}.letter.open .arrow{transform:rotate(180deg)}
 .playlist{max-width:900px;margin:auto}.song{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:17px 0;border-bottom:1px solid #f3dce8}.song:last-child{border:0}.song h3{margin:0 0 5px}.song p{margin:0;color:var(--muted);font-size:.88rem}.song-links{display:flex;gap:8px;flex-wrap:wrap}.song-links a{text-decoration:none;border:1px solid #f0cddd;border-radius:20px;padding:8px 12px;color:#b66d96;font-size:.8rem;font-weight:700;background:#fff}
-.cinema{background:radial-gradient(ellipse at center,#5b285d,#25152f 75%);border-radius:30px;padding:28px;color:#fff2f7;box-shadow:0 20px 50px #57365d35}.cinema-title{text-align:center;font-family:Pacifico,cursive;color:#ffd6a7;font-size:clamp(1.8rem,5vw,3rem);margin:10px}.cinema-sub{text-align:center;color:#e8c8db;margin-bottom:25px}.movie-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:15px}.movie{background:#ffffff12;border:1px solid #ffffff20;border-radius:17px;padding:12px;text-align:center}.poster{height:205px;border-radius:10px;background:linear-gradient(145deg,#f1b8d1,#7e5b8a);display:grid;place-items:center;font-size:2.4rem;color:white;text-shadow:0 2px 10px #452b4a;padding:12px}.movie h4{margin:10px 0 4px;color:#ffe1ed}.movie p{font-size:.8rem;color:#d9c3d7;margin:0}
+
+/* Papier-mâché Cinema Aesthetic */
+.cinema{background:radial-gradient(ellipse at center,#68314f,#2c1b28 75%);border-radius:35px;padding:32px;color:#fff5f8;box-shadow:0 25px 60px #57253b44,inset 0 0 40px #00000033;border:6px dashed #f2b8d0;position:relative;overflow:hidden}
+.cinema:before{content:"🎬🍿🎬🍿🎬";position:absolute;top:-10px;left:0;right:0;text-align:center;font-size:1.2rem;letter-spacing:15px;opacity:.3}
+.cinema-title{text-align:center;font-family:Pacifico,cursive;color:#ffe19c;font-size:clamp(2rem,5.5vw,3.2rem);margin:12px;text-shadow:3px 3px 0px #4d1c32}
+.cinema-sub{text-align:center;color:#f3c8db;margin-bottom:25px;font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:.9rem}
+.movie-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:15px}
+.movie{background:#ffffff15;border:2px solid #ffccd855;border-radius:20px;padding:14px;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,0.2);transition:.3s}
+.movie:hover{transform:translateY(-5px);background:#ffffff22}
+.poster{height:190px;border-radius:14px;background:linear-gradient(145deg,#f4a7c8,#7c537c);display:grid;place-items:center;font-size:2.5rem;color:white;text-shadow:0 3px 12px #3c1e35;padding:12px;border:3px solid #fff5f866}
+.movie h4{margin:12px 0 6px;color:#ffeaf2;font-size:1rem}
+.movie p{font-size:.78rem;color:#f0d0e2;margin:0;line-height:1.4}
+
 #loveMap{height:400px;width:100%;border-radius:18px}.map-info{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}.map-place{background:#fff2f7;border-radius:15px;padding:13px 18px;text-align:center;flex:1;min-width:180px}.map-place strong{display:block;color:#bd7297;margin-bottom:5px}
 .moon-section{border-radius:32px;background:radial-gradient(ellipse at 70% 25%,#534a83,#1e2349 55%,#10152f);color:white;padding:38px 22px;text-align:center}.moon-section h2{font-family:Pacifico,cursive;color:#ffe2f1;font-size:2.5rem}.celestial{height:190px;display:flex;align-items:center;justify-content:center;gap:30px}.moon-ball{width:125px;height:125px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff9e8,#e9d6b5 45%,#a99caa 80%);box-shadow:0 0 45px #fff2c9}.venus-ball{width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff8dc,#e9b4a1 70%);box-shadow:0 0 30px #ffe6b5}#starCanvas{width:100%;max-width:650px;height:170px;display:block;margin:15px auto;border:1px solid #ffffff55;border-radius:16px;background:#ffffff0d;touch-action:none}.moon-copy{line-height:1.9;color:#eee4fa;max-width:720px;margin:15px auto}
 .lesson-tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:20px}.lesson-tabs button{border:1px solid #f1cadd;background:white;padding:10px 15px;border-radius:25px;color:#a96b90;font-weight:700}.lesson-tabs button.active{background:#e9d9ff;color:#7559a5}.lesson-panel{display:none}.lesson-panel.active{display:block;animation:appear .2s}.vocab{width:100%;border-collapse:collapse}.vocab td,.vocab th{padding:11px;text-align:left;border-bottom:1px solid #f5e1eb}.vocab th{color:#bd7297}.example{background:#fff4f8;padding:13px;border-radius:13px;margin:10px 0;line-height:1.7}.answers-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.answers-row button{border:1px solid #ddc9f3;background:white;border-radius:20px;padding:10px 15px;color:#826aa2}
 .quiz-shell{max-width:750px;margin:auto}.progress{height:9px;background:#f8e2ed;border-radius:10px;overflow:hidden;margin:15px 0 25px}.progress span{display:block;height:100%;background:linear-gradient(90deg,#f2a5c8,#c5a6ef);transition:.3s}.question{text-align:center;font-size:1.35rem;font-weight:700;margin:20px 0}.answers{display:grid;grid-template-columns:1fr 1fr;gap:10px}.answers button{background:white;border:1px solid #f0d2e0;border-radius:15px;padding:14px;color:#806b84;font-weight:700}.reaction{min-height:60px;margin-top:16px;padding:14px;border-radius:15px;background:#fff3f8;line-height:1.6;text-align:center}.quiz-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px}
-.game-card{text-align:center}.game-emoji{font-size:2.8rem;animation:bob 3s infinite}.tap-arena{height:190px;border-radius:20px;background:linear-gradient(145deg,#ffe4f0,#eee3ff);position:relative;margin:15px 0;overflow:hidden;touch-action:manipulation}.tortoro-target{position:absolute;border:0;background:#ffffffb8;border-radius:50%;width:76px;height:76px;font-size:2.7rem;display:grid;place-items:center;box-shadow:0 7px 18px #9f7da933;transition:transform .12s}.tortoro-target:active{transform:scale(.85)}.game-result{min-height:27px;font-weight:700;color:#b9759a;margin-top:10px}.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:15px}.memory-tile{border:0;border-radius:13px;background:#eadfff;min-height:68px;font-size:1.6rem}.memory-tile.revealed{background:#fff0f6}.memory-tile.matched{background:#e6f7e9}.note-box{background:#fff4f8;border-radius:16px;padding:17px;min-height:90px;display:grid;place-items:center;line-height:1.7}
+
+/* Tortoro Playground / Games styling */
+.game-card{text-align:center}.game-emoji{font-size:2.8rem;animation:bob 3s infinite}
+.tamagotchi-box{background:linear-gradient(135deg,#fff2f7,#f3eeff);border:2px solid #f7d3e2;border-radius:20px;padding:16px;margin:12px 0;text-align:left}
+.stats-bar{display:flex;justify-content:space-around;font-weight:700;font-size:.85rem;margin-bottom:12px;color:#bd7297}
+.t-screen{background:#fff;border-radius:15px;padding:16px;text-align:center;box-shadow:inset 0 2px 8px rgba(0,0,0,0.05);min-height:110px;display:grid;place-items:center}
+.t-actions{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+.t-actions button{background:white;border:1px solid #f2cadd;border-radius:20px;padding:6px 14px;color:#b66d96;font-size:.8rem;font-weight:700}
+.t-actions button:hover{background:#ffe3ef}
+
+/* Arcade Jumper Game (Golpe style with gray cat Tortoro) */
+.arcade-arena{height:180px;border-radius:20px;background:linear-gradient(145deg,#1e1b2f,#312b4e);position:relative;margin:15px 0;overflow:hidden;touch-action:manipulation;border:2px solid #7559a5}
+.arcade-ground{position:absolute;bottom:0;left:0;right:0;height:25px;background:#5a497c;border-top:2px solid #9f8ac9}
+.arcade-player{position:absolute;bottom:25px;left:30px;font-size:2.2rem;transition:bottom .1s linear}
+.arcade-obstacle{position:absolute;bottom:25px;font-size:1.8rem}
+.game-result{min-height:27px;font-weight:700;color:#b9759a;margin-top:10px}
+
+.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:15px}.memory-tile{border:0;border-radius:13px;background:#eadfff;min-height:68px;font-size:1.6rem}.memory-tile.revealed{background:#fff0f6}.memory-tile.matched{background:#e6f7e9}.note-box{background:#fff4f8;border-radius:16px;padding:17px;min-height:90px;display:grid;place-items:center;line-height:1.7}
 footer{text-align:center;padding:35px 20px;color:#a58da7}footer .footer-heart{font-size:2rem;color:#e99abb}
 @media(max-width:760px){nav{align-items:flex-start}.menu-toggle{display:block}.navlinks{display:none;position:absolute;top:60px;left:12px;right:12px;background:#fff9fc;padding:15px;border-radius:20px;box-shadow:var(--shadow)}.navlinks.show{display:flex;justify-content:center}.about-grid{grid-template-columns:1fr}section{padding-top:52px;padding-bottom:52px}.answers{grid-template-columns:1fr}.song{align-items:flex-start;flex-direction:column}#loveMap{height:330px}.story-step{grid-template-columns:45px 1fr}.story-number{width:38px;height:38px}}
 </style>
 </head>
 <body>
 <div id="sparkles"></div>
-<nav><div class="logo">Chrizza's World ♡</div><button class="menu-toggle" id="menuToggle" aria-label="Apri menu">☰</button><div class="navlinks" id="navlinks">
+<nav><div class="logo">Chrizza's World ♡</div><button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button><div class="navlinks" id="navlinks">
 <a href="#home">Home</a><a href="#about">Story</a><a href="#heart">Heart</a><a href="#letters">Letters</a><a href="#playlist">Playlist</a><a href="#cinema">Cinema</a><a href="#map">Distance</a><a href="#moon">Moon & Venus</a><a href="#italian">Italian</a><a href="#quiz">Quiz</a><a href="#tortoro">Tortoro</a>
 </div></nav>
-<header class="hero" id="home"><div class="hero-content"><div class="hero-heart">♡</div><div class="eyebrow">A little universe made for two</div><h1>Chrizza's World</h1><p>Un piccolo angolo di internet per la mia bellissima principessa. Anche attraverso la distanza, sotto la stessa luna, scegliendoci ogni giorno.</p><span class="pill">Stefano ♡ Chrizza</span><span class="pill">Italy ✦ Philippines</span><p><a class="btn" href="#about" style="text-decoration:none;display:inline-block;margin-top:12px">Entra nel nostro mondo ♡</a></p></div></header>
+<header class="hero" id="home"><div class="hero-content"><div class="hero-heart">♡</div><div class="eyebrow">A little universe made for two</div><h1>Chrizza's World</h1><p>A little corner of the internet for my most beautiful princess. Even across the distance, under the same moon, choosing each other every single day.</p><span class="pill">Stefano ♡ Chrizza</span><span class="pill">Italy ✦ Philippines</span><p><a class="btn" href="#about" style="text-decoration:none;display:inline-block;margin-top:12px">Enter our world ♡</a></p></div></header>
 
-<section id="about"><div class="container"><div class="heading"><div class="mini">🌷 🧸 🌷</div><h2>La nostra storia</h2><p>Due persone, due Paesi, una storia cominciata per caso e diventata casa.</p></div>
+<section id="about"><div class="container"><div class="heading"><div class="mini">🌷 🧸 🌷</div><h2>Our Story</h2><p>Two people, two countries, a story started by chance and turned into home.</p></div>
 <div class="story-timeline">
-<div class="story-step"><div class="story-number">01</div><div class="card"><h3>Una notte, una stanza buia e una maglietta fin troppo luminosa</h3>Ci siamo incontrati su OmeTV. Tu eri in una stanza buia, di notte, già pronta ad andare a dormire. Dalla mia parte, invece, era primo pomeriggio. Indossavo una maglietta bianca così luminosa che probabilmente ti ho accecata: praticamente una lampadina ambulante, ahah. Riuscii a vedere il tuo viso soltanto per due secondi, ma a volte bastano davvero pochi istanti perché qualcosa cominci.</div></div>
-<div class="story-step"><div class="story-number">02</div><div class="card"><h3>Le prime chiacchiere e le mie figuracce</h3>Cominciammo a parlare dei nostri hobby e, a un certo punto, mi chiedesti quanti anni avessi. Io, con una naturalezza imbarazzante, mentii dicendoti che avevamo la stessa età: in realtà sono più grande di un anno. Ti raccontai anche che il mio film preferito era <em>Una notte da leoni</em> e che andavo in palestra. Per dimostrartelo, pensai bene di flettere il bicipite davanti alla telecamera. Sì, lo so: un gesto davvero poco elegante e decisamente cringe. 😂</div></div>
-<div class="story-step"><div class="story-number">03</div><div class="card"><h3>Un Reel, un messaggio e la sensazione di essere ascoltato</h3>Ti lasciai il mio Instagram e, due giorni dopo, fosti tu a scrivermi per prima, mandandomi un Reel. Era un approccio diverso da quello a cui ero abituato e proprio per questo mi incuriosì. Mi dicesti che, pur essendo italiano, sembravo messicano; e soprattutto guardasti il film che ti avevo consigliato. Quel piccolo gesto mi fece sentire ascoltato. Non era soltanto una conversazione: stavi dando importanza alle cose che ti raccontavo.</div></div>
-<div class="story-step"><div class="story-number">04</div><div class="card"><h3>Il 18 dicembre</h3>Dopo appena due settimane da quel primo incontro, il 18 dicembre, trovai il coraggio di chiederti di diventare la mia ragazza. Da una conoscenza nata quasi per caso era cominciato qualcosa che, senza saperlo, avrebbe cambiato le nostre giornate e il nostro modo di guardare al futuro.</div></div>
-<div class="story-step"><div class="story-number">05</div><div class="card"><h3>Da due timidi a una quotidianità insieme</h3>All'inizio eravamo timidissimi. Persino fare una videochiamata sembrava difficile: avevamo tante cose da dirci, ma a volte non sapevamo nemmeno da dove cominciare. Oggi, invece, ci chiamiamo ogni giorno e ci addormentiamo insieme in videochiamata. Quello che prima ci metteva in imbarazzo è diventato una delle parti più belle della nostra quotidianità. Da allora ci amiamo alla follia. E questa, Chrizza, è soltanto la nostra storia che continua.</div></div>
+<div class="story-step"><div class="story-number">01</div><div class="card"><h3>One night, a dark room, and a way-too-bright shirt</h3>We met on OmeTV. You were in a dark room at night, already ready to go to sleep. On my side, however, it was early afternoon. I was wearing a white shirt so bright it probably blinded you: practically a walking lightbulb, haha. I managed to see your face for only two seconds, but sometimes a few moments are all it takes for something to begin.</div></div>
+<div class="story-step"><div class="story-number">02</div><div class="card"><h3>First chats and my awkward moments</h3>We started talking about our hobbies, and at some point, you asked me how old I was. With embarrassing naturalness, I lied and told you we were the same age: actually, I'm a year older. I also told you my favorite movie was <em>The Hangover</em> and that I went to the gym. To prove it, I thought it was a great idea to flex my bicep in front of the camera. Yes, I know: a very ungracious and decidedly cringe gesture. 😂</div></div>
+<div class="story-step"><div class="story-number">03</div><div class="card"><h3>A Reel, a message, and the feeling of being heard</h3>I gave you my Instagram and, two days later, you were the first to write to me, sending me a Reel. It was a different approach than what I was used to and that's exactly why it intrigued me. You told me that, despite being Italian, I looked Mexican; and above all, you watched the movie I recommended. That little gesture made me feel heard. It wasn't just a conversation: you were giving importance to the things I told you.</div></div>
+<div class="story-step"><div class="story-number">04</div><div class="card"><h3>December 18th</h3>Just two weeks after that first encounter, on December 18th, I found the courage to ask you to become my girlfriend. From an acquaintance born almost by chance, something had begun that, without knowing it, would change our days and our way of looking at the future.</div></div>
+<div class="story-step"><div class="story-number">05</div><div class="card"><h3>From two shy people to everyday life together</h3>In the beginning, we were super shy. Even making a video call seemed difficult: we had so many things to say, but sometimes we didn't even know where to start. Today, instead, we call each other every day and fall asleep together on video call. What used to make us embarrassed has become one of the best parts of our routine. Ever since then, we've loved each other madly. And this, Chrizza, is just our story continuing.</div></div>
 </div></div></section>
 
-<section id="heart"><div class="container"><div class="heading"><div class="mini">💗</div><h2>My heart, your rhythm</h2><p>Premi il cuore e guarda il mio battito cambiare per te.</p></div><div class="card heart-card" id="heartCard"><button class="heart-button" id="heartButton" aria-label="Fai battere il cuore">♡</button><svg class="ecg" viewBox="0 0 700 110" preserveAspectRatio="none" aria-hidden="true"><path d="M0 56 L150 56 L175 56 L190 42 L205 72 L225 12 L246 91 L265 56 L370 56 L390 56 L405 43 L420 69 L440 25 L458 83 L476 56 L700 56"/></svg><div class="heart-message" id="heartMessage">Il mio cuore ha un ritmo tutto suo. Tocca il cuore per scoprirlo. ♡</div></div></div></section>
+<section id="heart"><div class="container"><div class="heading"><div class="mini">💗</div><h2>My heart, your rhythm</h2><p>Tap the heart and watch my heartbeat change for you.</p></div><div class="card heart-card" id="heartCard"><button class="heart-button" id="heartButton" aria-label="Make the heart beat">♡</button><svg class="ecg" viewBox="0 0 700 110" preserveAspectRatio="none" aria-hidden="true"><path d="M0 56 L150 56 L175 56 L190 42 L205 72 L225 12 L246 91 L265 56 L370 56 L390 56 L405 43 L420 69 L440 25 L458 83 L476 56 L700 56"/></svg><div class="heart-message" id="heartMessage">My heart has a rhythm all its own. Touch the heart to discover it. ♡</div></div></div></section>
 
-<section id="letters"><div class="container"><div class="heading"><div class="mini">💌</div><h2>Letters for my patatina</h2><p>Ogni mese, un altro piccolo pezzo del mio cuore. Apri una lettera per leggerla.</p></div><div class="letters-wrap" id="lettersList"></div></div></section>
+<section id="letters"><div class="container"><div class="heading"><div class="mini">💌</div><h2>Letters for my patatina</h2><p>Every month, another little piece of my heart. Open a letter to read it.</p></div><div class="letters-wrap" id="lettersList"></div></div></section>
 
-<section id="playlist"><div class="container"><div class="heading"><div class="mini">🎧 💗</div><h2>Our little playlist</h2><p>Canzoni che mi fanno pensare a te, anche quando siamo lontani.</p></div><div class="card playlist" id="songList"></div></div></section>
+<section id="playlist"><div class="container"><div class="heading"><div class="mini">🎧 💗</div><h2>Our little playlist</h2><p>Songs that make me think of you, even when we are far apart.</p></div><div class="card playlist" id="songList"></div></div></section>
 
-<section id="cinema"><div class="container"><div class="heading"><div class="mini">🍿 🎬</div><h2>Our little cinema</h2><p>Sei film che fanno parte delle nostre serate. Il prossimo? Lo scegliamo insieme.</p></div><div class="cinema"><div class="cinema-title">The Patatina Cinema</div><div class="cinema-sub">ADMIT TWO · FOREVER ♡</div><div class="movie-grid" id="movieGrid"></div><p style="text-align:center;margin:24px 0 0;color:#f3d7e8">Un posto per Chrizza, uno per Stefano. Nessuna data di scadenza. 💗</p></div></div></section>
+<section id="cinema"><div class="container"><div class="heading"><div class="mini">🍿 🎬</div><h2>Our little cinema</h2><p>Six movies that are part of our movie nights. The next one? We'll pick it together.</p></div><div class="cinema"><div class="cinema-title">The Patatina Cinema</div><div class="cinema-sub">ADMIT TWO · FOREVER ♡</div><div class="movie-grid" id="movieGrid"></div><p style="text-align:center;margin:24px 0 0;color:#f3d7e8;font-weight:600">One seat for Chrizza, one for Stefano. No expiration date. 💗</p></div></div></section>
 
-<section id="map"><div class="container"><div class="heading"><div class="mini">🌍 💗 ✈️</div><h2>Two places, one heart</h2><p>Una piccola mappa che collega i nostri due angoli del mondo.</p></div><div class="card"><div id="loveMap" aria-label="Mappa interattiva tra Arcore e Bugo"></div><div class="map-info"><div class="map-place"><strong>🇮🇹 Arcore, Italy</strong><span>Stefano's side of the world</span></div><div class="map-place"><strong>🇵🇭 Bugo, Cagayan de Oro</strong><span>Chrizza's side of the world</span></div></div><p style="text-align:center;line-height:1.8">Circa 10.500 km in linea d'aria. Tanti chilometri, ma nessuna distanza può misurare quanto ci vogliamo bene. ♡</p></div></div></section>
+<section id="map"><div class="container"><div class="heading"><div class="mini">🌍 💗 ✈️</div><h2>Two places, one heart</h2><p>A little map connecting our two corners of the world.</p></div><div class="card"><div id="loveMap" aria-label="Interactive map between Arcore and Bugo"></div><div class="map-info"><div class="map-place"><strong>🇮🇹 Arcore, Italy</strong><span>Stefano's side of the world</span></div><div class="map-place"><strong>🇵🇭 Bugo, Cagayan de Oro</strong><span>Chrizza's side of the world</span></div></div><p style="text-align:center;line-height:1.8">About 10,500 km as the crow flies. Many kilometers, but no distance can measure how much we care about each other. ♡</p></div></div></section>
 
-<section id="moon"><div class="container"><div class="heading"><div class="mini">🌙 ✨</div><h2>Our celestial kiss</h2><p>La Luna e Venere, un piccolo promemoria: anche le cose lontane possono sembrare vicine.</p></div><div class="moon-section"><span class="tag">Our special sky</span><h2>The Moon kissed Venus ♡</h2><div class="celestial"><div class="moon-ball"></div><div style="font-size:1.7rem;color:#ffc4e2">♡</div><div class="venus-ball"></div></div><p class="moon-copy">Sembrano vicine da dove le osserviamo, anche se sono separate da distanze immense. Mi ricordano noi: due persone in Paesi diversi, sotto lo stesso cielo, che trovano sempre un modo per sentirsi vicine. Spero che un giorno non dovremo più guardare la stessa Luna da luoghi lontani: saremo fianco a fianco, a guardarla insieme.</p><h3>Draw our own constellation ✨</h3><p style="font-size:.82rem;color:#ded5f1">Tocca o trascina sul cielo per aggiungere stelle.</p><canvas id="starCanvas"></canvas><button class="btn secondary" id="clearStars">Clear the stars</button></div></div></section>
+<section id="moon"><div class="container"><div class="heading"><div class="mini">🌙 ✨</div><h2>Our celestial kiss</h2><p>The Moon and Venus, a little reminder: even distant things can feel close.</p></div><div class="moon-section"><span class="tag">Our special sky</span><h2>The Moon kissed Venus ♡</h2><div class="celestial"><div class="moon-ball"></div><div style="font-size:1.7rem;color:#ffc4e2">♡</div><div class="venus-ball"></div></div><p class="moon-copy">They look close from where we watch them, even though they are separated by immense distances. They remind me of us: two people in different countries, under the same sky, always finding a way to feel close. I hope one day we won't have to look at the same Moon from far away anymore: we'll be side by side, watching it together.</p><h3>Draw our own constellation ✨</h3><p style="font-size:.82rem;color:#ded5f1">Touch or drag on the sky to add stars.</p><canvas id="starCanvas"></canvas><button class="btn secondary" id="clearStars">Clear the stars</button></div></div></section>
 
-<section id="italian"><div class="container"><div class="heading"><div class="mini">🇮🇹 🍓</div><h2>Learn Italian with Stefano</h2><p>Una piccola lezione per la mia bellissima Filipina.</p></div><div class="card"><div class="lesson-tabs"><button class="active" data-tab="words">Cute words</button><button data-tab="phrases">Phrases</button><button data-tab="grammar">Grammar</button><button data-tab="pronunciation">Pronunciation</button><button data-tab="practice">Mini practice</button></div>
+<section id="italian"><div class="container"><div class="heading"><div class="mini">🇮🇹 🍓</div><h2>Learn Italian with Stefano</h2><p>A little lesson for my beautiful Filipina.</p></div><div class="card"><div class="lesson-tabs"><button class="active" data-tab="words">Cute words</button><button data-tab="phrases">Phrases</button><button data-tab="grammar">Grammar</button><button data-tab="pronunciation">Pronunciation</button><button data-tab="practice">Mini practice</button></div>
 <div class="lesson-panel active" id="words"><h3>💗 Words of affection</h3><table class="vocab"><tr><th>Italiano</th><th>English</th><th>Pronuncia</th></tr><tr><td>Amore mio</td><td>My love</td><td>ah-MOH-reh MEE-oh</td></tr><tr><td>Patatina</td><td>Little potato (cute nickname!)</td><td>pah-tah-TEE-nah</td></tr><tr><td>Principessa</td><td>Princess</td><td>preen-cheh-PEHS-sah</td></tr><tr><td>Bellissima</td><td>Very beautiful</td><td>bel-LEES-see-mah</td></tr><tr><td>Tesoro</td><td>Treasure / sweetheart</td><td>teh-ZOH-roh</td></tr><tr><td>Mi manchi</td><td>I miss you</td><td>mee MAHN-kee</td></tr><tr><td>Ti amo</td><td>I love you</td><td>tee AH-moh</td></tr><tr><td>Un bacino</td><td>A little kiss</td><td>oon bah-CHEE-noh</td></tr></table></div>
 <div class="lesson-panel" id="phrases"><h3>🌸 Everyday phrases</h3><div class="example"><b>Come stai?</b> — How are you?<br><i>Sto bene, e tu?</i> — I'm good, and you?</div><div class="example"><b>Buonanotte, amore mio.</b> — Good night, my love.</div><div class="example"><b>Mi manchi tantissimo.</b> — I miss you so much.</div><div class="example"><b>Vorrei essere lì con te.</b> — I wish I were there with you.</div><div class="example"><b>Non vedo l'ora di abbracciarti.</b> — I can't wait to hug you.</div></div>
-<div class="lesson-panel" id="grammar"><h3>📚 A tiny grammar lesson</h3><p><b>Essere — to be</b></p><div class="example">Io sono = I am · Tu sei = You are · Lui/Lei è = He/She is · Noi siamo = We are · Voi siete = You are · Loro sono = They are.</div><p><b>Avere — to have</b></p><div class="example">Io ho = I have · Tu hai = You have · Lui/Lei ha = He/She has · Noi abbiamo = We have · Voi avete = You have · Loro hanno = They have.</div><p>Molti aggettivi che finiscono in <b>-o</b> sono maschili e quelli in <b>-a</b> femminili: bello / bella, carino / carina. Per negare una frase, metti <b>non</b> prima del verbo: “Ti amo” → “Non ti amo”. (Ma preferiamo la prima! 😋)</p></div>
-<div class="lesson-panel" id="pronunciation"><h3>🗣️ Pronunciation tips</h3><div class="example"><b>CH</b> ha un suono duro come K davanti a E o I: “Chi” suona “kee”.</div><div class="example"><b>CI / CE</b> suonano “chee / cheh”: “Ciao” si pronuncia “chow”.</div><div class="example"><b>GN</b> è simile a “ny”: lasagna.</div><div class="example"><b>GLI</b> è un suono morbido: famiglia.</div><div class="example"><b>Doppie</b>: la consonante si pronuncia più a lungo; pala e palla sono diverse.</div></div>
+<div class="lesson-panel" id="grammar"><h3>📚 A tiny grammar lesson</h3><p><b>Essere — to be</b></p><div class="example">Io sono = I am · Tu sei = You are · Lui/Lei è = He/She is · Noi siamo = We are · Voi siete = You are · Loro sono = They are.</div><p><b>Avere — to have</b></p><div class="example">Io ho = I have · Tu hai = You have · Lui/Lei ha = He/She has · Noi abbiamo = We have · Voi avete = You have · Loro hanno = They have.</div><p>Many adjectives ending in <b>-o</b> are masculine and those in <b>-a</b> feminine: bello / bella, carino / carina. To negate a sentence, put <b>non</b> before the verb: “Ti amo” → “Non ti amo”. (But we prefer the first! 😋)</p></div>
+<div class="lesson-panel" id="pronunciation"><h3>🗣️ Pronunciation tips</h3><div class="example"><b>CH</b> has a hard sound like K in front of E or I: “Chi” sounds like “kee”.</div><div class="example"><b>CI / CE</b> sound like “chee / cheh”: “Ciao” is pronounced “chow”.</div><div class="example"><b>GN</b> is similar to “ny”: lasagna.</div><div class="example"><b>GLI</b> is a soft sound: famiglia.</div><div class="example"><b>Double consonants</b>: the consonant is pronounced longer; pala and palla are different.</div></div>
 <div class="lesson-panel" id="practice"><h3>🍓 Mini Italian quiz</h3><div class="example"><div id="lessonQuestion">What does “Mi manchi” mean?</div><div class="answers-row" id="lessonAnswers"></div><div id="lessonFeedback" class="game-result"></div><button class="btn secondary" id="nextLesson" style="margin-top:12px">Next question ♡</button></div></div></div></div></section>
 
-<section id="quiz"><div class="container"><div class="heading"><div class="mini">💘 🤭</div><h2>How well do you know us?</h2><p>Un test serissimo su una coppia per niente seria. No cheating, Chrizza!</p></div><div class="card quiz-shell"><div class="quiz-footer"><span class="tag" id="quizCounter">Question 1 / 8</span><b id="quizScore">Score: 0</b></div><div class="progress"><span id="quizProgress"></span></div><div class="question" id="questionText"></div><div class="answers" id="answerButtons"></div><div class="reaction" id="reaction">Scegli con attenzione... Stefano ti sta guardando. 👀</div><div class="quiz-footer"><span class="tag">Made with love & teasing</span><button class="btn" id="nextQuestion" disabled>Next ♡</button></div></div></div></section>
+<section id="quiz"><div class="container"><div class="heading"><div class="mini">💘 🤭</div><h2>How well do you know us?</h2><p>A very serious test about a not-so-serious couple. No cheating, Chrizza!</p></div><div class="card quiz-shell"><div class="quiz-footer"><span class="tag" id="quizCounter">Question 1 / 8</span><b id="quizScore">Score: 0</b></div><div class="progress"><span id="quizProgress"></span></div><div class="question" id="questionText"></div><div class="answers" id="answerButtons"></div><div class="reaction" id="reaction">Choose wisely... Stefano is watching. 👀</div><div class="quiz-footer"><span class="tag">Made with love & teasing</span><button class="btn" id="nextQuestion" disabled>Next ♡</button></div></div></div></section>
 
-<section id="tortoro"><div class="container"><div class="heading"><div class="mini">🐻 🍓</div><h2>Tortoro's little playground</h2><p>Giochi, piccole sfide e tante sciocchezze. Tortoro approva.</p></div><div class="grid">
-<div class="card game-card"><div class="game-emoji">🐻</div><h3>Catch Tortoro!</h3><p>Prendilo più volte possibile in 10 secondi. Scappa continuamente!</p><div class="tap-arena" id="tapArena"><button class="tortoro-target" id="tortoroTarget" aria-label="Prendi Tortoro">🐻</button></div><p id="tapScore">Score: 0</p><button class="btn" id="startTap">Start game</button><div class="game-result" id="tapResult"></div></div>
-<div class="card game-card"><div class="game-emoji">🧠</div><h3>Memory match</h3><p>Trova tutte le sei coppie. Hai una memoria da principessa?</p><div class="memory-grid" id="memoryGrid"></div><div class="game-result" id="memoryResult"></div><button class="btn secondary" id="resetMemory">Shuffle again</button></div>
-<div class="card game-card"><div class="game-emoji">💌</div><h3>Love note generator</h3><p>Un piccolo promemoria casuale di quanto sei amata.</p><div class="note-box" id="loveNote">You are my favourite notification. 💗</div><button class="btn" id="newNote" style="margin-top:14px">Another note ♡</button></div>
+<section id="tortoro"><div class="container"><div class="heading"><div class="mini">🐻 🍓</div><h2>Tortoro's little playground</h2><p>Games, mini challenges, and lots of silliness. Tortoro approves.</p></div><div class="grid">
+
+<!-- Tamagotchi style Totoro care in Bugo, CDO -->
+<div class="card game-card"><div class="game-emoji">🏡</div><h3>Caring for Tortoro (Bugo, CDO)</h3><p>Look after Tortoro in his cozy Cagayan de Oro Bugo home!</p>
+<div class="tamagotchi-box">
+<div class="stats-bar"><span id="tHunger">Hunger: 80%</span><span id="THappy">Happy: 90%</span></div>
+<div class="t-screen" id="tamagotchiScreen">🐻<br><span id="tStatus" style="font-size:0.85rem;color:#7559a5;margin-top:5px;display:block">Tortoro is cozy in Bugo, CDO! 🌴</span></div>
+<div class="t-actions">
+<button id="btnFeed">Feed 🍓</button>
+<button id="btnPet">Pet 🧸</button>
+<button id="btnSleep">Nap 💤</button>
+</div>
+</div>
+<div class="game-result" id="tamagotchiResult">Tortoro is purring happily!</div>
+</div>
+
+<!-- Arcade Jumper Game (Golpe style with gray cat Tortoro) -->
+<div class="card game-card"><div class="game-emoji">🐱</div><h3>Tortoro Jumper</h3><p>Jump over snacks! Tap or press Space to make gray cat Tortoro jump.</p>
+<div class="arcade-arena" id="arcadeArena">
+<div class="arcade-ground"></div>
+<div class="arcade-player" id="arcadePlayer">🐱</div>
+<div class="arcade-obstacle" id="arcadeObstacle" style="right:-30px;">🍩</div>
+</div>
+<p id="arcadeScore">Score: 0</p>
+<button class="btn" id="startArcade">Start game</button>
+<div class="game-result" id="arcadeResult"></div>
+</div>
+
+<!-- Memory match -->
+<div class="card game-card"><div class="game-emoji">🧠</div><h3>Memory match</h3><p>Find all six pairs. Do you have a princess's memory?</p><div class="memory-grid" id="memoryGrid"></div><div class="game-result" id="memoryResult"></div><button class="btn secondary" id="resetMemory">Shuffle again</button></div>
+
+<!-- Love note generator -->
+<div class="card game-card"><div class="game-emoji">💌</div><h3>Love note generator</h3><p>A random little reminder of how much you are loved.</p><div class="note-box" id="loveNote">You are my favourite notification. 💗</div><button class="btn" id="newNote" style="margin-top:14px">Another note ♡</button></div>
+
 </div></div></section>
 <footer><div class="footer-heart">♡</div>Made with love by Stefano for his beautiful Chrizza.<br>Italy to the Philippines, today and always. 💗<br><small>Ti amo, my patatina.</small></footer>
 
@@ -208,7 +266,7 @@ Knowing myself I'll probably still annoy you steal your food make jokes and ask 
 
 I haven't forgotten that you still owe me a lifetime of love, a wedding and those babies you keep talking about. HEHEHE. Our future wife and mother of my children please take your responsibilities seriously.
 
-Thank you for these ten months my patatina. Thank you for the love you give me for the memories we've made for the laughs the comfort and even the difficult moments that have taught us more about each other.
+Thank you for these ten months my patatina. Thank you for the love you give me for the memories we've made for the laughs the comfort and even the difficult moments that have taught us more about each longer.
 
 Thank you for being Chrizza. My beautiful silly sweet stubborn little patatina. The girl who somehow went from being a stranger, on my screen to someone I can imagine sharing chapters of my life with.
 
@@ -225,22 +283,22 @@ letters.forEach(letter=>{const article=document.createElement('article');article
 
 /* Playlist: YouTube and Spotify search links (not direct track URLs) */
 const songs=[
-{title:'LANY',note:'Perché la loro musica ha un posto speciale nella nostra playlist.',query:'LANY'},
-{title:'ONE OF THE GIRLS',note:'Una canzone da riascoltare pensando a noi.',query:'The Weeknd JENNIE Lily Rose Depp One Of The Girls'},
+{title:'LANY',note:'Because their music holds a special place in our playlist.',query:'LANY'},
+{title:'ONE OF THE GIRLS',note:'A song to replay while thinking of us.',query:'The Weeknd JENNIE Lily Rose Depp One Of The Girls'},
 {title:'Si No Es Contigo',note:'Meeting you felt like the first time hearing the intro of this song.',query:'Cris Mj Si No Es Contigo'},
-{title:'Gata Only',note:'Un altro pezzo della nostra colonna sonora.',query:'FloyyMenor Cris Mj Gata Only'}
+{title:'Gata Only',note:'Another piece of our soundtrack.',query:'FloyyMenor Cris Mj Gata Only'}
 ];
 const songList=document.getElementById('songList');
 songs.forEach(song=>{const row=document.createElement('div');row.className='song';const info=document.createElement('div');const h=document.createElement('h3');h.textContent='♫ '+song.title;const p=document.createElement('p');p.textContent=song.note;info.append(h,p);const links=document.createElement('div');links.className='song-links';const q=encodeURIComponent(song.query);[['YouTube','https://www.youtube.com/results?search_query='+q],['Spotify','https://open.spotify.com/search/'+q]].forEach(([label,url])=>{const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=label+' ↗';links.append(a)});row.append(info,links);songList.append(row)});
 
 /* Cinema titles */
 const movies=[
-['Una notte da leoni','La notte che non si dimentica.'],
-['American Pie','Risate, caos e nostalgia.'],
-['Dead End Job','Uno dei nostri film visti insieme.'],
-['Project X','Una festa decisamente fuori controllo.'],
-['Amici di letto','Una commedia da guardare in due.'],
-['Superbad','Un classico di risate e amicizia.']
+['The Hangover','The night that will never be forgotten.'],
+['American Pie','Laughter, chaos, and nostalgia.'],
+['Dead End Job','One of the movies we watched together.'],
+['Project X','A party completely out of control.'],
+['Friends with Benefits','A comedy to watch as a duo.'],
+['Superbad','A classic of laughs and friendship.']
 ];
 const movieGrid=document.getElementById('movieGrid');
 movies.forEach(([title,desc],i)=>{const card=document.createElement('div');card.className='movie';const poster=document.createElement('div');poster.className='poster';poster.textContent=['🎞️','🍿','🎬','🎉','💗','😂'][i];const h=document.createElement('h4');h.textContent=title;const p=document.createElement('p');p.textContent=desc;card.append(poster,h,p);movieGrid.append(card)});
@@ -263,10 +321,10 @@ const lessonQs=[{q:'What does “Mi manchi” mean?',a:['I love you','I miss you
 function renderLesson(){const q=lessonQs[li],box=document.getElementById('lessonAnswers');document.getElementById('lessonQuestion').textContent=q.q;box.innerHTML='';q.a.forEach((v,i)=>{const b=document.createElement('button');b.textContent=v;b.addEventListener('click',()=>{if(la)return;la=true;document.getElementById('lessonFeedback').textContent=i===q.c?'Bravissima! 🇮🇹💗':'Quasi! La risposta giusta è: '+q.a[q.c]});box.append(b)});document.getElementById('lessonFeedback').textContent='';la=false}
 document.getElementById('nextLesson').addEventListener('click',()=>{li=(li+1)%lessonQs.length;renderLesson()});renderLesson();
 
-/* Couple quiz */
+/* Couple quiz (updated sleeping question to include Chrizza & Tortoro) */
 const coupleQuestions=[
 {q:'Who is the best Brawl Stars player?',a:['Chrizza','Stefano','Tortoro'],c:1,good:'Correct! Stefano is the Brawl Stars legend. 😂🏆',bad:'HAHAHA, nice try! Stefano is the champion here. 😭'},
-{q:'Who sleeps the most?',a:['Chrizza','Stefano','Both equally'],c:2,good:'Two sleepy potatoes. 😴💗',bad:'Wrong! You BOTH sleep like little bears. 🐻'},
+{q:'Who sleeps the most?',a:['Chrizza','Stefano','Chrizza & Tortoro'],c:2,good:'Spot on! You and Tortoro sleep like two big bears. 🐻💤',bad:'Wrong! You and Tortoro sleep the most like two little bears! 🐻'},
 {q:'Who is more likely to steal food?',a:['Chrizza','Stefano','Both of them'],c:2,good:'A relationship built on love and stealing fries. 🍟',bad:'Both of you are suspicious around snacks! 😂'},
 {q:'Who says “I love you” more often?',a:['Chrizza','Stefano','You both do'],c:2,good:'Both competing for the world record. 💞',bad:'You both say it a million times. 🥹'},
 {q:'Who is more dramatic?',a:['Chrizza','Stefano','Both, obviously'],c:2,good:'The drama department is fully staffed. 🎭',bad:'HAHAHA, both of you! 😭'},
@@ -280,11 +338,37 @@ function renderQuiz(){answered=false;quizDone=false;nextQ.disabled=true;nextQ.te
 function quizEnd(){quizDone=true;document.getElementById('quizProgress').style.width='100%';document.getElementById('quizCounter').textContent='Quiz complete!';qText.textContent=`You scored ${cscore} / ${coupleQuestions.length} 💗`;answerButtons.innerHTML='';reaction.textContent=cscore===8?'PERFECT! You two are basically one person. 😭💕':cscore>=5?'A very good couple expert! Tortoro is proud. 🐻':'More time together, snacks and video calls are required. 😂';nextQ.disabled=false;nextQ.textContent='Play again ♡'}
 nextQ.addEventListener('click',()=>{if(quizDone){cq=0;cscore=0;renderQuiz();return}if(!answered)return;if(cq===coupleQuestions.length-1){quizEnd();return}cq++;renderQuiz()});renderQuiz();
 
-/* Catch Tortoro: moving target, 10-second round */
-let tapCount=0,tapActive=false,tapTime=10,tapTimer=null;const arena=document.getElementById('tapArena'),target=document.getElementById('tortoroTarget');
-function moveTortoro(){const maxX=Math.max(0,arena.clientWidth-target.offsetWidth),maxY=Math.max(0,arena.clientHeight-target.offsetHeight);target.style.left=Math.random()*maxX+'px';target.style.top=Math.random()*maxY+'px'}
-moveTortoro();document.getElementById('startTap').addEventListener('click',()=>{clearInterval(tapTimer);tapCount=0;tapTime=10;tapActive=true;document.getElementById('tapScore').textContent='Score: 0';document.getElementById('tapResult').textContent='GO GO GO!';document.getElementById('startTap').disabled=true;moveTortoro();tapTimer=setInterval(()=>{tapTime--;document.getElementById('tapResult').textContent='Time left: '+tapTime+'s';if(tapTime<=0){clearInterval(tapTimer);tapActive=false;document.getElementById('tapResult').textContent='Time! You caught Tortoro '+tapCount+' times. 🐻';document.getElementById('startTap').disabled=false}},1000)});
-target.addEventListener('click',()=>{if(!tapActive)return;tapCount++;document.getElementById('tapScore').textContent='Score: '+tapCount;target.textContent=['🐻','🐻‍❄️','🍓','💗'][Math.floor(Math.random()*4)];moveTortoro()});
+/* Tamagotchi: Caring for Tortoro in Cagayan de Oro, Bugo */
+let tData={hunger:80,happy:90};
+const tHungerEl=document.getElementById('tHunger'),tHappyEl=document.getElementById('THappy'),tStatusEl=document.getElementById('tStatus'),tScreen=document.getElementById('tamagotchiScreen'),tResult=document.getElementById('tamagotchiResult');
+function updateTStats(){tHungerEl.textContent='Hunger: '+tData.hunger+'%';tHappyEl.textContent='Happy: '+tData.happy+'%'}
+document.getElementById('btnFeed').addEventListener('click',()=>{tData.hunger=Math.min(100,tData.hunger+15);tData.happy=Math.min(100,tData.happy+5);updateTStats();tScreen.innerHTML='🍽️🐈‍⬛<br><span style="font-size:0.85rem;color:#7559a5;margin-top:5px;display:block">Yum! Tortoro enjoyed a delicious Bugo treat!</span>';tResult.textContent='Tortoro is happily munching away in Cagayan de Oro! 😋'});
+document.getElementById('btnPet').addEventListener('click',()=>{tData.happy=Math.min(100,tData.happy+20);updateTStats();tScreen.innerHTML='😻🤎<br><span style="font-size:0.85rem;color:#7559a5;margin-top:5px;display:block">Purrr... Tortoro loves your scratches!</span>';tResult.textContent='Tortoro is rubbing against your hand happily! 💖'});
+document.getElementById('btnSleep').addEventListener('click',()=>{tData.hunger=Math.max(10,tData.hunger-10);tData.happy=Math.min(100,tData.happy+10);updateTStats();tScreen.innerHTML='💤🐈‍⬛<br><span style="font-size:0.85rem;color:#7559a5;margin-top:5px;display:block">Zzz... Tortoro is napping like a little bear!</span>';tResult.textContent='Tortoro is taking a cozy nap in Bugo! 🐻💤'});
+
+/* Arcade Jumper Game (Golpe style with gray cat Tortoro) */
+let arcadeActive=false,arcadeScore=0,obstaclePos=-30,playerBottom=25,isJumping=false,arcadeTimer=null;
+const arcadePlayer=document.getElementById('arcadePlayer'),arcadeObstacle=document.getElementById('arcadeObstacle'),arcadeArena=document.getElementById('arcadeArena');
+function jumpCat(){if(isJumping||!arcadeActive)return;isJumping=true;let jumpTime=0;let jInterval=setInterval(()=>{jumpTime++;if(jumpTime<15){playerBottom+=6;}else if(jumpTime<30){playerBottom-=6;}else{playerBottom=25;isJumping=false;clearInterval(jInterval);}arcadePlayer.style.bottom=playerBottom+'px';},20);}
+arcadeArena.addEventListener('click',jumpCat);
+window.addEventListener('keydown',e=>{if(e.code==='Space'&&arcadeActive){e.preventDefault();jumpCat();}});
+
+document.getElementById('startArcade').addEventListener('click',()=>{if(arcadeActive)return;arcadeActive=true;arcadeScore=0;obstaclePos=arcadeArena.clientWidth-40;playerBottom=25;document.getElementById('arcadeScore').textContent='Score: 0';document.getElementById('arcadeResult').textContent='Jump over the obstacles! Tap or Space!';document.getElementById('startArcade').disabled=true;
+clearInterval(arcadeTimer);
+arcadeTimer=setInterval(()=>{
+if(!arcadeActive)return;
+obstaclePos-=5;
+if(obstaclePos<-40){obstaclePos=arcadeArena.clientWidth+Math.random()*50;arcadeScore+=10;document.getElementById('arcadeScore').textContent='Score: '+arcadeScore;}
+arcadeObstacle.style.right=(arcadeArena.clientWidth-obstaclePos-30)+'px';
+
+/* collision check */
+if(obstaclePos<60&&obstaclePos>10&&playerBottom<45){
+arcadeActive=false;clearInterval(arcadeTimer);
+document.getElementById('arcadeResult').textContent='Game Over! Final Score: '+arcadeScore+' 🐱';
+document.getElementById('startArcade').disabled=false;
+}
+},30);
+});
 
 /* Memory match */
 const memoryEmojis=['🍓','🐻','💗','🍰','🌙','🐰'];let firstTile=null,lockBoard=false,matches=0;
