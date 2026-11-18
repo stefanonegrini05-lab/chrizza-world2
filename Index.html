@@ -1,0 +1,968 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5dce4">
+  <title>Chrizza's World ♡</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-1: #fdf6f8; --bg-2: #f8e8ee; --rose: #d97b9c; --rose-deep: #a6466b;
+      --rose-soft: #f5d8e3; --gold: #d4a373; --ink: #3d2933; --muted: #7d626f;
+      --glass: rgba(255, 255, 255, 0.82); --glass-border: rgba(235, 195, 210, 0.7);
+      --serif: "Cormorant Garamond", Georgia, serif; --sans: "Plus Jakarta Sans", sans-serif; --script: "Caveat", cursive;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    body {
+      margin: 0; font-family: var(--sans); color: var(--ink);
+      background: linear-gradient(135deg, #fdf7f9 0%, #f9e9ef 48%, #f5e6e0 100%);
+      line-height: 1.65; overflow-x: hidden;
+    }
+    .hidden { display: none !important; }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+
+    #petals-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .glass-panel {
+      background: var(--glass); backdrop-filter: blur(18px);
+      border: 1px solid var(--glass-border); box-shadow: 0 20px 50px rgba(145, 75, 102, 0.1);
+    }
+    .eyebrow {
+      display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose-deep); margin-bottom: 10px;
+    }
+    .btn-romantic {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      background: linear-gradient(135deg, #c25980 0%, #9e3d62 100%); color: #fff; border: none; border-radius: 999px;
+      padding: 14px 26px; font-weight: 700; font-size: 14px; cursor: pointer; box-shadow: 0 10px 25px rgba(166, 70, 107, 0.3);
+      transition: transform 0.2s;
+    }
+    .btn-romantic:hover { transform: translateY(-2px); }
+
+    /* Gate */
+    .gate { position: relative; z-index: 2; min-height: 100svh; display: grid; place-items: center; padding: 24px; }
+    .gate-card { width: min(100%, 460px); border-radius: 32px; padding: 48px 32px; text-align: center; }
+    .wax-seal {
+      width: 54px; height: 54px; margin: 0 auto 18px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #d46a90, #8f2d52); color: #fff; font-size: 24px; display: grid; place-items: center;
+    }
+    .gate h1 { font: 700 clamp(44px, 7vw, 62px)/1.05 var(--serif); margin: 0; }
+    .gate h1 em { color: var(--rose-deep); font-style: italic; }
+    .gate-copy { color: var(--muted); font-size: 14px; margin: 16px 0 26px; }
+    .gate-form { display: grid; gap: 12px; }
+    .gate input {
+      width: 100%; padding: 15px 18px; border-radius: 14px; border: 1px solid #e3bfd0; background: rgba(255,255,255,0.9); text-align: center; font-size: 15px; outline: none;
+    }
+    .gate-error { color: #b93858; font-size: 13px; min-height: 20px; margin: 8px 0 4px; font-weight: 600; }
+    .gate-hint { font-size: 11px; color: var(--muted); }
+
+    /* Topbar */
+    .site { position: relative; z-index: 1; }
+    .topbar {
+      position: sticky; top: 0; z-index: 30; height: 74px; padding: 0 clamp(20px, 6vw, 90px);
+      display: flex; align-items: center; justify-content: space-between; background: rgba(253, 246, 248, 0.85);
+      backdrop-filter: blur(16px); border-bottom: 1px solid rgba(230, 190, 206, 0.5);
+    }
+    .brand { font: 700 22px var(--serif); }
+    .brand span { color: var(--rose-deep); }
+    .topbar nav { display: flex; gap: 18px; }
+    .nav-link { font-size: 12px; font-weight: 600; color: var(--muted); transition: 0.2s; }
+    .nav-link:hover, .nav-link.active { color: var(--rose-deep); }
+    .menu-toggle { display: none; border: 1px solid #e2bccb; background: #fff; border-radius: 10px; padding: 6px 12px; color: var(--rose-deep); }
+    .section-shell { padding-left: clamp(20px, 7vw, 120px); padding-right: clamp(20px, 7vw, 120px); }
+
+    /* Hero */
+    .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: 48px; padding-top: 64px; padding-bottom: 64px; }
+    .badge-romantic {
+      display: inline-block; background: rgba(255,255,255,0.85); border: 1px solid #e7c2d1; color: var(--rose-deep);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.15em; padding: 6px 14px; border-radius: 999px; margin-bottom: 18px;
+    }
+    .hero h1 { font: 700 clamp(48px, 6.5vw, 82px)/1.03 var(--serif); margin: 0; }
+    .hero h1 em { color: var(--rose-deep); font-style: italic; }
+    .hero-sub { font-size: 15px; color: var(--muted); max-width: 500px; margin: 22px 0 28px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-signature { font: 700 24px var(--script); color: var(--rose-deep); margin-top: 28px; }
+
+    .hero-visual { display: grid; place-items: center; }
+    .polaroid-stack { position: relative; width: min(340px, 85%); height: 400px; }
+    .polaroid {
+      position: absolute; inset: 0; background: #fff; padding: 14px 14px 48px; border-radius: 16px;
+      box-shadow: 0 24px 60px rgba(112, 54, 77, 0.18); border: 1px solid #f2dfe6;
+    }
+    .back-card { transform: rotate(-6deg) translate(-14px, 8px); }
+    .gradient-sunset {
+      width: 100%; height: 100%; border-radius: 10px; background: linear-gradient(135deg, #f8d5e3, #f3decb);
+      display: grid; place-content: center; text-align: center;
+    }
+    .main-card { transform: rotate(3deg); }
+    .polaroid-photo { width: 100%; height: 100%; border-radius: 10px; overflow: hidden; background: #f8e8ee; }
+    .polaroid-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .polaroid-caption { text-align: center; font: 700 21px var(--script); color: var(--rose-deep); margin-top: 10px; }
+
+    /* Counter & ECG */
+    .counter-banner { padding-bottom: 40px; }
+    .counter-grid { border-radius: 24px; padding: 26px 32px; text-align: center; }
+    .counter-boxes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 10px; margin-bottom: 24px; }
+    .c-box { background: rgba(255, 255, 255, 0.75); border: 1px solid #edd2dd; border-radius: 16px; padding: 16px 10px; }
+    .c-box strong { display: block; font: 700 clamp(28px, 4vw, 42px)/1 var(--serif); color: var(--rose-deep); }
+    .c-box span { font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); font-weight: 600; }
+
+    .ecg-container {
+      background: rgba(255, 255, 255, 0.9); border: 1px solid #ebd0db; border-radius: 16px; padding: 14px 20px; cursor: pointer; transition: 0.2s;
+    }
+    .ecg-container:hover { border-color: var(--rose-deep); }
+    .ecg-info { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 6px; }
+    .ecg-heart-icon { font-size: 20px; animation: pulseBeat 1.2s infinite; }
+    @keyframes pulseBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.25); } }
+    #ecg-text { font-size: 13px; font-weight: 600; color: var(--rose-deep); margin: 0; }
+    #ecg-canvas { width: 100%; height: 65px; display: block; }
+
+    /* Sections */
+    .content-section { padding-top: 85px; padding-bottom: 85px; }
+    .alt-bg { background: rgba(255, 245, 248, 0.55); border-top: 1px solid rgba(235,195,210,0.4); border-bottom: 1px solid rgba(235,195,210,0.4); }
+    .section-heading { text-align: center; max-width: 650px; margin: 0 auto 48px; }
+    .section-heading h2 { font: 700 clamp(36px, 5vw, 54px)/1.08 var(--serif); margin: 0 0 12px; }
+    .section-heading h2 em { color: var(--rose-deep); font-style: italic; }
+    .section-heading p { color: var(--muted); font-size: 14px; margin: 0; }
+
+    /* Story */
+    .story-hero-card { border-radius: 24px; padding: 36px; margin-bottom: 24px; }
+    .chapter-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; color: var(--rose-deep); margin-bottom: 8px; }
+    .story-hero-card h3 { font: 700 30px var(--serif); margin: 0 0 18px; }
+    .story-columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; font-size: 14px; color: #5b444f; }
+
+    /* Music & Links */
+    .playlist-cabinet { border-radius: 24px; padding: 32px; max-width: 900px; margin: 0 auto; }
+    .playlist-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+    .playlist-header h3 { font: 700 26px var(--serif); margin: 0; }
+    .badge-pill { background: #fff; border: 1px solid #e4bfd0; color: var(--rose-deep); padding: 6px 14px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+    .song-list { display: grid; gap: 12px; }
+    .song-item {
+      background: rgba(255,255,255,0.85); border: 1px solid #ebd2dd; border-radius: 14px; padding: 14px 18px;
+      display: flex; align-items: center; justify-content: gap; gap: 16px;
+    }
+    .song-meta { flex: 1; }
+    .song-meta strong { display: block; font-size: 15px; color: var(--ink); font-family: var(--serif); }
+    .song-meta p { font-size: 12px; color: var(--muted); margin: 2px 0 0; }
+    .song-links { display: flex; gap: 8px; }
+    .stream-btn {
+      font-size: 11px; font-weight: 700; padding: 6px 12px; border-radius: 99px; background: #fff;
+      border: 1px solid #e0b8c8; color: var(--rose-deep); transition: 0.2s;
+    }
+    .stream-btn:hover { background: var(--rose-deep); color: #fff; }
+    .highlight-song { background: linear-gradient(135deg, #fff0f5, #fce4ed); border-color: var(--rose); }
+    .song-quote { font: italic 13px var(--serif); color: var(--rose-deep) !important; font-weight: 700; }
+
+    /* Envelopes */
+    .envelope-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .envelope {
+      position: relative; background: linear-gradient(165deg, #ffffff 0%, #fcf0f4 100%); border: 1px solid #e7c5d3;
+      border-radius: 18px; padding: 22px 18px; text-align: left; cursor: pointer; transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .envelope:hover { transform: translateY(-6px); box-shadow: 0 18px 36px rgba(166, 70, 107, 0.18); }
+    .env-seal {
+      width: 34px; height: 34px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #d46a90, #963257);
+      color: #fff; font-size: 14px; display: grid; place-items: center; margin-bottom: 14px;
+    }
+    .envelope strong { display: block; font: 700 19px var(--serif); color: var(--ink); margin-bottom: 4px; }
+    .envelope span { font-size: 11px; color: var(--rose-deep); font-weight: 600; }
+
+    /* Virtual Cinema */
+    .cinema-cabinet { border-radius: 24px; padding: 32px; max-width: 900px; margin: 0 auto; }
+    .cinema-screen {
+      width: 100%; aspect-ratio: 16/9; background: #181014; border-radius: 16px; border: 3px solid #422833;
+      display: grid; place-content: center; text-align: center; color: #fff; padding: 20px; position: relative; overflow: hidden;
+    }
+    .cinema-screen h3 { font: 700 28px var(--serif); color: #ffd6e6; margin: 0 0 8px; }
+    .cinema-screen p { font-size: 13px; color: #d6b8c4; max-width: 400px; margin: 0; }
+    .cinema-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; justify-content: center; }
+    .cinema-tab {
+      background: #fff; border: 1px solid #ebd0db; color: var(--rose-deep); padding: 8px 16px;
+      border-radius: 99px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s;
+    }
+    .cinema-tab.active, .cinema-tab:hover { background: var(--rose-deep); color: #fff; }
+
+    /* Distance & World Map */
+    .distance-box { border-radius: 26px; padding: 40px; text-align: center; max-width: 800px; margin: 0 auto; }
+    .world-map-visual {
+      position: relative; height: 160px; background: linear-gradient(135deg, #fceef3, #f5e1e9);
+      border-radius: 16px; border: 1px solid #ebd0db; margin: 24px 0; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; overflow: hidden;
+    }
+    .map-city { z-index: 2; text-align: center; }
+    .map-city strong { display: block; font: 700 16px var(--serif); color: var(--rose-deep); }
+    .map-city small { font-size: 11px; color: var(--muted); }
+    .flight-path { position: absolute; left: 15%; right: 15%; height: 2px; border-bottom: 2px dashed var(--rose); z-index: 1; }
+    .plane-icon { position: absolute; font-size: 18px; animation: flyPlane 4s infinite linear; }
+    @keyframes flyPlane { 0% { left: 15%; transform: translateY(-4px); } 100% { left: 82%; transform: translateY(-4px); } }
+    .distance-stat { font: 700 22px var(--serif); color: var(--ink); margin-top: 8px; }
+
+    /* Celestial Kiss Moon & Venus + Drawing */
+    .space-cabinet { border-radius: 24px; padding: 32px; max-width: 800px; margin: 0 auto; text-align: center; }
+    .space-canvas-wrap {
+      position: relative; width: 100%; border-radius: 16px; overflow: hidden; border: 2px solid #543444; background: #12090d; margin-top: 16px;
+    }
+    #space-canvas { width: 100%; height: auto; display: block; cursor: crosshair; }
+    .space-hint { font-size: 12px; color: var(--muted); margin-top: 10px; }
+
+    /* Italian Academy (Medium level) */
+    .italian-cabinet { border-radius: 24px; padding: 32px; max-width: 900px; margin: 0 auto; }
+    .italian-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 20px; }
+    .italian-card {
+      background: rgba(255,255,255,0.85); border: 1px solid #ebd0db; border-radius: 16px; padding: 18px; text-align: left;
+    }
+    .italian-card strong { display: block; font: 700 18px var(--serif); color: var(--rose-deep); margin-bottom: 4px; }
+    .italian-card p { font-size: 13px; color: var(--muted); margin: 0; }
+
+    /* Couple Quiz */
+    .quiz-cabinet { border-radius: 24px; padding: 28px; max-width: 780px; margin: 0 auto; text-align: center; }
+    .quiz-q { font: 700 22px var(--serif); margin: 12px 0 16px; text-align: left; }
+    .quiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .quiz-option {
+      background: rgba(255,255,255,0.85); border: 1px solid #e5c4d2; border-radius: 12px; padding: 13px 16px;
+      text-align: left; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.2s;
+    }
+    .quiz-option:hover { background: #fff; border-color: var(--rose-deep); }
+    .quiz-option.correct { background: #e8f7ec; border-color: #7bc490; color: #246337; }
+    .quiz-option.wrong { background: #fdeaea; border-color: #e08b8b; color: #8c2b2b; }
+    .quiz-feedback { font-size: 13px; font-weight: 600; color: var(--rose-deep); min-height: 22px; margin: 12px 0; text-align: left; }
+
+    /* Games Cabinets */
+    .games-master-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px; }
+    .game-cabinet { border-radius: 24px; padding: 24px; display: flex; flex-direction: column; }
+    .cabinet-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+    .cabinet-header h3 { font: 700 24px var(--serif); margin: 0; }
+    .game-desc { font-size: 12px; color: var(--muted); margin: 0 0 14px; }
+    .level-badge {
+      background: #fff; border: 1px solid #e5c1d0; color: var(--rose-deep); padding: 5px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; white-space: nowrap;
+    }
+    .score-pills { display: flex; gap: 6px; }
+    .canvas-wrapper {
+      position: relative; width: 100%; border-radius: 16px; overflow: hidden;
+      border: 2px solid #e7c3d2; background: #fdf2f6; box-shadow: inset 0 2px 10px rgba(0,0,0,0.04);
+    }
+    .canvas-wrapper canvas { width: 100%; height: auto; display: block; touch-action: manipulation; }
+    .canvas-toast {
+      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.92); border: 1px solid #e5c1d0; padding: 5px 14px;
+      border-radius: 999px; font-size: 12px; font-weight: 700; color: var(--rose-deep); white-space: nowrap; pointer-events: none;
+    }
+    .arcade-overlay {
+      position: absolute; inset: 0; background: rgba(54, 30, 42, 0.72); backdrop-filter: blur(4px);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #fff; padding: 20px;
+    }
+    .arcade-overlay h4 { font: 700 28px var(--serif); margin: 0 0 6px; }
+    .arcade-overlay p { font-size: 12px; opacity: 0.9; margin: 0 0 16px; }
+    .pet-bars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0; }
+    .p-bar-top { display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; margin-bottom: 4px; }
+    .p-track { height: 8px; background: #eed8e1; border-radius: 99px; overflow: hidden; }
+    .p-fill { height: 100%; border-radius: 99px; transition: width 0.3s ease; }
+    .fill-peach { background: #e5987c; } .fill-pink { background: #d66892; } .fill-lav { background: #9b7ede; }
+    .cabinet-controls { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: auto; }
+    .arcade-pad { grid-template-columns: 1fr 1fr; margin-top: 14px; }
+    .game-btn {
+      background: #fff; border: 1px solid #e2bccb; color: var(--rose-deep); border-radius: 12px;
+      padding: 10px 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.15s;
+    }
+    .game-btn:hover { background: #fdf0f5; transform: translateY(-2px); }
+    .big-pad { padding: 13px; font-size: 14px; background: linear-gradient(180deg, #fff, #faebf1); }
+
+    /* Closing & Footer */
+    .closing { text-align: center; padding-top: 90px; padding-bottom: 90px; }
+    .closing h2 { font: 700 clamp(42px, 6vw, 68px)/1.06 var(--serif); margin: 0 0 16px; }
+    .closing h2 em { color: var(--rose-deep); }
+    .closing p { max-width: 480px; margin: 0 auto; color: var(--muted); font-size: 14px; }
+    .signature { font: 700 24px var(--script); color: var(--muted); margin-top: 26px; }
+    .signature span { font-size: 34px; color: var(--rose-deep); }
+    footer {
+      display: flex; justify-content: space-between; padding: 22px clamp(20px, 7vw, 120px);
+      border-top: 1px solid rgba(230, 190, 206, 0.5); font-size: 12px; color: var(--muted); background: rgba(255,255,255,0.5);
+    }
+
+    /* Modal */
+    .modal { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: 20px; }
+    .modal-backdrop { position: absolute; inset: 0; background: rgba(45, 22, 33, 0.65); backdrop-filter: blur(6px); }
+    .letter-sheet {
+      position: relative; width: min(100%, 680px); max-height: 86svh; overflow-y: auto;
+      background: #fffcf8; border-radius: 24px; padding: 44px clamp(24px, 5vw, 52px);
+      border: 1px solid #ead4c8; box-shadow: 0 30px 90px rgba(25, 10, 17, 0.45);
+    }
+    .modal-close {
+      position: absolute; top: 16px; right: 20px; background: #f8e8ee; border: none;
+      width: 36px; height: 36px; border-radius: 50%; font-size: 22px; color: var(--rose-deep); cursor: pointer;
+    }
+    .letter-sheet h2 { font: 700 32px var(--serif); margin: 0 0 20px; color: var(--ink); }
+    .letter-body { white-space: pre-wrap; font: 17px/1.85 var(--serif); color: #543e48; }
+    .letter-footer { margin-top: 28px; font: 700 22px var(--script); color: var(--muted); }
+    .letter-footer span { font-size: 30px; color: var(--rose-deep); }
+
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .hero-sub { margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .story-columns, .games-master-grid, .italian-grid { grid-template-columns: 1fr; }
+      .envelope-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .menu-toggle { display: block; }
+      .topbar nav {
+        display: none; position: absolute; top: 74px; left: 0; right: 0;
+        background: #fdf6f8; flex-direction: column; padding: 20px; border-bottom: 1px solid #e7c5d3; gap: 16px;
+      }
+      .topbar nav.open { display: flex; }
+      .counter-boxes { grid-template-columns: repeat(2, 1fr); }
+      .cabinet-controls { grid-template-columns: repeat(2, 1fr); }
+      footer { flex-direction: column; text-align: center; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="petals-canvas" aria-hidden="true"></canvas>
+
+  <!-- SECRET GATE -->
+  <section id="gate" class="gate">
+    <div class="gate-card glass-panel">
+      <div class="wax-seal">♡</div>
+      <p class="eyebrow">PRIVATE UNIVERSE · EST. 18.12.2025</p>
+      <h1>Chrizza's <em>World</em></h1>
+      <p class="gate-copy">Somewhere between a white T-shirt on OmeTV, a random Instagram Reel, and a love that crosses oceans.</p>
+      <div class="gate-form">
+        <input id="secret-code" type="password" placeholder="Enter our secret word..." autocomplete="off">
+        <button id="enter-btn" class="btn-romantic">Unlock Our World <span>✦</span></button>
+      </div>
+      <p id="gate-error" class="gate-error" aria-live="polite"></p>
+      <span class="gate-hint">Hint: your favourite Italian nickname</span>
+    </div>
+  </section>
+
+  <!-- MAIN SITE -->
+  <div id="site" class="site hidden">
+    <header class="topbar">
+      <a class="brand" href="#home">Chrizza <span>♡</span> Stefanino</a>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Menu">☰</button>
+      <nav id="main-nav">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#our-story" class="nav-link">Our Story</a>
+        <a href="#music" class="nav-link">Music & Letters</a>
+        <a href="#cinema" class="nav-link">Virtual Cinema</a>
+        <a href="#distance" class="nav-link">Distance & Map</a>
+        <a href="#space" class="nav-link">Celestial Kiss</a>
+        <a href="#italian" class="nav-link">Italian Academy</a>
+        <a href="#quiz" class="nav-link">Couple Quiz</a>
+        <a href="#play" class="nav-link">Tortoro</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section id="home" class="hero section-shell">
+        <div class="hero-copy">
+          <div class="badge-romantic">✦ ARCORE (ITALY) ⇄ BUGO, CDO (PHILIPPINES)</div>
+          <h1>Welcome to<br><em>your universe,</em><br>my Patatina.</h1>
+          <p class="hero-sub">Every letter I wrote, our favorite movies, our music, the exact distance between us, and a special corner dedicated to Tortoro in Bugo — all in English, made exclusively for you.</p>
+          <div class="hero-actions">
+            <a class="btn-romantic" href="#play">Play with Tortoro <span>🐾</span></a>
+            <a class="btn-romantic" href="#quiz" style="background:linear-gradient(135deg, #a6466b, #7d2d4c)">Couple Quiz 💖</a>
+          </div>
+          <div class="hero-signature">Forever yours, <span>Stefanino ♥</span></div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="polaroid-stack">
+            <div class="polaroid back-card">
+              <div class="polaroid-inner gradient-sunset">
+                <span style="font-size:32px">🌙✨</span>
+                <p style="font-family:var(--serif);font-style:italic;margin-top:8px">Moon & Venus Kiss</p>
+              </div>
+            </div>
+            <div class="polaroid main-card">
+              <div class="polaroid-photo">
+                <img src="assets/images/tortoro.jpg" alt="Tortoro" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                <div class="polaroid-caption" style="display:none">✿ Your photo here</div>
+              </div>
+              <div class="polaroid-caption">King Tortoro & his Queen Chrizza ♡</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COUNTER & ECG HEARTBEAT -->
+      <section class="counter-banner section-shell">
+        <div class="counter-grid glass-panel">
+          <div class="counter-header"><span class="eyebrow">LOVING YOU SINCE DECEMBER 18, 2025</span></div>
+          <div class="counter-boxes">
+            <div class="c-box"><strong id="c-days">0</strong><span>Days</span></div>
+            <div class="c-box"><strong id="c-hours">0</strong><span>Hours</span></div>
+            <div class="c-box"><strong id="c-mins">0</strong><span>Minutes</span></div>
+            <div class="c-box"><strong id="c-secs">0</strong><span>Seconds</span></div>
+          </div>
+
+          <div class="ecg-container" id="ecg-trigger" title="Click to accelerate heartbeat!">
+            <div class="ecg-info">
+              <span class="ecg-heart-icon">💓</span>
+              <p id="ecg-text">Click the heart to feel my pulse...</p>
+            </div>
+            <canvas id="ecg-canvas" width="500" height="75"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- OUR EXPANDED STORY -->
+      <section id="our-story" class="content-section section-shell">
+        <div class="section-heading">
+          <span class="eyebrow">CHAPTERS OF US</span>
+          <h2>How a random night on OmeTV became <em>my favorite story</em></h2>
+          <p>Enriched with memories from our letters, our growth, and our future.</p>
+        </div>
+
+        <div class="story-hero-card glass-panel">
+          <div class="chapter-tag">CHAPTER 01 · THE BEGINNING</div>
+          <h3>The white T-shirt & the first Reel</h3>
+          <div class="story-columns">
+            <p>You were in the dark on OmeTV. I illuminated my face with my white T-shirt for two seconds. We talked about movies, and I recommended <em>The Hangover</em> while flexing my bicep. Very smooth, Stefanino! 😂</p>
+            <p>You gave me your Instagram. I didn't text for two days… and you sent me the first Reel. When you watched my movie recommendation, I felt truly listened to. That tiny beginning opened a whole new universe.</p>
+            <p>On December 18, 2025, after two weeks of talking, I asked you to be my girlfriend. Months later, even through tough chapters, we chose each other again, becoming each other's safe place and my true <em>benzina</em> (motivation).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- MUSIC & LETTERS -->
+      <section id="music" class="content-section section-shell alt-bg">
+        <div class="section-heading">
+          <span class="eyebrow">SOUNDTRACK & WORDS</span>
+          <h2>Our <em>Music</em> & Letters</h2>
+          <p>Direct links to LANY, The Weeknd, and your special songs, paired with my heartfelt letters.</p>
+        </div>
+
+        <div class="playlist-cabinet glass-panel">
+          <div class="playlist-header">
+            <div>
+              <span class="eyebrow">CHRIZZA'S SPECIAL PLAYLIST 🎸</span>
+              <h3>Our Soundtrack</h3>
+            </div>
+            <span class="badge-pill">Spotify & YouTube Links</span>
+          </div>
+          <div class="song-list">
+            <div class="song-item">
+              <span style="font-size:24px">🎵</span>
+              <div class="song-meta">
+                <strong>LANY Greatest Hits</strong>
+                <p>Her absolute favourite band in the world</p>
+              </div>
+              <div class="song-links">
+                <a class="stream-btn" href="https://open.spotify.com/artist/4uZT0asaRWSIldknvVMFjc" target="_blank">Spotify ↗</a>
+                <a class="stream-btn" href="https://www.youtube.com/@LANYmusic" target="_blank">YouTube ↗</a>
+              </div>
+            </div>
+            <div class="song-item">
+              <span style="font-size:24px">🌙</span>
+              <div class="song-meta">
+                <strong>One of the Girls — The Weeknd</strong>
+                <p>Our late-night video call vibe</p>
+              </div>
+              <div class="song-links">
+                <a class="stream-btn" href="https://open.spotify.com/track/212SkOmPusruqH2Fm3dZ6K" target="_blank">Spotify ↗</a>
+                <a class="stream-btn" href="https://www.youtube.com/watch?v=R2TxsD_g57A" target="_blank">YouTube ↗</a>
+              </div>
+            </div>
+            <div class="song-item">
+              <span style="font-size:24px">💃</span>
+              <div class="song-meta">
+                <strong>Gata Only — FloyyMenor, Cris Mj</strong>
+                <p>Catchy rhythm & fun memories</p>
+              </div>
+              <div class="song-links">
+                <a class="stream-btn" href="https://open.spotify.com/track/6Uj1ctrBOjOas8xZXGqKk4" target="_blank">Spotify ↗</a>
+                <a class="stream-btn" href="https://www.youtube.com/watch?v=Zt_tB5VKbkg" target="_blank">YouTube ↗</a>
+              </div>
+            </div>
+            <div class="song-item highlight-song">
+              <span style="font-size:24px">✨</span>
+              <div class="song-meta">
+                <strong>Si No Es Contigo — Louis Tomlinson</strong>
+                <p class="song-quote">“Meeting you felt like the first time hearing this intro.”</p>
+              </div>
+              <div class="song-links">
+                <a class="stream-btn" href="https://open.spotify.com/track/303K7g03Xj56VlQo8w9X6G" target="_blank">Spotify ↗</a>
+                <a class="stream-btn" href="https://www.youtube.com/watch?v=5Uq2x3b5t8I" target="_blank">YouTube ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="letter-list" class="envelope-grid" style="margin-top: 40px;"></div>
+      </section>
+
+      <!-- VIRTUAL CINEMA -->
+      <section id="cinema" class="content-section section-shell">
+        <div class="section-heading">
+          <span class="eyebrow">INTERACTIVE THEATER</span>
+          <h2>Virtual <em>Cinema</em> Rooms</h2>
+          <p>Switch between screening rooms to see all the movies we watched together across the distance.</p>
+        </div>
+
+        <div class="cinema-cabinet glass-panel">
+          <div class="cinema-screen" id="cinema-screen-box">
+            <span style="font-size:38px;margin-bottom:10px">🍿🎥</span>
+            <h3 id="cinema-title">The Hangover (Una Notte da Leoni)</h3>
+            <p id="cinema-desc">The legendary recommendation that started our movie talks. Pure laughs on video call!</p>
+          </div>
+          <div class="cinema-tabs">
+            <button class="cinema-tab active" data-movie="hangover">Comedy (The Hangover)</button>
+            <button class="cinema-tab" data-movie="americanpie">Classics (American Pie)</button>
+            <button class="cinema-tab" data-movie="romcom">Rom-Com (Amici di Letto)</button>
+            <button class="cinema-tab" data-movie="projectx">Party (Project X & Superbad)</button>
+            <button class="cinema-tab" data-movie="zendaya">Zendaya Films</button>
+            <button class="cinema-tab" data-movie="zombie">Thai Zombie Horror</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- DISTANCE & WORLD MAP -->
+      <section id="distance" class="content-section section-shell alt-bg">
+        <div class="distance-box glass-panel">
+          <span class="eyebrow">PRECISE DISTANCE CALCULATOR</span>
+          <h2>Arcore, Italy ⇄ <em>Bugo, CDO, Philippines</em></h2>
+          <div class="world-map-visual">
+            <div class="map-city">
+              <strong>🇮🇹 Arcore</strong>
+              <small>Stefanino</small>
+            </div>
+            <div class="flight-path"><div class="plane-icon">✈</div></div>
+            <div class="map-city">
+              <strong>🇵🇭 Bugo, CDO</strong>
+              <small>Chrizza & Tortoro</small>
+            </div>
+          </div>
+          <div class="distance-stat">Exact Distance: <strong>10,540 km</strong></div>
+          <p style="font:italic 17px var(--serif);color:var(--rose-deep);margin-top:12px">
+            “No matter how many kilometers lie between us, every video call makes the distance disappear.”
+          </p>
+        </div>
+      </section>
+
+      <!-- CELESTIAL KISS MOON & VENUS + DRAWING -->
+      <section id="space" class="content-section section-shell">
+        <div class="space-cabinet glass-panel">
+          <span class="eyebrow">CELESTIAL MEMORY · MOON & VENUS</span>
+          <h2>The Night Sky Kiss</h2>
+          <p style="font-size:14px;color:var(--muted)">Remembering the rare night when the Moon and Venus met in a celestial kiss on our day. Draw your own stars in the sky below!</p>
+          <div class="space-canvas-wrap">
+            <canvas id="space-canvas" width="600" height="260"></canvas>
+            <div class="canvas-toast">Click & drag to draw stars in our sky ✨</div>
+          </div>
+          <button class="btn-romantic" id="clear-space" style="margin-top:14px;padding:8px 18px;font-size:12px">Clear Sky ↺</button>
+        </div>
+      </section>
+
+      <!-- ITALIAN ACADEMY (MEDIUM LEVEL) -->
+      <section id="italian" class="content-section section-shell alt-bg">
+        <div class="section-heading">
+          <span class="eyebrow">LANGUAGE ACADEMY</span>
+          <h2>Learn Italian with <em>Stefanino</em> (Medium Level)</h2>
+          <p>Useful phrases, cute endearments, and daily expressions for Chrizza.</p>
+        </div>
+
+        <div class="italian-cabinet glass-panel">
+          <div class="italian-grid">
+            <div class="italian-card">
+              <strong>"Mi manchi da morire"</strong>
+              <p>Meaning: *I miss you to death.* Use this when you miss me super much!</p>
+            </div>
+            <div class="italian-card">
+              <strong>"Sei la mia principessa"</strong>
+              <p>Meaning: *You are my princess.* (My exact nickname for you).</p>
+            </div>
+            <div class="italian-card">
+              <strong>"Non vedo l'ora di abbracciarti"</strong>
+              <p>Meaning: *I can't wait to hug you.* Perfect for when we finally meet in person.</p>
+            </div>
+            <div class="italian-card">
+              <strong>"Ti amo più della mia vita"</strong>
+              <p>Meaning: *I love you more than my life.*</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COUPLE QUIZ (BRAWL STARS & CHEEKY QUESTIONS) -->
+      <section id="quiz" class="content-section section-shell">
+        <div class="quiz-cabinet glass-panel">
+          <div class="cabinet-header">
+            <div>
+              <span class="eyebrow">COUPLE TRIVIA · FUN & PROVOKING</span>
+              <h3>Our Relationship Quiz</h3>
+            </div>
+            <span class="level-badge" id="quiz-progress">1 / 5</span>
+          </div>
+          <h4 id="quiz-question" class="quiz-q"></h4>
+          <div id="quiz-options" class="quiz-grid"></div>
+          <p id="quiz-feedback" class="quiz-feedback"></p>
+          <button id="quiz-next" class="btn-romantic hidden">Next Question →</button>
+        </div>
+      </section>
+
+      <!-- TORTORO'S GAMES -->
+      <section id="play" class="content-section section-shell alt-bg">
+        <div class="section-heading">
+          <span class="eyebrow">INTERACTIVE ARCADE</span>
+          <h2>Tortoro's <em>Playground</em></h2>
+          <p>Two full interactive games starring your handsome grey tabby in Bugo!</p>
+        </div>
+
+        <div class="games-master-grid">
+          <!-- GAME 1: COZY ROOM -->
+          <div class="game-cabinet glass-panel">
+            <div class="cabinet-header">
+              <div>
+                <span class="eyebrow">GAME 01 · VIRTUAL PET</span>
+                <h3>Tortoro's Cozy House in Bugo</h3>
+              </div>
+              <span class="level-badge" id="cozy-level">Affection Lv. 1</span>
+            </div>
+            <p class="game-desc">Pet Tortoro directly on the screen, toss his yarn ball, feed him fish treats, or switch day/night!</p>
+
+            <div class="canvas-wrapper">
+              <canvas id="cozy-canvas" width="600" height="340"></canvas>
+              <div class="canvas-toast">Tap Tortoro to pet him! 🐾</div>
+            </div>
+
+            <div class="pet-bars">
+              <div class="p-bar"><div class="p-bar-top"><span>🐟 Hunger</span><span id="stat-hunger">85%</span></div><div class="p-track"><div class="p-fill fill-peach" id="bar-hunger" style="width:85%"></div></div></div>
+              <div class="p-bar"><div class="p-bar-top"><span>💖 Happiness</span><span id="stat-happy">90%</span></div><div class="p-track"><div class="p-fill fill-pink" id="bar-happy" style="width:90%"></div></div></div>
+              <div class="p-bar"><div class="p-bar-top"><span>⚡ Energy</span><span id="stat-energy">80%</span></div><div class="p-track"><div class="p-fill fill-lav" id="bar-energy" style="width:80%"></div></div></div>
+            </div>
+
+            <div class="cabinet-controls">
+              <button class="game-btn" id="act-feed">🐟 Feed Fish</button>
+              <button class="game-btn" id="act-toy">🧶 Toss Yarn</button>
+              <button class="game-btn" id="act-sleep">💤 Nap / Wake</button>
+              <button class="game-btn" id="act-time">🌅 Day / Sunset</button>
+            </div>
+          </div>
+
+          <!-- GAME 2: RUNNER -->
+          <div class="game-cabinet glass-panel">
+            <div class="cabinet-header">
+              <div>
+                <span class="eyebrow">GAME 02 · ARCADE RUNNER</span>
+                <h3>Tortoro's Bugo Adventure</h3>
+              </div>
+              <div class="score-pills">
+                <span class="level-badge">Score: <strong id="arc-score">0</strong></span>
+                <span class="level-badge best">Best: <strong id="arc-best">0</strong></span>
+              </div>
+            </div>
+            <p class="game-desc">Double-jump over crabs, grab golden fish & love hearts!</p>
+
+            <div class="canvas-wrapper">
+              <canvas id="arcade-canvas" width="600" height="340"></canvas>
+              <div id="arcade-overlay" class="arcade-overlay">
+                <h4>Ready to Explore Bugo?</h4>
+                <p>Jump (↑ / Space / Tap) · Double Jump</p>
+                <button class="btn-romantic" id="arc-start-btn">Start Adventure 🐾</button>
+              </div>
+            </div>
+
+            <div class="cabinet-controls arcade-pad" style="grid-template-columns:1fr">
+              <button class="game-btn big-pad" id="pad-jump">⬆ Jump (Double Jump)</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CLOSING -->
+      <section class="closing section-shell">
+        <div class="wax-seal large">♡</div>
+        <span class="eyebrow">AND THIS IS ONLY THE BEGINNING</span>
+        <h2>More chapters,<br><em>more memories,</em><br>more us.</h2>
+        <p>From a random night on OmeTV to eleven months of choosing each other. I can't wait to see what we write next.</p>
+        <div class="signature">Always yours,<br><span>Stefanino ♡</span></div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Crafted with all my heart for Chrizza ♡</span>
+      <span>Chrizza's World · Italy ⇄ Philippines</span>
+    </footer>
+  </div>
+
+  <!-- LETTER MODAL -->
+  <div id="letter-modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" data-close="true"></div>
+    <article class="letter-sheet">
+      <button class="modal-close" id="close-letter" aria-label="Close">×</button>
+      <div class="sheet-top">
+        <span class="eyebrow">A LETTER FROM STEFANINO</span>
+        <h2 id="modal-title"></h2>
+      </div>
+      <div id="modal-letter-body" class="letter-body"></div>
+      <div class="letter-footer">
+        <p>Always yours,<br><span>Stefanino ♡</span></p>
+      </div>
+    </article>
+  </div>
+
+  <script src="js/letters.js"></script>
+  <script>
+    (() => {
+      const $ = s => document.querySelector(s);
+
+      // Audio Synth
+      let sfxEnabled = true;
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      let audioCtx = null;
+      function playTone(freq, type = "sine", duration = 0.15, slideTo = null, vol = 0.08) {
+        if (!sfxEnabled) return;
+        try {
+          if (!audioCtx) audioCtx = new AudioCtx();
+          if (audioCtx.state === "suspended") audioCtx.resume();
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = type; osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+          if (slideTo) osc.frequency.exponentialRampToValueAtTime(slideTo, audioCtx.currentTime + duration);
+          gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+          osc.connect(gain); gain.connect(audioCtx.destination);
+          osc.start(); osc.stop(audioCtx.currentTime + duration);
+        } catch (e) {}
+      }
+      function sfxHeart() { playTone(587.33, "sine", 0.12, null, 0.08); setTimeout(() => playTone(880, "sine", 0.2, null, 0.08), 80); }
+      function sfxJump() { playTone(260, "sine", 0.16, 540, 0.07); }
+      function sfxHit() { playTone(180, "sawtooth", 0.25, 70, 0.09); }
+
+      // Sakura petals
+      const pCanvas = $("#petals-canvas");
+      const pCtx = pCanvas.getContext("2d");
+      let petals = [];
+      function resizePetals() { pCanvas.width = window.innerWidth; pCanvas.height = window.innerHeight; }
+      window.addEventListener("resize", resizePetals); resizePetals();
+      for (let i = 0; i < 28; i++) {
+        petals.push({ x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight, r: 4 + Math.random() * 6, vy: 0.4 + Math.random() * 0.8, vx: -0.3 + Math.random() * 0.6, rot: Math.random() * Math.PI * 2, vrot: -0.02 + Math.random() * 0.04, isHeart: i % 4 === 0 });
+      }
+      function animatePetals() {
+        pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+        petals.forEach(p => {
+          p.y += p.vy; p.x += p.vx + Math.sin(p.y * 0.01) * 0.3; p.rot += p.vrot;
+          if (p.y > pCanvas.height + 20) { p.y = -20; p.x = Math.random() * pCanvas.width; }
+          pCtx.save(); pCtx.translate(p.x, p.y); pCtx.rotate(p.rot);
+          pCtx.fillStyle = p.isHeart ? "rgba(217, 108, 148, 0.28)" : "rgba(244, 178, 202, 0.38)";
+          if (p.isHeart) { pCtx.font = `${p.r * 2.2}px serif`; pCtx.fillText("♥", -p.r, p.r); }
+          else { pCtx.beginPath(); pCtx.ellipse(0, 0, p.r, p.r * 0.55, 0, 0, Math.PI * 2); pCtx.fill(); }
+          pCtx.restore();
+        });
+        requestAnimationFrame(animatePetals);
+      }
+      animatePetals();
+
+      // ECG Heartbeat
+      const ecgCanvas = $("#ecg-canvas");
+      const ecgCtx = ecgCanvas.getContext("2d");
+      let ecgPhase = 0, ecgSpeed = 2.2, ecgAcceleratedTimer = 0;
+      $("#ecg-trigger").addEventListener("click", () => {
+        sfxHeart(); ecgSpeed = 6.5; ecgAcceleratedTimer = 140;
+        $("#ecg-text").textContent = "“Somehow, you make my heart beat differently.” ♡";
+      });
+      function drawECG() {
+        ecgCtx.clearRect(0, 0, ecgCanvas.width, ecgCanvas.height);
+        ecgCtx.strokeStyle = "#a6466b"; ecgCtx.lineWidth = 2.5; ecgCtx.beginPath();
+        if (ecgAcceleratedTimer > 0) { ecgAcceleratedTimer--; if (ecgAcceleratedTimer === 0) ecgSpeed = 2.2; }
+        ecgPhase += ecgSpeed;
+        const w = ecgCanvas.width, h = ecgCanvas.height, midY = h / 2;
+        for (let x = 0; x < w; x++) {
+          const p = (x + ecgPhase) % 180;
+          let y = midY;
+          if (p > 75 && p < 90) y = midY - 30;
+          else if (p >= 90 && p < 100) y = midY + 12;
+          else if (p >= 100 && p < 108) y = midY - 38;
+          else if (p >= 108 && p < 118) y = midY + 22;
+          else if (p >= 135 && p < 155) y = midY - 10;
+          if (x === 0) ecgCtx.moveTo(x, y); else ecgCtx.lineTo(x, y);
+        }
+        ecgCtx.stroke(); requestAnimationFrame(drawECG);
+      }
+      drawECG();
+
+      // Gate & Nav
+      const gate = $("#gate"), site = $("#site");
+      function enter() {
+        if ($("#secret-code").value.trim().toUpperCase() === "PATATINA") {
+          sfxHeart(); gate.classList.add("hidden"); site.classList.remove("hidden"); sessionStorage.setItem("cw-entered", "yes"); window.scrollTo(0, 0);
+        } else { sfxHit(); $("#gate-error").textContent = "Not quite, my love. Try again ♡"; }
+      }
+      $("#enter-btn").addEventListener("click", enter);
+      $("#secret-code").addEventListener("keydown", e => { if (e.key === "Enter") enter(); });
+      if (sessionStorage.getItem("cw-entered") === "yes") { gate.classList.add("hidden"); site.classList.remove("hidden"); }
+      $("#menu-toggle").addEventListener("click", () => $("#main-nav").classList.toggle("open"));
+
+      // Counter
+      const startDate = new Date(2025, 11, 18, 0, 0, 0);
+      setInterval(() => {
+        const diff = Math.max(0, Date.now() - startDate.getTime());
+        $("#c-days").textContent = Math.floor(diff / 86400000);
+        $("#c-hours").textContent = String(Math.floor((diff / 3600000) % 24)).padStart(2, "0");
+        $("#c-mins").textContent = String(Math.floor((diff / 60000) % 60)).padStart(2, "0");
+        $("#c-secs").textContent = String(Math.floor((diff / 1000) % 60)).padStart(2, "0");
+      }, 1000);
+
+      // Letters
+      const letters = window.CHRIZZA_LETTERS || [];
+      $("#letter-list").innerHTML = letters.map((l, i) => `
+        <button class="envelope" data-letter="${i}">
+          <div class="env-seal">♡</div>
+          <strong>${l.month}</strong>
+          <span>${l.date} · Read Letter ↗</span>
+        </button>
+      `).join("");
+      $("#letter-list").addEventListener("click", e => {
+        const btn = e.target.closest("[data-letter]"); if (!btn) return;
+        sfxHeart(); const l = letters[Number(btn.dataset.letter)];
+        $("#modal-title").textContent = l.month; $("#modal-letter-body").textContent = l.text;
+        $("#letter-modal").classList.remove("hidden");
+      });
+      const closeModal = () => $("#letter-modal").classList.add("hidden");
+      $("#close-letter").addEventListener("click", closeModal);
+      $("#letter-modal").addEventListener("click", e => { if (e.target.dataset.close) closeModal(); });
+
+      // Virtual Cinema Rooms
+      const moviesData = {
+        hangover: { title: "The Hangover (Una Notte da Leoni)", desc: "The legendary movie recommendation that started our movie talks. Pure laughs on video call!" },
+        americanpie: { title: "American Pie Classics", desc: "Hilarious comedy moments shared together across the distance." },
+        romcom: { title: "Amici di Letto (Friends with Benefits)", desc: "A cozy romantic comedy night shared on our video call." },
+        projectx: { title: "Project X & Superbad", desc: "Ultimate party chaos, great humor, and unforgettable laughs!" },
+        zendaya: { title: "Zendaya Films", desc: "Enjoying fantastic movies starring her amazing talent." },
+        zombie: { title: "Thai Zombie Horror Movies", desc: "Spooky, intense, heart-pounding horror nights together!" }
+      };
+      document.querySelectorAll(".cinema-tab").forEach(tab => {
+        tab.addEventListener("click", () => {
+          document.querySelectorAll(".cinema-tab").forEach(t => t.classList.remove("active"));
+          tab.classList.add("active");
+          const m = moviesData[tab.dataset.movie];
+          $("#cinema-title").textContent = m.title;
+          $("#cinema-desc").textContent = m.desc;
+          sfxHeart();
+        });
+      });
+
+      // Celestial Kiss & Space Drawing Canvas
+      const spaceCanvas = $("#space-canvas");
+      const spaceCtx = spaceCanvas.getContext("2d");
+      function drawSpaceSky() {
+        spaceCtx.fillStyle = "#12090d"; spaceCtx.fillRect(0, 0, spaceCanvas.width, spaceCanvas.height);
+        // Moon & Venus
+        spaceCtx.fillStyle = "#ffe8b6"; spaceCtx.beginPath(); spaceCtx.arc(220, 100, 32, 0, Math.PI * 2); spaceCtx.fill();
+        spaceCtx.fillStyle = "#ffffff"; spaceCtx.beginPath(); spaceCtx.arc(265, 110, 8, 0, Math.PI * 2); spaceCtx.fill();
+        spaceCtx.font = "14px sans-serif"; spaceCtx.fillStyle = "#ffb6c1"; spaceCtx.fillText("✨ Celestial Kiss (Moon & Venus)", 20, 30);
+      }
+      drawSpaceSky();
+      let drawing = false;
+      spaceCanvas.addEventListener("pointerdown", () => drawing = true);
+      window.addEventListener("pointerup", () => drawing = false);
+      spaceCanvas.addEventListener("pointermove", e => {
+        if (!drawing) return;
+        const rect = spaceCanvas.getBoundingClientRect();
+        const x = (e.clientX - rect.left) * (spaceCanvas.width / rect.width);
+        const y = (e.clientY - rect.top) * (spaceCanvas.height / rect.height);
+        spaceCtx.fillStyle = "#ffc0cb"; spaceCtx.beginPath(); spaceCtx.arc(x, y, 4, 0, Math.PI * 2); spaceCtx.fill();
+      });
+      $("#clear-space").addEventListener("click", drawSpaceSky);
+
+      // Cheeky Couple Quiz (Brawlstars & Relationship)
+      const questions = [
+        { q: "Who is better at Brawl Stars between us?", a: ["Stefanino (obviously)", "Chrizza (the undisputed pro)", "We are both equally good", "Tortoro carries us"], c: 1, why: "Chrizza is the true Brawl Stars champion! 🎮🔥" },
+        { q: "Where did our story begin?", a: ["Instagram", "OmeTV", "A movie app", "At the gym"], c: 1, why: "OmeTV — one random night, a white T-shirt and two seconds of your face." },
+        { q: "What did I use to illuminate my face?", a: ["My phone flashlight", "A lamp", "My white T-shirt", "A candle"], c: 2, why: "My white T-shirt! The most iconic flashlight ever." },
+        { q: "Who sent the first Instagram message?", a: ["Stefanino", "Chrizza", "Both at once", "Nobody"], c: 1, why: "You sent me that first Reel after two days!" },
+        { q: "When did we officially become a couple?", a: ["18 November 2025", "18 December 2025", "18 January 2026", "14 February 2026"], c: 1, why: "18 December 2025 — right after a Reel. AHAHAHA." }
+      ];
+      let qi = 0, answered = false, qScore = 0;
+      function renderQuiz() {
+        const q = questions[qi];
+        $("#quiz-progress").textContent = `${qi + 1} / ${questions.length}`;
+        $("#quiz-question").textContent = q.q;
+        $("#quiz-feedback").textContent = "";
+        $("#quiz-next").classList.add("hidden");
+        answered = false;
+        $("#quiz-options").innerHTML = q.a.map((v, i) => `<button class="quiz-option" data-ans="${i}">${v}</button>`).join("");
+      }
+      $("#quiz-options").addEventListener("click", e => {
+        const b = e.target.closest("[data-ans]"); if (!b || answered) return;
+        answered = true; const q = questions[qi], ans = Number(b.dataset.ans);
+        if (ans === q.c) { qScore++; b.classList.add("correct"); sfxHeart(); $("#quiz-feedback").textContent = "Spot on! ♡ " + q.why; }
+        else { b.classList.add("wrong"); $("#quiz-options").querySelectorAll("button")[q.c].classList.add("correct"); sfxHit(); $("#quiz-feedback").textContent = q.why; }
+        $("#quiz-next").textContent = qi === questions.length - 1 ? "See Final Score ♡" : "Next Question →";
+        $("#quiz-next").classList.remove("hidden");
+      });
+      $("#quiz-next").addEventListener("click", () => {
+        if (qi < questions.length - 1) { qi++; renderQuiz(); }
+        else {
+          $("#quiz-question").textContent = `You scored ${qScore} / ${questions.length}!`;
+          $("#quiz-options").innerHTML = "";
+          $("#quiz-feedback").textContent = "You know us best, my love! ♡";
+          $("#quiz-next").textContent = "Play Quiz Again";
+          $("#quiz-next").onclick = () => { qi = 0; qScore = 0; $("#quiz-next").onclick = null; renderQuiz(); };
+        }
+      });
+      renderQuiz();
+
+      // Tortoro Games (Cozy Room & Runner)
+      const cCanvas = $("#cozy-canvas"), cCtx = cCanvas.getContext("2d");
+      let pet = { x: 280, y: 265, targetX: 280, facing: 1, hunger: 85, happy: 90, energy: 80, state: "idle" };
+      cCanvas.addEventListener("pointerdown", e => {
+        const rect = cCanvas.getBoundingClientRect();
+        const mx = (e.clientX - rect.left) * (cCanvas.width / rect.width);
+        if (Math.hypot(mx - pet.x, 240 - pet.y) < 65) {
+          pet.state = "happy"; sfxHeart();
+        } else { pet.targetX = Math.max(80, Math.min(520, mx)); pet.state = "run"; }
+      });
+      $("#act-feed").addEventListener("click", () => { pet.hunger = Math.min(100, pet.hunger + 15); sfxHeart(); });
+      $("#act-toy").addEventListener("click", () => { pet.happy = Math.min(100, pet.happy + 15); sfxJump(); });
+      $("#act-sleep").addEventListener("click", () => { pet.state = pet.state === "sleep" ? "idle" : "sleep"; sfxHeart(); });
+      $("#act-time").addEventListener("click", () => { pet.isSunset = !pet.isSunset; sfxHeart(); });
+
+      function updateCozy() {
+        cCtx.clearRect(0, 0, 600, 340);
+        cCtx.fillStyle = pet.isSunset ? "#f5d5cb" : "#fdf1f5"; cCtx.fillRect(0, 0, 600, 245);
+        cCtx.fillStyle = pet.isSunset ? "#c99679" : "#deb193"; cCtx.fillRect(0, 245, 600, 95);
+        cCtx.fillStyle = "#9599a3"; cCtx.beginPath(); cCtx.arc(pet.x, pet.y - 20, 22, 0, Math.PI * 2); cCtx.fill();
+        requestAnimationFrame(updateCozy);
+      }
+      updateCozy();
+
+      // Arcade Runner
+      const aCanvas = $("#arcade-canvas"), aCtx = aCanvas.getContext("2d"), overlay = $("#arcade-overlay");
+      let arc = { running: false, score: 0, speed: 4.5, lives: 3, cat: { x: 85, y: 275, vy: 0, jumps: 0 }, obstacles: [], collectibles: [] };
+      function startArcade() {
+        arc = { running: true, score: 0, speed: 4.5, lives: 3, cat: { x: 85, y: 275, vy: 0, jumps: 0 }, obstacles: [], collectibles: [] };
+        overlay.classList.add("hidden"); sfxJump();
+      }
+      function arcJump() {
+        if (!arc.running) return;
+        if (arc.cat.jumps < 2) { arc.cat.vy = -11; arc.cat.jumps++; sfxJump(); }
+      }
+      $("#arc-start-btn").addEventListener("click", startArcade);
+      $("#pad-jump").addEventListener("pointerdown", e => { e.preventDefault(); arcJump(); });
+      function updateArcade() {
+        aCtx.clearRect(0, 0, 600, 340);
+        aCtx.fillStyle = "#fce4ec"; aCtx.fillRect(0, 0, 600, 340);
+        aCtx.fillStyle = "#d992ad"; aCtx.fillRect(0, 280, 600, 60);
+        if (arc.running) {
+          arc.cat.y += arc.cat.vy; arc.cat.vy += 0.6;
+          if (arc.cat.y >= 275) { arc.cat.y = 275; arc.cat.vy = 0; arc.cat.jumps = 0; }
+          if (Math.random() < 0.02) arc.collectibles.push({ x: 630, y: 190 });
+          arc.collectibles = arc.collectibles.filter(c => {
+            c.x -= arc.speed; aCtx.font = "22px serif"; aCtx.fillText("💖", c.x, c.y);
+            if (Math.hypot(c.x - arc.cat.x, c.y - arc.cat.y) < 30) { arc.score++; $("#arc-score").textContent = arc.score; sfxHeart(); return false; }
+            return c.x > -40;
+          });
+        }
+        aCtx.fillStyle = "#9599a3"; aCtx.beginPath(); aCtx.arc(arc.cat.x, arc.cat.y - 18, 18, 0, Math.PI * 2); aCtx.fill();
+        requestAnimationFrame(updateArcade);
+      }
+      updateArcade();
+    })();
+  </script>
+</body>
+</html>
