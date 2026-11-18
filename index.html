@@ -1,661 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#fff0f6">
 <title>Chrizza's World ♡</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-
 <style>
-:root {
-  --pink:#f5a8c8;
-  --pink-dark:#dc75a5;
-  --pink-light:#fff0f6;
-  --lavender:#d9c9ff;
-  --purple:#9b83d5;
-  --cream:#fffaf2;
-  --ink:#66546a;
-  --muted:#9c879e;
-  --white:#fff;
-  --shadow:0 12px 35px rgba(194,117,155,.13);
-  --radius:25px;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  color:var(--ink);
-  font-family:'Quicksand',sans-serif;
-  background:
-    radial-gradient(circle at 10% 8%,#ffe0ee 0,transparent 25%),
-    radial-gradient(circle at 90% 25%,#e9e0ff 0,transparent 28%),
-    linear-gradient(145deg,#fff9fc,#fff8f0 55%,#f8f2ff);
-  overflow-x:hidden;
-}
-button{font:inherit;cursor:pointer}
-a{color:inherit}
-::selection{background:#f8c6dd;color:#76516b}
-#sparkles{position:fixed;inset:0;pointer-events:none;z-index:10;overflow:hidden}
-.sparkle{position:absolute;animation:floatUp linear forwards;opacity:.8}
-@keyframes floatUp{from{transform:translateY(0) rotate(0);opacity:0}15%{opacity:.8}to{transform:translateY(-110vh) rotate(300deg);opacity:0}}
-@keyframes bob{50%{transform:translateY(-9px)}}
-@keyframes pulse{50%{transform:scale(1.07)}}
-@keyframes twinkle{50%{opacity:.3;transform:scale(.7)}}
-@keyframes shimmer{to{background-position:200% center}}
-@keyframes sway{50%{transform:rotate(5deg)}}
-@keyframes appear{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-
-nav{
-  position:sticky;top:0;z-index:20;
-  display:flex;align-items:center;justify-content:space-between;
-  gap:15px;padding:13px max(4vw,18px);
-  background:rgba(255,249,253,.82);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(232,174,202,.3);
-}
-.logo{font-family:Pacifico,cursive;color:var(--pink-dark);font-size:1.35rem;white-space:nowrap}
-.navlinks{display:flex;gap:7px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
-.navlinks a{
-  text-decoration:none;font-weight:700;font-size:.78rem;
-  padding:9px 12px;border-radius:30px;transition:.2s
-}
-.navlinks a:hover{background:#ffe3ef;color:#bd6390;transform:translateY(-2px)}
-.menu-toggle{display:none;border:0;background:#ffe6f0;border-radius:50%;padding:10px;color:#a85f85}
-
-.hero{
-  min-height:84vh;display:grid;place-items:center;text-align:center;
-  padding:75px 20px 65px;position:relative;overflow:hidden;
-}
-.hero::before,.hero::after{
-  content:"";position:absolute;border-radius:50%;filter:blur(2px);opacity:.55;
-  animation:bob 5s ease-in-out infinite;
-}
-.hero::before{width:210px;height:210px;background:#ffe0ed;left:-70px;top:15%}
-.hero::after{width:170px;height:170px;background:#e8ddff;right:-40px;bottom:12%;animation-delay:1s}
-.hero-content{position:relative;z-index:1;max-width:850px}
-.eyebrow{letter-spacing:3px;text-transform:uppercase;font-size:.72rem;font-weight:700;color:#bb83a1}
-.hero h1{
-  font-family:Pacifico,cursive;font-size:clamp(3.1rem,9vw,6.7rem);
-  line-height:1.15;margin:16px 0;color:#d77da7;
-  text-shadow:3px 4px 0 #ffe0ec,0 10px 30px #efb8d2;
-}
-.hero p{font-size:clamp(1rem,2.5vw,1.25rem);line-height:1.8;max-width:650px;margin:20px auto;color:#88738d}
-.hero-heart{font-size:3rem;display:inline-block;animation:pulse 1.7s infinite}
-.pill{
-  display:inline-block;padding:11px 19px;border-radius:30px;
-  background:#fff;border:1px solid #f7d3e2;color:#bd7297;
-  font-weight:700;box-shadow:var(--shadow);margin:6px
-}
-.btn{
-  border:0;border-radius:30px;padding:12px 20px;
-  background:linear-gradient(120deg,#f4a9c9,#d8baf7);
-  color:white;font-weight:700;box-shadow:0 7px 17px #dfa9c855;
-  transition:.2s
-}
-.btn:hover{transform:translateY(-3px);filter:saturate(1.1)}
-.btn.secondary{background:white;color:#b66d96;border:1px solid #f2cadd;box-shadow:none}
-section{padding:75px max(5vw,18px);scroll-margin-top:75px}
-.section-heading{text-align:center;margin-bottom:35px}
-.section-heading .mini{font-size:1.6rem}
-.section-heading h2{font-family:Pacifico,cursive;color:#cf7ca3;font-size:clamp(2rem,5vw,3.1rem);margin:8px 0}
-.section-heading p{color:var(--muted);line-height:1.7;max-width:650px;margin:auto}
-.container{max-width:1120px;margin:auto}
-.card{
-  background:rgba(255,255,255,.78);border:1px solid rgba(245,203,222,.8);
-  border-radius:var(--radius);padding:25px;box-shadow:var(--shadow);
-  backdrop-filter:blur(10px)
-}
-.card h3{color:#bd7399}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
-.soft-tag{display:inline-block;background:#fff0f6;color:#c17b9e;padding:6px 11px;border-radius:20px;font-size:.75rem;font-weight:700}
-.divider{height:1px;background:linear-gradient(90deg,transparent,#f2c7dc,transparent);margin:20px 0}
-
-/* ABOUT */
-.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:25px;align-items:stretch}
-.about-note{font-size:1.04rem;line-height:1.95}
-.about-illustration{
-  min-height:280px;border-radius:var(--radius);display:grid;place-items:center;
-  background:linear-gradient(145deg,#ffe0ed,#eee4ff);font-size:6rem;position:relative;overflow:hidden
-}
-.about-illustration span{animation:bob 4s infinite}
-.about-illustration::after{content:"♡  ✦  ♡  ✧  ♡";position:absolute;bottom:20px;color:#c17ba2;letter-spacing:12px;font-size:1rem}
-
-/* LETTERS */
-.letters-wrap{max-width:850px;margin:auto}
-.letter-card{margin:17px 0;padding:0;overflow:hidden}
-.letter-top{
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding:18px 22px;background:linear-gradient(100deg,#fff0f6,#f5efff);
-  cursor:pointer
-}
-.letter-top h3{margin:0;font-family:Pacifico,cursive;font-size:1.15rem}
-.letter-top .arrow{transition:.25s;color:#c47ca1}
-.letter-content{display:none;padding:24px;line-height:1.95;white-space:pre-wrap;font-size:.96rem}
-.letter-card.open .letter-content{display:block;animation:appear .3s}
-.letter-card.open .arrow{transform:rotate(180deg)}
-.letter-content p{margin:0}
-
-/* CINEMA */
-.cinema-scene{
-  background:radial-gradient(ellipse at center,#5b285d,#25152f 75%);
-  border-radius:32px;padding:28px;color:#fff2f7;position:relative;overflow:hidden;
-  box-shadow:0 20px 50px #57365d35
-}
-.cinema-scene:before{content:"✦  ·  ✧      ✦      ·  ✧  ·  ✦";position:absolute;top:18px;left:0;right:0;text-align:center;color:#f9d6a9;letter-spacing:12px;opacity:.7}
-.cinema-sign{text-align:center;font-family:Pacifico,cursive;color:#ffd6a7;font-size:clamp(1.8rem,5vw,3rem);margin:20px 0 5px;text-shadow:0 0 15px #f5a4c8}
-.cinema-sub{text-align:center;color:#e8c8db;margin-bottom:24px}
-.curtains{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:600px;margin:auto}
-.curtain{
-  height:23px;background:repeating-linear-gradient(90deg,#a33d70 0 18px,#7c2857 18px 36px);
-  border-radius:50% 50% 8px 8px;box-shadow:0 5px 10px #160d20
-}
-.screen{
-  max-width:600px;margin:0 auto 25px;padding:12px;
-  background:linear-gradient(145deg,#f7d8ed,#d7c6ff);
-  border:7px solid #a76b8e;border-radius:12px;box-shadow:0 0 35px #f7b6d855
-}
-.screen-inner{
-  background:#30213c;border-radius:5px;min-height:130px;display:grid;place-items:center;
-  text-align:center;font-size:3rem
-}
-.screen-inner small{display:block;font-size:.8rem;color:#f7d6e8;margin-top:5px}
-.movie-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:17px;margin-top:25px}
-.movie{background:#ffffff12;border:1px solid #ffffff20;border-radius:17px;padding:12px;text-align:center}
-.movie img{width:100%;height:205px;object-fit:cover;border-radius:10px;background:#49364e}
-.movie h4{margin:10px 0 4px;color:#ffe1ed}
-.movie p{font-size:.8rem;color:#d9c3d7;margin:0}
-.popcorn{position:absolute;right:18px;top:20px;font-size:2.8rem;animation:sway 2s infinite}
-.tickets{text-align:center;margin-top:24px}
-
-/* MAP */
-.map-card{padding:15px}
-#loveMap{height:420px;width:100%;border-radius:18px;z-index:1}
-.map-info{display:flex;justify-content:space-around;gap:12px;flex-wrap:wrap;margin-top:18px}
-.map-place{background:#fff2f7;border-radius:15px;padding:13px 18px;text-align:center;flex:1;min-width:180px}
-.map-place strong{display:block;color:#bd7297;margin-bottom:5px}
-.map-place span{font-size:.85rem;color:#927f96}
-.map-note{text-align:center;line-height:1.8;margin:20px auto 0;max-width:700px}
-
-/* MOON */
-.moon-section{
-  border-radius:35px;overflow:hidden;position:relative;
-  background:radial-gradient(ellipse at 70% 25%,#534a83,#1e2349 55%,#10152f);
-  color:#fff;padding:42px 25px;box-shadow:0 20px 45px #20204735
-}
-.moon-section:before{
-  content:"";position:absolute;inset:0;opacity:.6;
-  background-image:radial-gradient(2px 2px at 15% 25%,white 50%,transparent),radial-gradient(2px 2px at 80% 30%,white 50%,transparent),radial-gradient(1px 1px at 45% 70%,white 50%,transparent),radial-gradient(2px 2px at 92% 80%,white 50%,transparent),radial-gradient(1px 1px at 25% 88%,white 50%,transparent);
-  background-size:170px 160px
-}
-.moon-content{position:relative;z-index:1;text-align:center;max-width:800px;margin:auto}
-.moon-content h2{font-family:Pacifico,cursive;font-size:clamp(2rem,5vw,3rem);color:#ffe2f1}
-.celestial{height:220px;display:flex;align-items:center;justify-content:center;gap:35px}
-.moon-ball{
-  width:135px;height:135px;border-radius:50%;
-  background:radial-gradient(circle at 35% 30%,#fff9e8,#e9d6b5 45%,#a99caa 80%);
-  box-shadow:0 0 35px #fff2c9,0 0 80px #f5d9c877;position:relative
-}
-.moon-ball:after{content:"";position:absolute;inset:20px;border-radius:50%;background:radial-gradient(circle at 70% 60%,#c8b9a8 0 5px,transparent 6px),radial-gradient(circle at 35% 35%,#c8b9a8 0 8px,transparent 9px)}
-.venus-ball{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff8dc,#e9b4a1 70%);box-shadow:0 0 30px #ffe6b5}
-.celestial-heart{font-size:1.5rem;color:#ffc4e2;animation:pulse 1.8s infinite}
-#starCanvas{width:100%;max-width:650px;height:170px;display:block;margin:15px auto;border:1px solid #ffffff35;border-radius:18px;cursor:crosshair;background:#ffffff08}
-.canvas-hint{font-size:.8rem;color:#d9d1f0}
-.moon-copy{line-height:1.9;color:#eee4fa;max-width:720px;margin:20px auto}
-
-/* ITALIAN */
-.lesson-tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin-bottom:22px}
-.lesson-tabs button{border:1px solid #f1cadd;background:#fff;padding:10px 16px;border-radius:25px;color:#a96b90;font-weight:700}
-.lesson-tabs button.active{background:#e9d9ff;border-color:#d5c1fa;color:#7559a5}
-.lesson-panel{display:none;animation:appear .25s}
-.lesson-panel.active{display:block}
-.vocab{width:100%;border-collapse:collapse;margin-top:10px}
-.vocab td,.vocab th{padding:12px;text-align:left;border-bottom:1px solid #f5e1eb}
-.vocab th{color:#bd7297}
-.example{background:#fff4f8;padding:13px;border-radius:13px;margin:10px 0;line-height:1.7}
-.quiz-box{background:#f9f3ff;border-radius:18px;padding:20px;margin-top:20px}
-.answer-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
-.answer-row button{border:1px solid #ddc9f3;background:white;border-radius:20px;padding:10px 15px;color:#826aa2}
-.feedback{font-weight:700;margin-top:12px;min-height:24px}
-
-/* COUPLE QUIZ */
-.quiz-shell{max-width:750px;margin:auto}
-.progress{height:9px;background:#f8e2ed;border-radius:10px;overflow:hidden;margin:15px 0 25px}
-.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#f2a5c8,#c5a6ef);transition:.3s}
-.question{text-align:center;font-size:1.4rem;font-weight:700;line-height:1.5;margin:20px 0}
-.answers{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.answers button{background:#fff;border:1px solid #f0d2e0;border-radius:17px;padding:15px;color:#806b84;font-weight:700;transition:.2s}
-.answers button:hover{transform:translateY(-3px);background:#fff0f6}
-.answers button:disabled{opacity:.7;cursor:default}
-.reaction{min-height:70px;margin-top:18px;padding:15px;border-radius:16px;background:#fff3f8;line-height:1.7;text-align:center}
-.quiz-footer{display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:10px}
-.score{font-weight:700;color:#c0759b}
-
-/* TORTORO */
-.game-card{text-align:center}
-.game-emoji{font-size:3rem;animation:bob 3s infinite}
-.game-result{min-height:30px;font-weight:700;color:#b9759a;margin-top:12px}
-.tap-area{
-  height:155px;border-radius:20px;background:linear-gradient(145deg,#ffe4f0,#eee3ff);
-  display:grid;place-items:center;margin-top:15px;font-size:3.5rem;user-select:none;touch-action:manipulation
-}
-.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:15px}
-.memory-tile{border:0;border-radius:13px;background:#eadfff;min-height:65px;font-size:1.6rem}
-.memory-tile.revealed{background:#fff0f6}
-footer{text-align:center;padding:35px 20px;color:#a58da7}
-footer .footer-heart{font-size:2rem;color:#e99abb}
-@media(max-width:760px){
-  nav{align-items:flex-start}
-  .menu-toggle{display:block}
-  .navlinks{display:none;position:absolute;top:60px;left:12px;right:12px;background:#fff9fc;padding:15px;border-radius:20px;box-shadow:var(--shadow)}
-  .navlinks.show{display:flex;justify-content:center}
-  .navlinks a{font-size:.75rem}
-  .about-grid{grid-template-columns:1fr}
-  section{padding-top:55px;padding-bottom:55px}
-  .popcorn{font-size:2rem}
-  #loveMap{height:340px}
-  .answers{grid-template-columns:1fr}
-}
+:root{--pink:#f5a8c8;--deep:#cf7ca3;--lav:#d9c9ff;--ink:#66546a;--muted:#9c879e;--shadow:0 12px 35px #c2759b22;--radius:25px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);font-family:Quicksand,sans-serif;background:radial-gradient(circle at 10% 8%,#ffe0ee 0,transparent 25%),radial-gradient(circle at 90% 25%,#e9e0ff 0,transparent 28%),linear-gradient(145deg,#fff9fc,#fff8f0 55%,#f8f2ff);overflow-x:hidden}
+button,a{font:inherit}button{cursor:pointer}a{color:inherit}::selection{background:#f8c6dd}
+#sparkles{position:fixed;inset:0;pointer-events:none;z-index:30;overflow:hidden}.sparkle{position:absolute;animation:floatUp linear forwards}@keyframes floatUp{to{transform:translateY(-110vh) rotate(300deg);opacity:0}}@keyframes bob{50%{transform:translateY(-9px)}}@keyframes pulse{50%{transform:scale(1.08)}}@keyframes appear{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
+nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:13px max(4vw,18px);background:#fff9f3dd;backdrop-filter:blur(16px);border-bottom:1px solid #e8aeca55}
+.logo{font-family:Pacifico,cursive;color:var(--deep);font-size:1.35rem;white-space:nowrap}.navlinks{display:flex;gap:5px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.navlinks a{text-decoration:none;font-weight:700;font-size:.76rem;padding:9px 10px;border-radius:30px}.navlinks a:hover{background:#ffe3ef;color:#bd6390}.menu-toggle{display:none;border:0;background:#ffe6f0;border-radius:50%;padding:10px;color:#a85f85}
+.hero{min-height:83vh;display:grid;place-items:center;text-align:center;padding:70px 20px;position:relative;overflow:hidden}.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;filter:blur(2px);opacity:.55;animation:bob 5s ease-in-out infinite}.hero:before{width:210px;height:210px;background:#ffe0ed;left:-70px;top:15%}.hero:after{width:170px;height:170px;background:#e8ddff;right:-40px;bottom:12%}.hero-content{position:relative;z-index:1;max-width:850px}.eyebrow{letter-spacing:3px;text-transform:uppercase;font-size:.72rem;font-weight:700;color:#bb83a1}.hero h1{font-family:Pacifico,cursive;font-size:clamp(3.1rem,9vw,6.7rem);line-height:1.15;margin:16px 0;color:#d77da7;text-shadow:3px 4px #ffe0ec}.hero p{font-size:clamp(1rem,2.5vw,1.2rem);line-height:1.8;max-width:680px;margin:20px auto;color:#88738d}.hero-heart{font-size:3rem;display:inline-block;animation:pulse 1.7s infinite}
+.pill,.tag{display:inline-block;padding:9px 16px;border-radius:30px;background:#fff;border:1px solid #f7d3e2;color:#bd7297;font-weight:700;box-shadow:var(--shadow);margin:5px}.btn{border:0;border-radius:30px;padding:12px 20px;background:linear-gradient(120deg,#f4a9c9,#bfa6ed);color:white;font-weight:700;box-shadow:0 7px 17px #dfa9c855;transition:.2s}.btn:hover{transform:translateY(-3px)}.btn.secondary{background:white;color:#b66d96;border:1px solid #f2cadd;box-shadow:none}
+section{padding:70px max(5vw,18px);scroll-margin-top:75px}.container{max-width:1120px;margin:auto}.heading{text-align:center;margin-bottom:32px}.heading .mini{font-size:1.5rem}.heading h2{font-family:Pacifico,cursive;color:var(--deep);font-size:clamp(2rem,5vw,3rem);margin:8px 0}.heading p{color:var(--muted);line-height:1.7;max-width:680px;margin:auto}.card{background:#ffffffc9;border:1px solid #f5cbdecc;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);backdrop-filter:blur(10px)}.card h3{color:#bd7399}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}.tag{font-size:.75rem;background:#fff0f6;box-shadow:none;border:0}
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}.about-note{line-height:1.9}.about-art{min-height:280px;border-radius:var(--radius);display:grid;place-items:center;background:linear-gradient(145deg,#ffe0ed,#eee4ff);font-size:5rem}.about-art span{animation:bob 4s infinite}
+.story-timeline{max-width:850px;margin:auto;display:grid;gap:14px}.story-step{display:grid;grid-template-columns:62px 1fr;gap:15px;align-items:start}.story-number{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#f5b5d0,#d7c3fa);color:white;font-weight:700;font-size:1.1rem;box-shadow:var(--shadow)}.story-step .card{line-height:1.85}.story-step h3{margin:0 0 8px}
+.heart-card{text-align:center;max-width:850px;margin:auto}.heart-button{border:0;background:none;font-size:3rem;color:#e77fae;animation:pulse 1.5s infinite}.ecg{width:100%;height:105px;display:block;margin:12px auto}.ecg path{fill:none;stroke:#df80aa;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:500;stroke-dashoffset:0;animation:ecg 2.5s linear infinite}.heart-card.fast .ecg path{animation-duration:.65s;stroke:#e34d91}@keyframes ecg{to{stroke-dashoffset:-500}}.heart-message{min-height:35px;color:#c66c99;font-weight:700;font-size:1.08rem}
+.letters-wrap{max-width:850px;margin:auto}.letter{margin:14px 0;padding:0;overflow:hidden}.letter-top{display:flex;align-items:center;justify-content:space-between;padding:17px 21px;background:linear-gradient(100deg,#fff0f6,#f5efff);cursor:pointer}.letter-top h3{margin:0;font-family:Pacifico,cursive;font-size:1.12rem}.letter-content{display:none;padding:22px;line-height:1.9;white-space:pre-wrap}.letter.open .letter-content{display:block;animation:appear .25s}.arrow{transition:.2s}.letter.open .arrow{transform:rotate(180deg)}
+.playlist{max-width:900px;margin:auto}.song{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:17px 0;border-bottom:1px solid #f3dce8}.song:last-child{border:0}.song h3{margin:0 0 5px}.song p{margin:0;color:var(--muted);font-size:.88rem}.song-links{display:flex;gap:8px;flex-wrap:wrap}.song-links a{text-decoration:none;border:1px solid #f0cddd;border-radius:20px;padding:8px 12px;color:#b66d96;font-size:.8rem;font-weight:700;background:#fff}
+.cinema{background:radial-gradient(ellipse at center,#5b285d,#25152f 75%);border-radius:30px;padding:28px;color:#fff2f7;box-shadow:0 20px 50px #57365d35}.cinema-title{text-align:center;font-family:Pacifico,cursive;color:#ffd6a7;font-size:clamp(1.8rem,5vw,3rem);margin:10px}.cinema-sub{text-align:center;color:#e8c8db;margin-bottom:25px}.movie-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:15px}.movie{background:#ffffff12;border:1px solid #ffffff20;border-radius:17px;padding:12px;text-align:center}.poster{height:205px;border-radius:10px;background:linear-gradient(145deg,#f1b8d1,#7e5b8a);display:grid;place-items:center;font-size:2.4rem;color:white;text-shadow:0 2px 10px #452b4a;padding:12px}.movie h4{margin:10px 0 4px;color:#ffe1ed}.movie p{font-size:.8rem;color:#d9c3d7;margin:0}
+#loveMap{height:400px;width:100%;border-radius:18px}.map-info{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}.map-place{background:#fff2f7;border-radius:15px;padding:13px 18px;text-align:center;flex:1;min-width:180px}.map-place strong{display:block;color:#bd7297;margin-bottom:5px}
+.moon-section{border-radius:32px;background:radial-gradient(ellipse at 70% 25%,#534a83,#1e2349 55%,#10152f);color:white;padding:38px 22px;text-align:center}.moon-section h2{font-family:Pacifico,cursive;color:#ffe2f1;font-size:2.5rem}.celestial{height:190px;display:flex;align-items:center;justify-content:center;gap:30px}.moon-ball{width:125px;height:125px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff9e8,#e9d6b5 45%,#a99caa 80%);box-shadow:0 0 45px #fff2c9}.venus-ball{width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff8dc,#e9b4a1 70%);box-shadow:0 0 30px #ffe6b5}#starCanvas{width:100%;max-width:650px;height:170px;display:block;margin:15px auto;border:1px solid #ffffff55;border-radius:16px;background:#ffffff0d;touch-action:none}.moon-copy{line-height:1.9;color:#eee4fa;max-width:720px;margin:15px auto}
+.lesson-tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:20px}.lesson-tabs button{border:1px solid #f1cadd;background:white;padding:10px 15px;border-radius:25px;color:#a96b90;font-weight:700}.lesson-tabs button.active{background:#e9d9ff;color:#7559a5}.lesson-panel{display:none}.lesson-panel.active{display:block;animation:appear .2s}.vocab{width:100%;border-collapse:collapse}.vocab td,.vocab th{padding:11px;text-align:left;border-bottom:1px solid #f5e1eb}.vocab th{color:#bd7297}.example{background:#fff4f8;padding:13px;border-radius:13px;margin:10px 0;line-height:1.7}.answers-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.answers-row button{border:1px solid #ddc9f3;background:white;border-radius:20px;padding:10px 15px;color:#826aa2}
+.quiz-shell{max-width:750px;margin:auto}.progress{height:9px;background:#f8e2ed;border-radius:10px;overflow:hidden;margin:15px 0 25px}.progress span{display:block;height:100%;background:linear-gradient(90deg,#f2a5c8,#c5a6ef);transition:.3s}.question{text-align:center;font-size:1.35rem;font-weight:700;margin:20px 0}.answers{display:grid;grid-template-columns:1fr 1fr;gap:10px}.answers button{background:white;border:1px solid #f0d2e0;border-radius:15px;padding:14px;color:#806b84;font-weight:700}.reaction{min-height:60px;margin-top:16px;padding:14px;border-radius:15px;background:#fff3f8;line-height:1.6;text-align:center}.quiz-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px}
+.game-card{text-align:center}.game-emoji{font-size:2.8rem;animation:bob 3s infinite}.tap-arena{height:190px;border-radius:20px;background:linear-gradient(145deg,#ffe4f0,#eee3ff);position:relative;margin:15px 0;overflow:hidden;touch-action:manipulation}.tortoro-target{position:absolute;border:0;background:#ffffffb8;border-radius:50%;width:76px;height:76px;font-size:2.7rem;display:grid;place-items:center;box-shadow:0 7px 18px #9f7da933;transition:transform .12s}.tortoro-target:active{transform:scale(.85)}.game-result{min-height:27px;font-weight:700;color:#b9759a;margin-top:10px}.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:15px}.memory-tile{border:0;border-radius:13px;background:#eadfff;min-height:68px;font-size:1.6rem}.memory-tile.revealed{background:#fff0f6}.memory-tile.matched{background:#e6f7e9}.note-box{background:#fff4f8;border-radius:16px;padding:17px;min-height:90px;display:grid;place-items:center;line-height:1.7}
+footer{text-align:center;padding:35px 20px;color:#a58da7}footer .footer-heart{font-size:2rem;color:#e99abb}
+@media(max-width:760px){nav{align-items:flex-start}.menu-toggle{display:block}.navlinks{display:none;position:absolute;top:60px;left:12px;right:12px;background:#fff9fc;padding:15px;border-radius:20px;box-shadow:var(--shadow)}.navlinks.show{display:flex;justify-content:center}.about-grid{grid-template-columns:1fr}section{padding-top:52px;padding-bottom:52px}.answers{grid-template-columns:1fr}.song{align-items:flex-start;flex-direction:column}#loveMap{height:330px}.story-step{grid-template-columns:45px 1fr}.story-number{width:38px;height:38px}}
 </style>
 </head>
-
 <body>
 <div id="sparkles"></div>
+<nav><div class="logo">Chrizza's World ♡</div><button class="menu-toggle" id="menuToggle" aria-label="Apri menu">☰</button><div class="navlinks" id="navlinks">
+<a href="#home">Home</a><a href="#about">Story</a><a href="#heart">Heart</a><a href="#letters">Letters</a><a href="#playlist">Playlist</a><a href="#cinema">Cinema</a><a href="#map">Distance</a><a href="#moon">Moon & Venus</a><a href="#italian">Italian</a><a href="#quiz">Quiz</a><a href="#tortoro">Tortoro</a>
+</div></nav>
+<header class="hero" id="home"><div class="hero-content"><div class="hero-heart">♡</div><div class="eyebrow">A little universe made for two</div><h1>Chrizza's World</h1><p>Un piccolo angolo di internet per la mia bellissima principessa. Anche attraverso la distanza, sotto la stessa luna, scegliendoci ogni giorno.</p><span class="pill">Stefano ♡ Chrizza</span><span class="pill">Italy ✦ Philippines</span><p><a class="btn" href="#about" style="text-decoration:none;display:inline-block;margin-top:12px">Entra nel nostro mondo ♡</a></p></div></header>
 
-<nav>
-  <div class="logo">Chrizza's World ♡</div>
-  <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
-  <div class="navlinks" id="navlinks">
-    <a href="#home">Home</a>
-    <a href="#about">Our story</a>
-    <a href="#letters">Letters</a>
-    <a href="#cinema">Cinema</a>
-    <a href="#map">Distance</a>
-    <a href="#moon">Moon & Venus</a>
-    <a href="#italian">Italian</a>
-    <a href="#quiz">Quiz</a>
-    <a href="#tortoro">Tortoro</a>
-  </div>
-</nav>
+<section id="about"><div class="container"><div class="heading"><div class="mini">🌷 🧸 🌷</div><h2>La nostra storia</h2><p>Due persone, due Paesi, una storia cominciata per caso e diventata casa.</p></div>
+<div class="story-timeline">
+<div class="story-step"><div class="story-number">01</div><div class="card"><h3>Una notte, una stanza buia e una maglietta fin troppo luminosa</h3>Ci siamo incontrati su OmeTV. Tu eri in una stanza buia, di notte, già pronta ad andare a dormire. Dalla mia parte, invece, era primo pomeriggio. Indossavo una maglietta bianca così luminosa che probabilmente ti ho accecata: praticamente una lampadina ambulante, ahah. Riuscii a vedere il tuo viso soltanto per due secondi, ma a volte bastano davvero pochi istanti perché qualcosa cominci.</div></div>
+<div class="story-step"><div class="story-number">02</div><div class="card"><h3>Le prime chiacchiere e le mie figuracce</h3>Cominciammo a parlare dei nostri hobby e, a un certo punto, mi chiedesti quanti anni avessi. Io, con una naturalezza imbarazzante, mentii dicendoti che avevamo la stessa età: in realtà sono più grande di un anno. Ti raccontai anche che il mio film preferito era <em>Una notte da leoni</em> e che andavo in palestra. Per dimostrartelo, pensai bene di flettere il bicipite davanti alla telecamera. Sì, lo so: un gesto davvero poco elegante e decisamente cringe. 😂</div></div>
+<div class="story-step"><div class="story-number">03</div><div class="card"><h3>Un Reel, un messaggio e la sensazione di essere ascoltato</h3>Ti lasciai il mio Instagram e, due giorni dopo, fosti tu a scrivermi per prima, mandandomi un Reel. Era un approccio diverso da quello a cui ero abituato e proprio per questo mi incuriosì. Mi dicesti che, pur essendo italiano, sembravo messicano; e soprattutto guardasti il film che ti avevo consigliato. Quel piccolo gesto mi fece sentire ascoltato. Non era soltanto una conversazione: stavi dando importanza alle cose che ti raccontavo.</div></div>
+<div class="story-step"><div class="story-number">04</div><div class="card"><h3>Il 18 dicembre</h3>Dopo appena due settimane da quel primo incontro, il 18 dicembre, trovai il coraggio di chiederti di diventare la mia ragazza. Da una conoscenza nata quasi per caso era cominciato qualcosa che, senza saperlo, avrebbe cambiato le nostre giornate e il nostro modo di guardare al futuro.</div></div>
+<div class="story-step"><div class="story-number">05</div><div class="card"><h3>Da due timidi a una quotidianità insieme</h3>All'inizio eravamo timidissimi. Persino fare una videochiamata sembrava difficile: avevamo tante cose da dirci, ma a volte non sapevamo nemmeno da dove cominciare. Oggi, invece, ci chiamiamo ogni giorno e ci addormentiamo insieme in videochiamata. Quello che prima ci metteva in imbarazzo è diventato una delle parti più belle della nostra quotidianità. Da allora ci amiamo alla follia. E questa, Chrizza, è soltanto la nostra storia che continua.</div></div>
+</div></div></section>
 
-<header class="hero" id="home">
-  <div class="hero-content">
-    <div class="hero-heart">♡</div>
-    <div class="eyebrow">A little universe made for two</div>
-    <h1>Chrizza's World</h1>
-    <p>A tiny corner of the internet for my beautiful principessa.
-      Across the distance, under the same moon, always choosing each other.</p>
-    <div>
-      <span class="pill">Stefano ♡ Chrizza</span>
-      <span class="pill">Italy ✦ Philippines</span>
-    </div>
-    <p><a class="btn" href="#about" style="text-decoration:none;display:inline-block;margin-top:15px">Enter our little world ♡</a></p>
-  </div>
-</header>
+<section id="heart"><div class="container"><div class="heading"><div class="mini">💗</div><h2>My heart, your rhythm</h2><p>Premi il cuore e guarda il mio battito cambiare per te.</p></div><div class="card heart-card" id="heartCard"><button class="heart-button" id="heartButton" aria-label="Fai battere il cuore">♡</button><svg class="ecg" viewBox="0 0 700 110" preserveAspectRatio="none" aria-hidden="true"><path d="M0 56 L150 56 L175 56 L190 42 L205 72 L225 12 L246 91 L265 56 L370 56 L390 56 L405 43 L420 69 L440 25 L458 83 L476 56 L700 56"/></svg><div class="heart-message" id="heartMessage">Il mio cuore ha un ritmo tutto suo. Tocca il cuore per scoprirlo. ♡</div></div></div></section>
 
-<section id="about">
-  <div class="container">
-    <div class="section-heading">
-      <div class="mini">🌷 🧸 🌷</div>
-      <h2>Our little story</h2>
-      <p>Two people, two countries, one story that keeps growing.</p>
-    </div>
-    <div class="about-grid">
-      <div class="card about-note">
-        <span class="soft-tag">A love across the world</span>
-        <h3>From a random night to my favourite person</h3>
-        It all started in the most unexpected way. A random OmeTV night turned into
-        conversations, laughter, video calls, games, little traditions and a love
-        that became part of everyday life.
-        <br><br>
-        Arcore and Bugo may be far away from each other, but distance doesn't get
-        to decide how close two hearts can feel. This is our little place to keep
-        memories, celebrate our monthsaries and dream about everything still waiting
-        for us.
-        <div class="divider"></div>
-        <strong>To my Chrizza:</strong> you are my patatina, my bella principessa,
-        my favourite notification and my favourite person. Ti amo. 💗
-      </div>
-      <div class="about-illustration">
-        <span>🐻‍❄️💕🐰</span>
-      </div>
-    </div>
-  </div>
-</section>
+<section id="letters"><div class="container"><div class="heading"><div class="mini">💌</div><h2>Letters for my patatina</h2><p>Ogni mese, un altro piccolo pezzo del mio cuore. Apri una lettera per leggerla.</p></div><div class="letters-wrap" id="lettersList"></div></div></section>
 
-<section id="letters">
-  <div class="container">
-    <div class="section-heading">
-      <div class="mini">💌</div>
-      <h2>Letters for my patatina</h2>
-      <p>Every month, another little piece of my heart. Tap a letter to read it.</p>
-    </div>
-    <div class="letters-wrap" id="lettersList"></div>
-  </div>
-</section>
+<section id="playlist"><div class="container"><div class="heading"><div class="mini">🎧 💗</div><h2>Our little playlist</h2><p>Canzoni che mi fanno pensare a te, anche quando siamo lontani.</p></div><div class="card playlist" id="songList"></div></div></section>
 
-<section id="cinema">
-  <div class="container">
-    <div class="section-heading">
-      <div class="mini">🍿 🎬</div>
-      <h2>Our little cinema</h2>
-      <p>Imagine we're sitting next to each other, sharing popcorn and arguing about what to watch.</p>
-    </div>
-    <div class="cinema-scene">
-      <div class="popcorn">🍿</div>
-      <div class="cinema-sign">The Patatina Cinema</div>
-      <div class="cinema-sub">Now showing: movies for two ♡</div>
-      <div class="curtains"><div class="curtain"></div><div class="curtain"></div></div>
-      <div class="screen">
-        <div class="screen-inner">
-          <div>🎞️<small>Two hearts · One story · Infinite replays</small></div>
-        </div>
-      </div>
-      <div class="movie-grid">
-        <div class="movie">
-          <img src="https://image.tmdb.org/t/p/w500/gGEsBPAijhVUFoiNpgZXqRVWJt2.jpg" alt="Coco movie poster" onerror="this.src='https://placehold.co/400x600/65425e/fff?text=Coco'">
-          <h4>Coco</h4><p>A little music and a lot of heart</p>
-        </div>
-        <div class="movie">
-          <img src="https://image.tmdb.org/t/p/w500/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg" alt="Inside Out 2 movie poster" onerror="this.src='https://placehold.co/400x600/65425e/fff?text=Inside+Out+2'">
-          <h4>Inside Out 2</h4><p>All the feelings, together</p>
-        </div>
-        <div class="movie">
-          <img src="https://image.tmdb.org/t/p/w500/kDp1vUBnMpe8ak4rjGL...jpg" alt="Kung Fu Panda movie poster" onerror="this.src='https://placehold.co/400x600/65425e/fff?text=Kung+Fu+Panda'">
-          <h4>Kung Fu Panda</h4><p>Po and his legendary dumplings</p>
-        </div>
-        <div class="movie">
-          <img src="https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg" alt="Oppenheimer movie poster" onerror="this.src='https://placehold.co/400x600/65425e/fff?text=Movie+Night'">
-          <h4>Movie night</h4><p>You choose. I'll bring the popcorn.</p>
-        </div>
-      </div>
-      <div class="tickets">
-        <span class="soft-tag">ADMIT TWO · FOREVER</span>
-        <p>One ticket for Chrizza, one for Stefano. No expiration date. 💗</p>
-      </div>
-    </div>
-  </div>
-</section>
+<section id="cinema"><div class="container"><div class="heading"><div class="mini">🍿 🎬</div><h2>Our little cinema</h2><p>Sei film che fanno parte delle nostre serate. Il prossimo? Lo scegliamo insieme.</p></div><div class="cinema"><div class="cinema-title">The Patatina Cinema</div><div class="cinema-sub">ADMIT TWO · FOREVER ♡</div><div class="movie-grid" id="movieGrid"></div><p style="text-align:center;margin:24px 0 0;color:#f3d7e8">Un posto per Chrizza, uno per Stefano. Nessuna data di scadenza. 💗</p></div></div></section>
 
-<section id="map">
-  <div class="container">
-    <div class="section-heading">
-      <div class="mini">🌍 💗 ✈️</div>
-      <h2>Two places, one heart</h2>
-      <p>A little map connecting our two corners of the world.</p>
-    </div>
-    <div class="card map-card">
-      <div id="loveMap" aria-label="Interactive map connecting Arcore and Bugo"></div>
-      <div class="map-info">
-        <div class="map-place"><strong>🇮🇹 Arcore, Italy</strong><span>Stefano's side of the world</span></div>
-        <div class="map-place"><strong>🇵🇭 Bugo, Cagayan de Oro</strong><span>Chrizza's side of the world</span></div>
-      </div>
-      <p class="map-note">
-        The map shows the two places and a line connecting them. The distance is
-        approximately <strong>10,500 km</strong> as the crow flies (the exact travel
-        distance depends on the route). A lot of kilometres, but never enough to
-        measure how much we care about each other. ♡
-      </p>
-    </div>
-  </div>
-</section>
+<section id="map"><div class="container"><div class="heading"><div class="mini">🌍 💗 ✈️</div><h2>Two places, one heart</h2><p>Una piccola mappa che collega i nostri due angoli del mondo.</p></div><div class="card"><div id="loveMap" aria-label="Mappa interattiva tra Arcore e Bugo"></div><div class="map-info"><div class="map-place"><strong>🇮🇹 Arcore, Italy</strong><span>Stefano's side of the world</span></div><div class="map-place"><strong>🇵🇭 Bugo, Cagayan de Oro</strong><span>Chrizza's side of the world</span></div></div><p style="text-align:center;line-height:1.8">Circa 10.500 km in linea d'aria. Tanti chilometri, ma nessuna distanza può misurare quanto ci vogliamo bene. ♡</p></div></div></section>
 
-<section id="moon">
-  <div class="container">
-    <div class="section-heading">
-      <div class="mini">🌙 ✨</div>
-      <h2>Our celestial kiss</h2>
-      <p>The Moon and Venus, a little reminder that beautiful things can meet even from far away.</p>
-    </div>
-    <div class="moon-section">
-      <div class="moon-content">
-        <span class="soft-tag">Our special sky</span>
-        <h2>The Moon kissed Venus ♡</h2>
-        <div class="celestial">
-          <div class="moon-ball" aria-label="Illustration of the Moon"></div>
-          <div class="celestial-heart">♡</div>
-          <div class="venus-ball" aria-label="Illustration of Venus"></div>
-        </div>
-        <p class="moon-copy">
-          They look close from where we stand, even though they are separated by
-          an unimaginable distance. It reminds me of us: two people in different
-          countries, looking at the same sky, finding a way to feel close.
-          I hope one day we won't have to look at the same Moon from different
-          places. I hope we'll be standing side by side, watching it together.
-        </p>
-        <h3>Draw our own little constellation ✨</h3>
-        <p class="canvas-hint">Tap or drag on the night sky to add stars. Make your own constellation!</p>
-        <canvas id="starCanvas"></canvas>
-        <button class="btn secondary" id="clearStars">Clear the stars</button>
-      </div>
-    </div>
-  </div>
-</section>
+<section id="moon"><div class="container"><div class="heading"><div class="mini">🌙 ✨</div><h2>Our celestial kiss</h2><p>La Luna e Venere, un piccolo promemoria: anche le cose lontane possono sembrare vicine.</p></div><div class="moon-section"><span class="tag">Our special sky</span><h2>The Moon kissed Venus ♡</h2><div class="celestial"><div class="moon-ball"></div><div style="font-size:1.7rem;color:#ffc4e2">♡</div><div class="venus-ball"></div></div><p class="moon-copy">Sembrano vicine da dove le osserviamo, anche se sono separate da distanze immense. Mi ricordano noi: due persone in Paesi diversi, sotto lo stesso cielo, che trovano sempre un modo per sentirsi vicine. Spero che un giorno non dovremo più guardare la stessa Luna da luoghi lontani: saremo fianco a fianco, a guardarla insieme.</p><h3>Draw our own constellation ✨</h3><p style="font-size:.82rem;color:#ded5f1">Tocca o trascina sul cielo per aggiungere stelle.</p><canvas id="starCanvas"></canvas><button class="btn secondary" id="clearStars">Clear the stars</button></div></div></section>
 
-<section id="italian">
-  <div class="container">
-    <div class="section-heading">
-      <div class="mini">🇮🇹 🍓</div>
-      <h2>Learn Italian with Stefano</h2>
-      <p>A little Italian lesson for my beautiful Filipina. Let's make you a tiny Italian expert!</p>
-    </div>
-    <div class="card">
-      <div class="lesson-tabs">
-        <button class="active" data-tab="words">Cute words</button>
-        <button data-tab="phrases">Useful phrases</button>
-        <button data-tab="grammar">Grammar</button>
-        <button data-tab="pronunciation">Pronunciation</button>
-        <button data-tab="practice">Mini practice</button>
-      </div>
+<section id="italian"><div class="container"><div class="heading"><div class="mini">🇮🇹 🍓</div><h2>Learn Italian with Stefano</h2><p>Una piccola lezione per la mia bellissima Filipina.</p></div><div class="card"><div class="lesson-tabs"><button class="active" data-tab="words">Cute words</button><button data-tab="phrases">Phrases</button><button data-tab="grammar">Grammar</button><button data-tab="pronunciation">Pronunciation</button><button data-tab="practice">Mini practice</button></div>
+<div class="lesson-panel active" id="words"><h3>💗 Words of affection</h3><table class="vocab"><tr><th>Italiano</th><th>English</th><th>Pronuncia</th></tr><tr><td>Amore mio</td><td>My love</td><td>ah-MOH-reh MEE-oh</td></tr><tr><td>Patatina</td><td>Little potato (cute nickname!)</td><td>pah-tah-TEE-nah</td></tr><tr><td>Principessa</td><td>Princess</td><td>preen-cheh-PEHS-sah</td></tr><tr><td>Bellissima</td><td>Very beautiful</td><td>bel-LEES-see-mah</td></tr><tr><td>Tesoro</td><td>Treasure / sweetheart</td><td>teh-ZOH-roh</td></tr><tr><td>Mi manchi</td><td>I miss you</td><td>mee MAHN-kee</td></tr><tr><td>Ti amo</td><td>I love you</td><td>tee AH-moh</td></tr><tr><td>Un bacino</td><td>A little kiss</td><td>oon bah-CHEE-noh</td></tr></table></div>
+<div class="lesson-panel" id="phrases"><h3>🌸 Everyday phrases</h3><div class="example"><b>Come stai?</b> — How are you?<br><i>Sto bene, e tu?</i> — I'm good, and you?</div><div class="example"><b>Buonanotte, amore mio.</b> — Good night, my love.</div><div class="example"><b>Mi manchi tantissimo.</b> — I miss you so much.</div><div class="example"><b>Vorrei essere lì con te.</b> — I wish I were there with you.</div><div class="example"><b>Non vedo l'ora di abbracciarti.</b> — I can't wait to hug you.</div></div>
+<div class="lesson-panel" id="grammar"><h3>📚 A tiny grammar lesson</h3><p><b>Essere — to be</b></p><div class="example">Io sono = I am · Tu sei = You are · Lui/Lei è = He/She is · Noi siamo = We are · Voi siete = You are · Loro sono = They are.</div><p><b>Avere — to have</b></p><div class="example">Io ho = I have · Tu hai = You have · Lui/Lei ha = He/She has · Noi abbiamo = We have · Voi avete = You have · Loro hanno = They have.</div><p>Molti aggettivi che finiscono in <b>-o</b> sono maschili e quelli in <b>-a</b> femminili: bello / bella, carino / carina. Per negare una frase, metti <b>non</b> prima del verbo: “Ti amo” → “Non ti amo”. (Ma preferiamo la prima! 😋)</p></div>
+<div class="lesson-panel" id="pronunciation"><h3>🗣️ Pronunciation tips</h3><div class="example"><b>CH</b> ha un suono duro come K davanti a E o I: “Chi” suona “kee”.</div><div class="example"><b>CI / CE</b> suonano “chee / cheh”: “Ciao” si pronuncia “chow”.</div><div class="example"><b>GN</b> è simile a “ny”: lasagna.</div><div class="example"><b>GLI</b> è un suono morbido: famiglia.</div><div class="example"><b>Doppie</b>: la consonante si pronuncia più a lungo; pala e palla sono diverse.</div></div>
+<div class="lesson-panel" id="practice"><h3>🍓 Mini Italian quiz</h3><div class="example"><div id="lessonQuestion">What does “Mi manchi” mean?</div><div class="answers-row" id="lessonAnswers"></div><div id="lessonFeedback" class="game-result"></div><button class="btn secondary" id="nextLesson" style="margin-top:12px">Next question ♡</button></div></div></div></div></section>
 
-      <div class="lesson-panel active" id="words">
-        <h3>💗 Words of affection</h3>
-        <table class="vocab">
-          <tr><th>Italian</th><th>English</th><th>How to say it</th></tr>
-          <tr><td>Amore</td><td>Love / darling</td><td>ah-MOH-reh</td></tr>
-          <tr><td>Amore mio</td><td>My love</td><td>ah-MOH-reh MEE-oh</td></tr>
-          <tr><td>Patatina</td><td>Little potato (cute nickname!)</td><td>pah-tah-TEE-nah</td></tr>
-          <tr><td>Principessa</td><td>Princess</td><td>preen-cheh-PEHS-sah</td></tr>
-          <tr><td>Bellissima</td><td>Very beautiful</td><td>bel-LEES-see-mah</td></tr>
-          <tr><td>Tesoro</td><td>Treasure / sweetheart</td><td>teh-ZOH-roh</td></tr>
-          <tr><td>Mi manchi</td><td>I miss you</td><td>mee MAHN-kee</td></tr>
-          <tr><td>Ti amo</td><td>I love you</td><td>tee AH-moh</td></tr>
-          <tr><td>Per sempre</td><td>Forever</td><td>pehr SEHM-preh</td></tr>
-          <tr><td>Un bacino</td><td>A little kiss</td><td>oon bah-CHEE-noh</td></tr>
-        </table>
-      </div>
+<section id="quiz"><div class="container"><div class="heading"><div class="mini">💘 🤭</div><h2>How well do you know us?</h2><p>Un test serissimo su una coppia per niente seria. No cheating, Chrizza!</p></div><div class="card quiz-shell"><div class="quiz-footer"><span class="tag" id="quizCounter">Question 1 / 8</span><b id="quizScore">Score: 0</b></div><div class="progress"><span id="quizProgress"></span></div><div class="question" id="questionText"></div><div class="answers" id="answerButtons"></div><div class="reaction" id="reaction">Scegli con attenzione... Stefano ti sta guardando. 👀</div><div class="quiz-footer"><span class="tag">Made with love & teasing</span><button class="btn" id="nextQuestion" disabled>Next ♡</button></div></div></div></section>
 
-      <div class="lesson-panel" id="phrases">
-        <h3>🌸 Everyday phrases</h3>
-        <div class="example"><strong>Come stai?</strong> — How are you?<br><em>Sto bene, e tu?</em> — I'm good, and you?</div>
-        <div class="example"><strong>Buongiorno!</strong> — Good morning!<br><em>Buonanotte, amore mio.</em> — Good night, my love.</div>
-        <div class="example"><strong>Mi manchi tantissimo.</strong> — I miss you so much.</div>
-        <div class="example"><strong>Vorrei essere lì con te.</strong> — I wish I were there with you.</div>
-        <div class="example"><strong>Sei la mia persona preferita.</strong> — You're my favourite person.</div>
-        <div class="example"><strong>Non vedo l'ora di abbracciarti.</strong> — I can't wait to hug you.</div>
-        <div class="example"><strong>Andiamo a mangiare!</strong> — Let's go eat!</div>
-        <div class="example"><strong>Che cosa facciamo oggi?</strong> — What are we doing today?</div>
-      </div>
-
-      <div class="lesson-panel" id="grammar">
-        <h3>📚 A tiny grammar lesson</h3>
-        <p><strong>1. Essere — to be</strong></p>
-        <table class="vocab">
-          <tr><td>Io sono</td><td>I am</td></tr><tr><td>Tu sei</td><td>You are</td></tr>
-          <tr><td>Lui/Lei è</td><td>He/She is</td></tr><tr><td>Noi siamo</td><td>We are</td></tr>
-          <tr><td>Voi siete</td><td>You (plural) are</td></tr><tr><td>Loro sono</td><td>They are</td></tr>
-        </table>
-        <div class="example">Example: <strong>Tu sei bellissima.</strong> — You are beautiful.</div>
-        <p><strong>2. Avere — to have</strong></p>
-        <table class="vocab">
-          <tr><td>Io ho</td><td>I have</td></tr><tr><td>Tu hai</td><td>You have</td></tr>
-          <tr><td>Lui/Lei ha</td><td>He/She has</td></tr><tr><td>Noi abbiamo</td><td>We have</td></tr>
-          <tr><td>Voi avete</td><td>You (plural) have</td></tr><tr><td>Loro hanno</td><td>They have</td></tr>
-        </table>
-        <div class="example">Example: <strong>Ho fame!</strong> — I'm hungry! (Literally: I have hunger.)</div>
-        <p><strong>3. Gender and endings</strong></p>
-        <p>Many Italian nouns and adjectives ending in <strong>-o</strong> are masculine and those ending in <strong>-a</strong> are feminine. For example: bello / bella, carino / carina. Some words end in -e and can be either gender.</p>
-        <p><strong>4. Making a sentence negative</strong></p>
-        <p>Put <strong>non</strong> before the verb: <em>Ti amo</em> = I love you; <em>Non ti amo</em> = I don't love you. (But we definitely prefer the first one! 😋)</p>
-      </div>
-
-      <div class="lesson-panel" id="pronunciation">
-        <h3>🗣️ Pronunciation tips</h3>
-        <div class="example"><strong>CH</strong> sounds like a hard K before E or I: <em>Chi</em> sounds like “kee”.</div>
-        <div class="example"><strong>CI / CE</strong> sound like “chee / cheh”: <em>Ciao</em> is “chow”.</div>
-        <div class="example"><strong>GN</strong> sounds similar to “ny” in canyon: <em>lasagna</em>.</div>
-        <div class="example"><strong>GLI</strong> is a soft sound, roughly like “ly”: <em>famiglia</em>.</div>
-        <div class="example"><strong>Double consonants</strong> are held a little longer: <em>pala</em> and <em>palla</em> sound different.</div>
-        <div class="example"><strong>Vowels</strong> are clear and short: A = ah, E = eh, I = ee, O = oh, U = oo.</div>
-        <p>Little challenge: say <strong>“Ciao amore, mi manchi!”</strong> out loud. Stefano is your pronunciation judge. 😂</p>
-      </div>
-
-      <div class="lesson-panel" id="practice">
-        <h3>🍓 Mini Italian quiz</h3>
-        <div class="quiz-box">
-          <div id="lessonQuestion">What does “Mi manchi” mean?</div>
-          <div class="answer-row" id="lessonAnswers">
-            <button data-correct="false">I love you</button>
-            <button data-correct="true">I miss you</button>
-            <button data-correct="false">Good morning</button>
-          </div>
-          <div class="feedback" id="lessonFeedback"></div>
-          <button class="btn secondary" id="nextLesson" style="margin-top:12px">Next question ♡</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="quiz">
-  <div class="container">
-    <div class="section-heading">
-      <div class="mini">💘 🤭</div>
-      <h2>How well do you know us?</h2>
-      <p>A very serious test about a very unserious couple. No cheating, Chrizza!</p>
-    </div>
-    <div class="card quiz-shell">
-      <div class="quiz-footer"><span class="soft-tag" id="quizCounter">Question 1 / 8</span><span class="score" id="quizScore">Score: 0</span></div>
-      <div class="progress"><span id="quizProgress"></span></div>
-      <div id="quizArea">
-        <div class="question" id="questionText">Who is the best Brawl Stars player?</div>
-        <div class="answers" id="answerButtons"></div>
-        <div class="reaction" id="reaction">Choose wisely... Stefano is watching. 👀</div>
-      </div>
-      <div class="quiz-footer">
-        <span class="soft-tag">Made with love & teasing</span>
-        <button class="btn" id="nextQuestion" disabled>Next ♡</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="tortoro">
-  <div class="container">
-    <div class="section-heading">
-      <div class="mini">🐻 🍓</div>
-      <h2>Tortoro's little playground</h2>
-      <p>Games, silliness and tiny challenges. Tortoro approves.</p>
-    </div>
-    <div class="grid">
-      <div class="card game-card">
-        <div class="game-emoji">🐻</div>
-        <h3>Catch Tortoro!</h3>
-        <p>Tap Tortoro as many times as you can in 10 seconds.</p>
-        <div class="tap-area" id="tortoroTap">🐻</div>
-        <p id="tapScore">Score: 0</p>
-        <button class="btn" id="startTap">Start game</button>
-        <div class="game-result" id="tapResult"></div>
-      </div>
-      <div class="card game-card">
-        <div class="game-emoji">🧠</div>
-        <h3>Memory match</h3>
-        <p>Find all the matching pairs. Take your time!</p>
-        <div class="memory-grid" id="memoryGrid"></div>
-        <div class="game-result" id="memoryResult"></div>
-        <button class="btn secondary" id="resetMemory">Shuffle again</button>
-      </div>
-      <div class="card game-card">
-        <div class="game-emoji">💌</div>
-        <h3>Love note generator</h3>
-        <p>Need a random little reminder of how loved you are?</p>
-        <div class="example" id="loveNote">You are my favourite notification. 💗</div>
-        <button class="btn" id="newNote">Another note ♡</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="footer-heart">♡</div>
-  Made with love by Stefano for his beautiful Chrizza.
-  <br>Italy to the Philippines, today and always. 💗
-  <br><small>Ti amo, my patatina.</small>
-</footer>
+<section id="tortoro"><div class="container"><div class="heading"><div class="mini">🐻 🍓</div><h2>Tortoro's little playground</h2><p>Giochi, piccole sfide e tante sciocchezze. Tortoro approva.</p></div><div class="grid">
+<div class="card game-card"><div class="game-emoji">🐻</div><h3>Catch Tortoro!</h3><p>Prendilo più volte possibile in 10 secondi. Scappa continuamente!</p><div class="tap-arena" id="tapArena"><button class="tortoro-target" id="tortoroTarget" aria-label="Prendi Tortoro">🐻</button></div><p id="tapScore">Score: 0</p><button class="btn" id="startTap">Start game</button><div class="game-result" id="tapResult"></div></div>
+<div class="card game-card"><div class="game-emoji">🧠</div><h3>Memory match</h3><p>Trova tutte le sei coppie. Hai una memoria da principessa?</p><div class="memory-grid" id="memoryGrid"></div><div class="game-result" id="memoryResult"></div><button class="btn secondary" id="resetMemory">Shuffle again</button></div>
+<div class="card game-card"><div class="game-emoji">💌</div><h3>Love note generator</h3><p>Un piccolo promemoria casuale di quanto sei amata.</p><div class="note-box" id="loveNote">You are my favourite notification. 💗</div><button class="btn" id="newNote" style="margin-top:14px">Another note ♡</button></div>
+</div></div></section>
+<footer><div class="footer-heart">♡</div>Made with love by Stefano for his beautiful Chrizza.<br>Italy to the Philippines, today and always. 💗<br><small>Ti amo, my patatina.</small></footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-/* Little floating hearts and sparkles */
-const sparkleLayer = document.getElementById('sparkles');
-function makeSparkle(){
-  const s=document.createElement('span');
-  s.className='sparkle';
-  s.textContent=['♡','✦','✧','♥','⋆'][Math.floor(Math.random()*5)];
-  s.style.left=Math.random()*100+'%';
-  s.style.bottom='-25px';
-  s.style.fontSize=(10+Math.random()*17)+'px';
-  s.style.color=['#e89cbd','#c4a6ec','#f1c18b'][Math.floor(Math.random()*3)];
-  s.style.animationDuration=(7+Math.random()*8)+'s';
-  sparkleLayer.appendChild(s);
-  setTimeout(()=>s.remove(),16000);
-}
-setInterval(makeSparkle,850);
+/* Sparkles + navigation */
+const sparkleLayer=document.getElementById('sparkles');
+function makeSparkle(){const s=document.createElement('span');s.className='sparkle';s.textContent=['♡','✦','✧','♥','⋆'][Math.floor(Math.random()*5)];s.style.left=Math.random()*100+'%';s.style.bottom='-25px';s.style.fontSize=(10+Math.random()*17)+'px';s.style.color=['#e89cbd','#c4a6ec','#f1c18b'][Math.floor(Math.random()*3)];s.style.animationDuration=(7+Math.random()*8)+'s';sparkleLayer.appendChild(s);setTimeout(()=>s.remove(),16000)}setInterval(makeSparkle,1000);
+document.getElementById('menuToggle').addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('show'));
+document.querySelectorAll('.navlinks a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navlinks').classList.remove('show')));
 
-/* Mobile navigation */
-document.getElementById('menuToggle').addEventListener('click',()=>{
-  document.getElementById('navlinks').classList.toggle('show');
-});
-document.querySelectorAll('.navlinks a').forEach(a=>a.addEventListener('click',()=>{
-  document.getElementById('navlinks').classList.remove('show');
-}));
+/* Heart beat interaction */
+const heartCard=document.getElementById('heartCard'),heartButton=document.getElementById('heartButton');
+heartButton.addEventListener('click',()=>{heartCard.classList.add('fast');document.getElementById('heartMessage').textContent='Somehow, you make my heart beat differently.';heartButton.textContent='♥';setTimeout(()=>heartCard.classList.remove('fast'),4500)});
 
-/* Original letters - preserved as supplied */
-const letters = [
-{
-title:"2nd Monthsary",
-body:`Happy 2nd monthsary, my Chrizza. 💕
+/* Monthsary letters: original texts from the supplied file */
+const letters=[
+{title:"2nd Monthsary",body:`Happy 2nd monthsary, my Chrizza. 💕
 Two months with you… and honestly, it feels like you’ve been in my life for much longer in the best way possible. Everything with you feels so natural, so easy, so real. I didn’t expect to find someone who could make me smile the way you do, my beautiful principessa.
-My patatina, you’ve become such an important part of my days. Talking to you, laughing with you, sharing even the smallest things, it all means so much to me. 
+My patatina, you’ve become such an important part of my days. Talking to you, laughing with you, sharing even the smallest things, it all means so much to me.
 I know we’re still at the beginning of our story, but I’m serious about us. Whatever comes, I want to face it with you. I CHOOSE U, always.
 Stay my sweet amore, my patatina, my one and only principessa.
-Ti amo tantissimo and u will be in my heart foverever.`
-},
-{
-title:"3rd Monthsary",
-body:`Happy 3rd monthsary, my Patatina😋
+Ti amo tantissimo and u will be in my heart foverever.`},
+{title:"3rd Monthsary",body:`Happy 3rd monthsary, my Patatina😋
 It’s crazy to think how everything started, and now here we are, three months later, still choosing each other every single day. You came into my life in such a simple and weird way ahahah, but you changed it more than you probably realize.
 These three months are only the beginning. I want to keep building something beautiful with you, step by step, with patience and sincerity. No matter how far apart we are, because what I feel for you goes beyond any distance.
 Even on normal days, just writing with you is enough to make everything better and you became my favorite part of the day.
 Keep being the amazing, sweet, and beautiful person you are. I love u so muchhh chrizza.
-Always yours Stef💖`
-},
-{
-title:"4th & 5th Monthsary",
-body:`Happy 4th and 5th monthsary, my Babyyy. I know I should’ve written to you on our fourth monthsary too… and I didn’t, but I want to make it up to you with this letter, from the heart.
+Always yours Stef💖`},
+{title:"4th & 5th Monthsary",body:`Happy 4th and 5th monthsary, my Babyyy. I know I should’ve written to you on our fourth monthsary too… and I didn’t, but I want to make it up to you with this letter, from the heart.
 These past months with you have meant so much more to me than I can properly put into words. Even with the ups and downs, even with the moments we didn’t understand each other, I’m still here… and you’re still here… and that alone says a lot about what we have.
 And honestly, I’m so glad we found our way back to each other. Thank god we didn’t give up on us. Because losing you would’ve been losing something truly special.
 Chrizza, I love you more than Po loves his dumpling 😋, and that’s a lot. The kind of love that’s warm, a little silly, but very real and deep.
 You’re my princess, my patatina, my safe place, and the person I always find myself thinking about no matter what I’m doing. You make even ordinary days feel better just by being there.
 I don’t want perfection with you. I just want us learning, growing, and choosing each other again and again, every month, every day.
 Happy monthsary, my love. For the fourth, for the fifth, and for all the ones we’re going to celebrate together.
-I love you patatinaaa.`
-},
-{
-title:"6th Monthsary",
-body:`My dearest Chrizza, mi nena, my patatina, my princess.
+I love you patatinaaa.`},
+{title:"6th Monthsary",body:`My dearest Chrizza, mi nena, my patatina, my princess.
 Kamusta naman ka?
 Happy 6th monthsary, my love. 💓
 Six months may not seem like a long time to some people, but for me, these months have changed so much. They have changed my heart and more important also my mind.
@@ -664,39 +120,30 @@ Even though the distance is hard, I truly believe that we will make it. No matte
 You have become my safe place, whenever I am going through a difficult moment or feeling anxious, you are there for me. Your words calm me down, your love gives me strength, and somehow you always make me feel better. You make me feel understood, supported, and loved. And more important, u make me do better.
 You make me want to be the best version of myself. Every day, you give me the motivation to work harder and keep moving forward, because my dream is to build a beautiful life with you and give you all the love and happiness you deserve.
 I never thought I would find the love of my life and my future wife on OmeTV, but life surprised me in the most beautiful way when I met you. Thank you for making me feel loved every single day.
-Mahal kita my gwapaaa.😋`
-},
-{
-title:"7th Monthsary",
-body:`Happy 7th monthsary, my beautiful Chrizza pizza, mi bebe my forever princess.💓
-​Seven months today. It’s crazy how time flies, but at the same time, every single month with you feels like a whole chapter of a beautiful book we are writing together.
+Mahal kita my gwapaaa.😋`},
+{title:"7th Monthsary",body:`Happy 7th monthsary, my beautiful Chrizza pizza, mi bebe my forever princess.💓
+Seven months today. It’s crazy how time flies, but at the same time, every single month with you feels like a whole chapter of a beautiful book we are writing together.
 And now, seven months later, my heart still chooses you every single day.
 This month gave us a memory that I don't think I'll ever forget.
-There was this rare event in the night sky: the "kiss" between the Moon and Venus. When I looked up and saw them so close, I couldn’t help but think of us. It happened right on our day, and to me, it had such a deep, romantic meaning. 
+There was this rare event in the night sky: the "kiss" between the Moon and Venus. When I looked up and saw them so close, I couldn’t help but think of us. It happened right on our day, and to me, it had such a deep, romantic meaning.
 They call it a celestial kiss because, from our point of view, the Moon and Venus appear incredibly close, almost as if they are gently kissing in the night sky. To me, it felt like the universe was giving us a little sign. Even though those two lights are separated by an unimaginable distance, from Earth they still meet in a moment of breathtaking beauty. That's exactly how I feel about us. We're far apart, living in different countries, but somehow our hearts always find each other. And the fact that this happened on our day made it feel even more special. I'll never forget looking at that sky and wishing that one day, instead of watching the same Moon from different places, we'll be watching it side by side.
 This month was also different because we cried together on our video call. Not tears of weakness, but tears of love, missing each other, and carrying the weight of this ldr. Before you, I never imagined I could feel so safe showing someone every part of me, even the parts that are scared, anxious, or vulnerable. With you, I don't have to pretend to be strong all the time. I can simply be myself. Thank you for holding my heart so gently. Thank you for making me feel that my emotions are never "too much." You are my safe place, and I hope you always feel that I want to be yours too.
-​You know you’re always my favorite part of the day. Remember when you sang "Sarà perché ti amo" to me on video call? Ahahah you have no idea how much that warmed my heart. It’s so true, sarà perché ti amo😋. It must be because I love you that everything feels brighter, more cheerful, and full of life when you're around. Your voice is my favorite melody, and hearing you sing an Italian love song just for me made me realize, once again, how incredibly lucky I am to have found you on that random OmeTV night.
-​Thank you for these seven wonderful months, my patatina. I keep choosing you every day, with all your flaws, your achievements, and your beautiful soul. Don't worry, I haven't forgotten my promises... the wedding and the babies are waiting for us in our future. 💓
-From your Stefanino`
-},
-{
-title:"8th Monthsary",
-body:`Happy 8th monthsary, my beautiful Chrizza, my patatina, my bella principessa 💓
+You know you’re always my favorite part of the day. Remember when you sang "Sarà perché ti amo" to me on video call? Ahahah you have no idea how much that warmed my heart. It’s so true, sarà perché ti amo😋. It must be because I love you that everything feels brighter, more cheerful, and full of life when you're around. Your voice is my favorite melody, and hearing you sing an Italian love song just for me made me realize, once again, how incredibly lucky I am to have found you on that random OmeTV night.
+Thank you for these seven wonderful months, my patatina. I keep choosing you every day, with all your flaws, your achievements, and your beautiful soul. Don't worry, I haven't forgotten my promises... the wedding and the babies are waiting for us in our future. 💓
+From your Stefanino`},
+{title:"8th Monthsary",body:`Happy 8th monthsary, my beautiful Chrizza, my patatina, my bella principessa 💓
 Eight months with you already… and honestly, it feels crazy how much you have become part of my life. Every month I feel like I find another reason to love you, and lately I really feel like I love you more and more every day.
 I also feel like I'm changing in this relationship. When we first met, I was so shy with you. I didn't really know how to express myself and sometimes even the smallest things made me nervous. 😂 But now look at me. With you I can just be myself. I don't have to think too much about what to say or how I should act. You became my comfort, the person I feel completely comfortable with.
 This month especially, I realized how much you are part of my everyday life. From when I wake up until I go to sleep, having you there on video call makes even normal and boring days feel better. Even when I was in Lloret, one of the things I looked forward to the most was just seeing your face and hearing your voice.
 Of course I still miss you a lot. Sometimes I really wish you were here beside me instead of being on my screen. But I think the distance also makes me appreciate every little moment with you even more.
 I don't only dream about the big things with you. I actually dream a lot about the simple ones. Waking up next to you, going somewhere without even knowing where we're going, laughing about stupid things, eating together, or just sitting next to each other doing absolutely nothing. Those simple moments with you are some of the things I want the most.
-Chrizza, you're not just the girl I love anymore. Somehow, you became a part of my everyday life, my comfort and my home, even if you're thousands of kilometers away. 
+Chrizza, you're not just the girl I love anymore. Somehow, you became a part of my everyday life, my comfort and my home, even if you're thousands of kilometers away.
 Thank you for being my favorite person and for staying with me through everything. I know I'm not perfect, but I really feel like I'm learning how to love you better every day.
 Happy 8th monthsary, my love.
 I love you more than yesterday, and I already know I'll love you even more tomorrow.
 Always yours,
-Stefanino 💓`
-},
-{
-title:"9th Monthsary",
-body:`Happy 9th monthsary, my beautiful Chrizza, my patatina, my bella principessa💓. 
+Stefanino 💓`},
+{title:"9th Monthsary",body:`Happy 9th monthsary, my beautiful Chrizza, my patatina, my bella principessa💓.
 9 months already… honestly sometimes I think about how much my life changed since I met you. When I look back at myself before you, I feel like I was a different person.
 Before you I was kind of just living day by day. I had some dreams and things I wanted to do, but I didn't really know where I was going. I didn't have a real direction and I didn't think too much about what kind of man I wanted to become.
 Then you came into my life.
@@ -738,11 +185,8 @@ Soon I'll be there with you.
 And I really can't wait to show my beautiful girl how much I love her.
 I love you so much, my patatinaaa. ❤️
 Always yours,
-Stefanino 💓`
-},
-{
-title:"10th Monthsary",
-body:`10th monthsary, my Chrizza, my patatina, my bella principessa. 💓
+Stefanino 💓`},
+{title:"10th Monthsary",body:`10th monthsary, my Chrizza, my patatina, my bella principessa. 💓
 
 Ten months, babyyy. TEN MONTHS. 😭😋
 
@@ -754,7 +198,7 @@ Now you're not just the girl who gives me butterflies anymore. You're also the g
 
 I think that's one of the beautiful things about loving you. You became someone I don't just want during the moments of life. You're someone I want in the ones
 
-My love I know that not every moment of our relationship has been easy. We've had moments when we didn't understand each other when things felt difficult and when loving each other from away felt heavier than usual. Sometimes we have our worries, our own emotions and our own ways of seeing things. I know that we won't always agree on everything.. I think these moments have also taught me that a relationship isn't about being happy together when everything is going well. It's about learning to understand each other when its difficult listen and remembering that we're on the team even when we see things differently. I don't expect us to never have problems, babyyy. I just hope that whenever life gets difficult we never forget to treat each other with love, patience and respect. I want us to keep learning from our mistakes growing and finding our way to each other whenever we need to. Because you're not someone I want to love when thingsre easy. You're someone I want to keep choosing when we have to put a little effort into understanding each other. ❤️
+My love I know that not every moment of our relationship has been easy. We've had moments when we didn't understand each other when things felt difficult and when loving each other from away felt heavier than usual. Sometimes we have our worries, our own emotions and our own ways of seeing things. I know that we won't always agree on everything.. I think these moments have also taught me that a relationship isn't about being happy together when everything is going well. It's about learning to understand each other when its difficult listen and remembering that we're on the team even when we see things differently. I don't expect us to never have problems, babyyy. I just hope that whenever life gets difficult we never forget to treat each other with love, patience and respect. I want us to keep learning from our mistakes growing and finding our way to each other whenever we need to. Because you're not someone I want to love when things are easy. You're someone I want to keep choosing when we have to put a little effort into understanding each other. ❤️
 
 Maybe one day we'll look back at these months. Laugh about how we used to spend much time on video calls how we played Brawl Stars together how we fell asleep looking at each other through a screen and how even the smallest moments meant so much to us.
 
@@ -774,322 +218,82 @@ I love you Chrizza. More than my words can explain and hopefully more than my ac
 
 Always yours
 
-Your Stefanino, your husband-to-be and your annoying patatino. Muahhh`
-}
+Your Stefanino, your husband-to-be and your annoying patatino. Muahhh`}
 ];
-
 const lettersList=document.getElementById('lettersList');
-letters.forEach((letter,index)=>{
-  const article=document.createElement('article');
-  article.className='card letter-card';
-  const top=document.createElement('div');
-  top.className='letter-top';
-  const title=document.createElement('h3');
-  title.textContent='💌 '+letter.title;
-  const arrow=document.createElement('span');
-  arrow.className='arrow';arrow.textContent='⌄';
-  top.append(title,arrow);
-  const content=document.createElement('div');
-  content.className='letter-content';
-  const p=document.createElement('p');
-  p.textContent=letter.body;
-  content.appendChild(p);
-  top.addEventListener('click',()=>article.classList.toggle('open'));
-  article.append(top,content);
-  lettersList.appendChild(article);
-});
+letters.forEach(letter=>{const article=document.createElement('article');article.className='card letter';const top=document.createElement('div');top.className='letter-top';const h=document.createElement('h3');h.textContent='💌 '+letter.title;const arrow=document.createElement('span');arrow.className='arrow';arrow.textContent='⌄';top.append(h,arrow);const body=document.createElement('div');body.className='letter-content';body.textContent=letter.body;top.addEventListener('click',()=>article.classList.toggle('open'));article.append(top,body);lettersList.append(article)});
 
-/* Interactive map: Arcore to Bugo */
-if(window.L){
-  const arcore=[45.6265,9.3242];
-  const bugo=[8.5030,124.6319];
-  const map=L.map('loveMap',{scrollWheelZoom:false}).setView([26,67],3);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-    maxZoom:18,
-    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-  }).addTo(map);
-  const pinkIcon=L.divIcon({
-    className:'',
-    html:'<div style="font-size:27px;filter:drop-shadow(0 2px 3px #777)">💗</div>',
-    iconSize:[30,30],iconAnchor:[15,15]
-  });
-  L.marker(arcore,{icon:pinkIcon}).addTo(map).bindPopup('<b>🇮🇹 Arcore, Italy</b><br>Stefano is here ♡');
-  L.marker(bugo,{icon:pinkIcon}).addTo(map).bindPopup('<b>🇵🇭 Bugo, Cagayan de Oro</b><br>Chrizza is here ♡');
-  const line=L.polyline([arcore,bugo],{
-    color:'#e58bb4',weight:3,dashArray:'8 10',opacity:.95
-  }).addTo(map);
-  map.fitBounds(line.getBounds().pad(.22));
-  setTimeout(()=>map.invalidateSize(),400);
-}
-
-/* Star drawing canvas */
-const canvas=document.getElementById('starCanvas');
-const ctx=canvas.getContext('2d');
-let drawing=false;
-function resizeCanvas(){
-  const rect=canvas.getBoundingClientRect();
-  const old=document.createElement('canvas');
-  old.width=canvas.width;old.height=canvas.height;
-  old.getContext('2d').drawImage(canvas,0,0);
-  canvas.width=rect.width*devicePixelRatio;
-  canvas.height=rect.height*devicePixelRatio;
-  ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
-  if(old.width&&old.height)ctx.drawImage(old,0,0,old.width,old.height,0,0,rect.width,rect.height);
-}
-resizeCanvas();
-window.addEventListener('resize',resizeCanvas);
-function drawStar(x,y){
-  ctx.save();ctx.fillStyle='#fff1b8';ctx.shadowColor='#ffe9a8';ctx.shadowBlur=12;
-  ctx.beginPath();
-  for(let i=0;i<10;i++){
-    const r=i%2===0?5:2;
-    const a=-Math.PI/2+i*Math.PI/5;
-    const px=x+Math.cos(a)*r,py=y+Math.sin(a)*r;
-    if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);
-  }
-  ctx.closePath();ctx.fill();ctx.restore();
-}
-function pointerPos(e){
-  const r=canvas.getBoundingClientRect();
-  return {x:e.clientX-r.left,y:e.clientY-r.top};
-}
-canvas.addEventListener('pointerdown',e=>{drawing=true;const p=pointerPos(e);drawStar(p.x,p.y)});
-canvas.addEventListener('pointermove',e=>{if(drawing){const p=pointerPos(e);drawStar(p.x,p.y)}});
-window.addEventListener('pointerup',()=>drawing=false);
-document.getElementById('clearStars').addEventListener('click',()=>{
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-});
-
-/* Italian lesson tabs */
-document.querySelectorAll('.lesson-tabs button').forEach(button=>{
-  button.addEventListener('click',()=>{
-    document.querySelectorAll('.lesson-tabs button').forEach(b=>b.classList.remove('active'));
-    document.querySelectorAll('.lesson-panel').forEach(p=>p.classList.remove('active'));
-    button.classList.add('active');
-    document.getElementById(button.dataset.tab).classList.add('active');
-  });
-});
-const lessonQuestions=[
-  {q:'What does “Mi manchi” mean?',a:['I love you','I miss you','Good morning'],correct:1},
-  {q:'How do you say “princess” in Italian?',a:['Principessa','Bellissimo','Tesoro'],correct:0},
-  {q:'What does “Buonanotte” mean?',a:['Good afternoon','Good night','See you soon'],correct:1},
-  {q:'What does “Ti amo” mean?',a:['I love you','I am hungry','I miss you'],correct:0},
-  {q:'How do you say “my love”?',a:['Amore mio','Mi piace','Per favore'],correct:0},
-  {q:'What does “Bellissima” mean?',a:['Very beautiful','Very funny','Very far'],correct:0},
-  {q:'What does “Come stai?” mean?',a:['Where are you?','How are you?','What is your name?'],correct:1}
+/* Playlist: YouTube and Spotify search links (not direct track URLs) */
+const songs=[
+{title:'LANY',note:'Perché la loro musica ha un posto speciale nella nostra playlist.',query:'LANY'},
+{title:'ONE OF THE GIRLS',note:'Una canzone da riascoltare pensando a noi.',query:'The Weeknd JENNIE Lily Rose Depp One Of The Girls'},
+{title:'Si No Es Contigo',note:'Meeting you felt like the first time hearing the intro of this song.',query:'Cris Mj Si No Es Contigo'},
+{title:'Gata Only',note:'Un altro pezzo della nostra colonna sonora.',query:'FloyyMenor Cris Mj Gata Only'}
 ];
-let lessonIndex=0,lessonAnswered=false;
-function renderLesson(){
-  const q=lessonQuestions[lessonIndex];
-  document.getElementById('lessonQuestion').textContent=q.q;
-  const box=document.getElementById('lessonAnswers');box.innerHTML='';
-  q.a.forEach((answer,i)=>{
-    const b=document.createElement('button');b.textContent=answer;
-    b.addEventListener('click',()=>{
-      if(lessonAnswered)return;lessonAnswered=true;
-      document.getElementById('lessonFeedback').textContent=i===q.correct?'Bravissima! 🇮🇹💗':'Almost! The right answer is: '+q.a[q.correct];
-    });
-    box.appendChild(b);
-  });
-  document.getElementById('lessonFeedback').textContent='';
-  lessonAnswered=false;
-}
-document.getElementById('nextLesson').addEventListener('click',()=>{
-  lessonIndex=(lessonIndex+1)%lessonQuestions.length;renderLesson();
-});
-renderLesson();
+const songList=document.getElementById('songList');
+songs.forEach(song=>{const row=document.createElement('div');row.className='song';const info=document.createElement('div');const h=document.createElement('h3');h.textContent='♫ '+song.title;const p=document.createElement('p');p.textContent=song.note;info.append(h,p);const links=document.createElement('div');links.className='song-links';const q=encodeURIComponent(song.query);[['YouTube','https://www.youtube.com/results?search_query='+q],['Spotify','https://open.spotify.com/search/'+q]].forEach(([label,url])=>{const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=label+' ↗';links.append(a)});row.append(info,links);songList.append(row)});
+
+/* Cinema titles */
+const movies=[
+['Una notte da leoni','La notte che non si dimentica.'],
+['American Pie','Risate, caos e nostalgia.'],
+['Dead End Job','Uno dei nostri film visti insieme.'],
+['Project X','Una festa decisamente fuori controllo.'],
+['Amici di letto','Una commedia da guardare in due.'],
+['Superbad','Un classico di risate e amicizia.']
+];
+const movieGrid=document.getElementById('movieGrid');
+movies.forEach(([title,desc],i)=>{const card=document.createElement('div');card.className='movie';const poster=document.createElement('div');poster.className='poster';poster.textContent=['🎞️','🍿','🎬','🎉','💗','😂'][i];const h=document.createElement('h4');h.textContent=title;const p=document.createElement('p');p.textContent=desc;card.append(poster,h,p);movieGrid.append(card)});
+
+/* Leaflet map */
+if(window.L){const arcore=[45.6265,9.3242],bugo=[8.5030,124.6319];const map=L.map('loveMap',{scrollWheelZoom:false}).setView([26,67],3);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);const icon=L.divIcon({className:'',html:'<div style="font-size:27px">💗</div>',iconSize:[30,30],iconAnchor:[15,15]});L.marker(arcore,{icon}).addTo(map).bindPopup('<b>🇮🇹 Arcore, Italy</b><br>Stefano is here ♡');L.marker(bugo,{icon}).addTo(map).bindPopup('<b>🇵🇭 Bugo, Cagayan de Oro</b><br>Chrizza is here ♡');const line=L.polyline([arcore,bugo],{color:'#e58bb4',weight:3,dashArray:'8 10'}).addTo(map);map.fitBounds(line.getBounds().pad(.22));setTimeout(()=>map.invalidateSize(),400)}
+
+/* Star canvas */
+const canvas=document.getElementById('starCanvas'),ctx=canvas.getContext('2d');let drawing=false;
+function resizeCanvas(){const r=canvas.getBoundingClientRect();const old=document.createElement('canvas');old.width=canvas.width;old.height=canvas.height;if(old.width&&old.height)old.getContext('2d').drawImage(canvas,0,0);canvas.width=r.width*devicePixelRatio;canvas.height=r.height*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);if(old.width&&old.height)ctx.drawImage(old,0,0,old.width,old.height,0,0,r.width,r.height)}
+resizeCanvas();window.addEventListener('resize',resizeCanvas);
+function drawStar(x,y){ctx.save();ctx.fillStyle='#fff1b8';ctx.shadowColor='#ffe9a8';ctx.shadowBlur=12;ctx.beginPath();for(let i=0;i<10;i++){const r=i%2===0?5:2,a=-Math.PI/2+i*Math.PI/5,px=x+Math.cos(a)*r,py=y+Math.sin(a)*r;if(!i)ctx.moveTo(px,py);else ctx.lineTo(px,py)}ctx.closePath();ctx.fill();ctx.restore()}
+function starPos(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+canvas.addEventListener('pointerdown',e=>{drawing=true;const p=starPos(e);drawStar(p.x,p.y)});canvas.addEventListener('pointermove',e=>{if(drawing){const p=starPos(e);drawStar(p.x,p.y)}});window.addEventListener('pointerup',()=>drawing=false);
+document.getElementById('clearStars').addEventListener('click',()=>ctx.clearRect(0,0,canvas.width,canvas.height));
+
+/* Italian lesson tabs and practice */
+document.querySelectorAll('.lesson-tabs button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.lesson-tabs button').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.lesson-panel').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active')}));
+const lessonQs=[{q:'What does “Mi manchi” mean?',a:['I love you','I miss you','Good morning'],c:1},{q:'How do you say “princess” in Italian?',a:['Principessa','Bellissimo','Tesoro'],c:0},{q:'What does “Buonanotte” mean?',a:['Good afternoon','Good night','See you soon'],c:1},{q:'What does “Ti amo” mean?',a:['I love you','I am hungry','I miss you'],c:0},{q:'How do you say “my love”?',a:['Amore mio','Mi piace','Per favore'],c:0},{q:'What does “Bellissima” mean?',a:['Very beautiful','Very funny','Very far'],c:0},{q:'What does “Come stai?” mean?',a:['Where are you?','How are you?','What is your name?'],c:1}];let li=0,la=false;
+function renderLesson(){const q=lessonQs[li],box=document.getElementById('lessonAnswers');document.getElementById('lessonQuestion').textContent=q.q;box.innerHTML='';q.a.forEach((v,i)=>{const b=document.createElement('button');b.textContent=v;b.addEventListener('click',()=>{if(la)return;la=true;document.getElementById('lessonFeedback').textContent=i===q.c?'Bravissima! 🇮🇹💗':'Quasi! La risposta giusta è: '+q.a[q.c]});box.append(b)});document.getElementById('lessonFeedback').textContent='';la=false}
+document.getElementById('nextLesson').addEventListener('click',()=>{li=(li+1)%lessonQs.length;renderLesson()});renderLesson();
 
 /* Couple quiz */
 const coupleQuestions=[
-  {
-    q:'Who is the best Brawl Stars player?',
-    a:['Chrizza','Stefano','Tortoro'],
-    correct:1,
-    good:'Correct! Stefano is the Brawl Stars legend. Chrizza, please accept your coaching session. 😂🏆',
-    bad:'HAHAHA, nice try! Stefano is the champion here. Chrizza can be his very enthusiastic fan. 😭'
-  },
-  {
-    q:'Who sleeps the most?',
-    a:['Chrizza','Stefano','Both equally'],
-    correct:2,
-    good:'Exactly! Two sleepy potatoes. You two could win a world championship in sleeping. 😴💗',
-    bad:'Wrong! You BOTH sleep like little bears. Tortoro is taking notes. 🐻'
-  },
-  {
-    q:'Who is more likely to steal food?',
-    a:['Chrizza','Stefano','Both of them'],
-    correct:2,
-    good:'Correct! A relationship built on love, trust and stealing each other’s food. 🍟',
-    bad:'Nope! Both of you are suspicious around snacks. Hide the fries! 😂'
-  },
-  {
-    q:'Who says “I love you” more often?',
-    a:['Chrizza','Stefano','You both do'],
-    correct:2,
-    good:'Awww. Both of you are competing for the world record. Keep going! 💞',
-    bad:'Wrong answer! You both say it a million times. And still not enough. 🥹'
-  },
-  {
-    q:'Who is more dramatic?',
-    a:['Chrizza','Stefano','Both, obviously'],
-    correct:2,
-    good:'Obviously both. Every tiny misunderstanding deserves a full Netflix series. 🎭',
-    bad:'HAHAHA, both of you! The drama department is fully staffed. 😭'
-  },
-  {
-    q:'Who is more likely to ask for kisses?',
-    a:['Chrizza','Stefano','Tortoro'],
-    correct:1,
-    good:'Stefano, of course. He has a very serious daily kiss quota. 😚',
-    bad:'Wrong! Stefano is probably asking for another kiss right now. 😂'
-  },
-  {
-    q:'What is the couple’s favourite kind of day?',
-    a:['A day spent together','A day without video calls','A day without Brawl Stars'],
-    correct:0,
-    good:'Exactly! Even doing absolutely nothing is perfect when you are together. 💗',
-    bad:'Nooo! The best day is simply a day together. Bonus points for cuddles.'
-  },
-  {
-    q:'What is the ultimate future plan?',
-    a:['Stay strangers','A lifetime together','Stop stealing food'],
-    correct:1,
-    good:'Correct! Wedding, babies, a home and a lifetime of annoying each other. 🥹💍',
-    bad:'Wrong! The plan is a lifetime together. The food stealing is non-negotiable. 😋'
-  }
+{q:'Who is the best Brawl Stars player?',a:['Chrizza','Stefano','Tortoro'],c:1,good:'Correct! Stefano is the Brawl Stars legend. 😂🏆',bad:'HAHAHA, nice try! Stefano is the champion here. 😭'},
+{q:'Who sleeps the most?',a:['Chrizza','Stefano','Both equally'],c:2,good:'Two sleepy potatoes. 😴💗',bad:'Wrong! You BOTH sleep like little bears. 🐻'},
+{q:'Who is more likely to steal food?',a:['Chrizza','Stefano','Both of them'],c:2,good:'A relationship built on love and stealing fries. 🍟',bad:'Both of you are suspicious around snacks! 😂'},
+{q:'Who says “I love you” more often?',a:['Chrizza','Stefano','You both do'],c:2,good:'Both competing for the world record. 💞',bad:'You both say it a million times. 🥹'},
+{q:'Who is more dramatic?',a:['Chrizza','Stefano','Both, obviously'],c:2,good:'The drama department is fully staffed. 🎭',bad:'HAHAHA, both of you! 😭'},
+{q:'Who is more likely to ask for kisses?',a:['Chrizza','Stefano','Tortoro'],c:1,good:'Stefano has a daily kiss quota. 😚',bad:'Stefano is probably asking for another kiss right now. 😂'},
+{q:'What is the couple’s favourite kind of day?',a:['A day spent together','A day without video calls','A day without Brawl Stars'],c:0,good:'Even doing nothing is perfect together. 💗',bad:'The best day is simply a day together.'},
+{q:'What is the ultimate future plan?',a:['Stay strangers','A lifetime together','Stop stealing food'],c:1,good:'Wedding, babies, a home and a lifetime together. 🥹💍',bad:'The plan is a lifetime together. 😋'}
 ];
-let cq=0,cscore=0,answered=false;
-const qText=document.getElementById('questionText');
-const answerButtons=document.getElementById('answerButtons');
-const reaction=document.getElementById('reaction');
-const nextQ=document.getElementById('nextQuestion');
-function renderCoupleQuiz(){
-  answered=false;nextQ.disabled=true;
-  const q=coupleQuestions[cq];
-  document.getElementById('quizCounter').textContent=`Question ${cq+1} / ${coupleQuestions.length}`;
-  document.getElementById('quizScore').textContent='Score: '+cscore;
-  document.getElementById('quizProgress').style.width=(cq/coupleQuestions.length*100)+'%';
-  qText.textContent=q.q;reaction.textContent='Choose wisely... Stefano is watching. 👀';
-  answerButtons.innerHTML='';
-  q.a.forEach((answer,i)=>{
-    const b=document.createElement('button');b.textContent=answer;
-    b.addEventListener('click',()=>{
-      if(answered)return;answered=true;
-      const correct=i===q.correct;
-      if(correct)cscore++;
-      [...answerButtons.children].forEach((button,j)=>{
-        button.disabled=true;
-        if(j===q.correct)button.style.background='#e6f7e9';
-        else if(j===i&&!correct)button.style.background='#ffe5ec';
-      });
-      reaction.textContent=correct?'💗 '+q.good:'😂 '+q.bad;
-      document.getElementById('quizScore').textContent='Score: '+cscore;
-      nextQ.disabled=false;
-      nextQ.textContent=cq===coupleQuestions.length-1?'See results ♡':'Next ♡';
-    });
-    answerButtons.appendChild(b);
-  });
-}
-function showQuizEnd(){
-  document.getElementById('quizProgress').style.width='100%';
-  document.getElementById('quizCounter').textContent='Quiz complete!';
-  qText.textContent='You scored '+cscore+' / '+coupleQuestions.length+' 💗';
-  answerButtons.innerHTML='';
-  let message=cscore===8?'PERFECT! You two are basically one person. Slightly embarrassing, honestly. 😭💕':
-    cscore>=5?'A very good couple expert! Tortoro is proud of you. 🐻':
-    'You need to spend more time together... preferably with snacks and video calls. 😂';
-  reaction.textContent=message;
-  nextQ.textContent='Play again ♡';nextQ.disabled=false;
-  nextQ.onclick=restartCoupleQuiz;
-}
-function restartCoupleQuiz(){
-  cq=0;cscore=0;nextQ.onclick=null;nextQ.textContent='Next ♡';renderCoupleQuiz();
-}
-nextQ.addEventListener('click',()=>{
-  if(!answered)return;
-  if(cq===coupleQuestions.length-1){showQuizEnd();return;}
-  cq++;renderCoupleQuiz();
-});
-renderCoupleQuiz();
+let cq=0,cscore=0,answered=false,quizDone=false;
+const qText=document.getElementById('questionText'),answerButtons=document.getElementById('answerButtons'),reaction=document.getElementById('reaction'),nextQ=document.getElementById('nextQuestion');
+function renderQuiz(){answered=false;quizDone=false;nextQ.disabled=true;nextQ.textContent='Next ♡';const q=coupleQuestions[cq];document.getElementById('quizCounter').textContent=`Question ${cq+1} / ${coupleQuestions.length}`;document.getElementById('quizScore').textContent='Score: '+cscore;document.getElementById('quizProgress').style.width=(cq/coupleQuestions.length*100)+'%';qText.textContent=q.q;reaction.textContent='Choose wisely... Stefano is watching. 👀';answerButtons.innerHTML='';q.a.forEach((v,i)=>{const b=document.createElement('button');b.textContent=v;b.addEventListener('click',()=>{if(answered)return;answered=true;if(i===q.c)cscore++;[...answerButtons.children].forEach((x,j)=>{x.disabled=true;if(j===q.c)x.style.background='#e6f7e9';else if(j===i)x.style.background='#ffe5ec'});reaction.textContent=(i===q.c?'💗 '+q.good:'😂 '+q.bad);document.getElementById('quizScore').textContent='Score: '+cscore;nextQ.disabled=false;nextQ.textContent=cq===coupleQuestions.length-1?'See results ♡':'Next ♡'});answerButtons.append(b)})}
+function quizEnd(){quizDone=true;document.getElementById('quizProgress').style.width='100%';document.getElementById('quizCounter').textContent='Quiz complete!';qText.textContent=`You scored ${cscore} / ${coupleQuestions.length} 💗`;answerButtons.innerHTML='';reaction.textContent=cscore===8?'PERFECT! You two are basically one person. 😭💕':cscore>=5?'A very good couple expert! Tortoro is proud. 🐻':'More time together, snacks and video calls are required. 😂';nextQ.disabled=false;nextQ.textContent='Play again ♡'}
+nextQ.addEventListener('click',()=>{if(quizDone){cq=0;cscore=0;renderQuiz();return}if(!answered)return;if(cq===coupleQuestions.length-1){quizEnd();return}cq++;renderQuiz()});renderQuiz();
 
-/* Tortoro tap game */
-let tapCount=0,tapActive=false,tapTimer=null,tapTime=10;
-const tapArea=document.getElementById('tortoroTap');
-document.getElementById('startTap').addEventListener('click',()=>{
-  clearInterval(tapTimer);tapCount=0;tapTime=10;tapActive=true;
-  document.getElementById('tapScore').textContent='Score: 0';
-  document.getElementById('tapResult').textContent='Go go go!';
-  document.getElementById('startTap').disabled=true;
-  tapTimer=setInterval(()=>{
-    tapTime--;
-    if(tapTime<=0){
-      clearInterval(tapTimer);tapActive=false;
-      document.getElementById('tapResult').textContent='Time! You caught Tortoro '+tapCount+' times. 🐻';
-      document.getElementById('startTap').disabled=false;
-    }else{
-      document.getElementById('tapResult').textContent='Time left: '+tapTime+'s';
-    }
-  },1000);
-});
-tapArea.addEventListener('click',()=>{
-  if(!tapActive)return;
-  tapCount++;
-  document.getElementById('tapScore').textContent='Score: '+tapCount;
-  tapArea.textContent=['🐻','🐻‍❄️','🍓','💗'][Math.floor(Math.random()*4)];
-});
+/* Catch Tortoro: moving target, 10-second round */
+let tapCount=0,tapActive=false,tapTime=10,tapTimer=null;const arena=document.getElementById('tapArena'),target=document.getElementById('tortoroTarget');
+function moveTortoro(){const maxX=Math.max(0,arena.clientWidth-target.offsetWidth),maxY=Math.max(0,arena.clientHeight-target.offsetHeight);target.style.left=Math.random()*maxX+'px';target.style.top=Math.random()*maxY+'px'}
+moveTortoro();document.getElementById('startTap').addEventListener('click',()=>{clearInterval(tapTimer);tapCount=0;tapTime=10;tapActive=true;document.getElementById('tapScore').textContent='Score: 0';document.getElementById('tapResult').textContent='GO GO GO!';document.getElementById('startTap').disabled=true;moveTortoro();tapTimer=setInterval(()=>{tapTime--;document.getElementById('tapResult').textContent='Time left: '+tapTime+'s';if(tapTime<=0){clearInterval(tapTimer);tapActive=false;document.getElementById('tapResult').textContent='Time! You caught Tortoro '+tapCount+' times. 🐻';document.getElementById('startTap').disabled=false}},1000)});
+target.addEventListener('click',()=>{if(!tapActive)return;tapCount++;document.getElementById('tapScore').textContent='Score: '+tapCount;target.textContent=['🐻','🐻‍❄️','🍓','💗'][Math.floor(Math.random()*4)];moveTortoro()});
 
 /* Memory match */
-const memoryEmojis=['🍓','🐻','💗','🍰','🌙','🐰','🍓','🐻','💗','🍰','🌙','🐰'];
-let firstTile=null,lockBoard=false,matches=0;
-function shuffle(a){return a.sort(()=>Math.random()-.5)}
-function setupMemory(){
-  const grid=document.getElementById('memoryGrid');
-  grid.innerHTML='';firstTile=null;lockBoard=false;matches=0;
-  document.getElementById('memoryResult').textContent='Find all 6 pairs!';
-  shuffle([...memoryEmojis]).forEach((emoji)=>{
-    const b=document.createElement('button');b.className='memory-tile';b.textContent='?';
-    b.dataset.emoji=emoji;b.dataset.open='false';
-    b.addEventListener('click',()=>{
-      if(lockBoard||b.dataset.open==='true')return;
-      b.textContent=emoji;b.dataset.open='true';b.classList.add('revealed');
-      if(!firstTile){firstTile=b;return;}
-      if(firstTile.dataset.emoji===b.dataset.emoji){
-        matches++;firstTile=null;
-        document.getElementById('memoryResult').textContent=matches===6?'You did it! Tortoro is impressed! 🐻💗':matches+' / 6 pairs found';
-      }else{
-        lockBoard=true;const old=firstTile;firstTile=null;
-        setTimeout(()=>{
-          old.textContent='?';b.textContent='?';
-          old.dataset.open='false';b.dataset.open='false';
-          old.classList.remove('revealed');b.classList.remove('revealed');
-          lockBoard=false;
-        },750);
-      }
-    });
-    grid.appendChild(b);
-  });
-}
-document.getElementById('resetMemory').addEventListener('click',setupMemory);
-setupMemory();
+const memoryEmojis=['🍓','🐻','💗','🍰','🌙','🐰'];let firstTile=null,lockBoard=false,matches=0;
+function setupMemory(){const grid=document.getElementById('memoryGrid');grid.innerHTML='';firstTile=null;lockBoard=false;matches=0;document.getElementById('memoryResult').textContent='Find all 6 pairs!';const deck=[...memoryEmojis,...memoryEmojis].sort(()=>Math.random()-.5);deck.forEach(emoji=>{const b=document.createElement('button');b.className='memory-tile';b.textContent='?';b.dataset.emoji=emoji;b.dataset.open='false';b.addEventListener('click',()=>{if(lockBoard||b.dataset.open==='true'||b.classList.contains('matched'))return;b.textContent=emoji;b.dataset.open='true';b.classList.add('revealed');if(!firstTile){firstTile=b;return}if(firstTile.dataset.emoji===b.dataset.emoji){firstTile.classList.add('matched');b.classList.add('matched');firstTile=null;matches++;document.getElementById('memoryResult').textContent=matches===6?'You did it! Tortoro is impressed! 🐻💗':matches+' / 6 pairs found'}else{lockBoard=true;const old=firstTile;firstTile=null;setTimeout(()=>{[old,b].forEach(x=>{x.textContent='?';x.dataset.open='false';x.classList.remove('revealed')});lockBoard=false},750)}});grid.append(b)})}
+document.getElementById('resetMemory').addEventListener('click',setupMemory);setupMemory();
 
 /* Love note generator */
-const notes=[
-  'You are my favourite notification. 💗',
-  'Even the boring days are better with you.',
-  'Somewhere between Italy and the Philippines, my heart found its home.',
-  'I would choose you in every lifetime.',
-  'You are my favourite hello and my hardest goodbye.',
-  'One day, no screens. Just hugs, kisses and us.',
-  'My favourite place is wherever you are.',
-  'Ti amo, my beautiful patatina. 🍓',
-  'You are the plot twist I never knew I needed.',
-  'Distance is temporary. Annoying you forever is the plan. 😋'
-];
-document.getElementById('newNote').addEventListener('click',()=>{
-  const el=document.getElementById('loveNote');
-  let next=notes[Math.floor(Math.random()*notes.length)];
-  el.textContent=next;
-});
+const notes=['You are my favourite notification. 💗','Even the boring days are better with you.','Somewhere between Italy and the Philippines, my heart found its home.','I would choose you in every lifetime.','You are my favourite hello and my hardest goodbye.','One day, no screens. Just hugs, kisses and us.','My favourite place is wherever you are.','Ti amo, my beautiful patatina. 🍓','You are the plot twist I never knew I needed.','Distance is temporary. Annoying you forever is the plan. 😋','Somehow, you make every ordinary day feel special.'];
+document.getElementById('newNote').addEventListener('click',()=>{const el=document.getElementById('loveNote');let n=notes[Math.floor(Math.random()*notes.length)];if(notes.length>1&&n===el.textContent)n=notes[(notes.indexOf(n)+1)%notes.length];el.textContent=n});
 </script>
 </body>
 </html>
