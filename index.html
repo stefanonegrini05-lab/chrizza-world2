@@ -228,7 +228,7 @@
     .quiz-option.wrong { background: #fdeaea; border-color: #e08b8b; color: #8c2b2b; }
     .quiz-feedback { font-size: 13px; font-weight: 600; color: var(--rose-deep); min-height: 22px; margin: 12px 0; text-align: left; }
 
-    /* Games Cabinets */
+    /* Games Cabinets & Tortoro Drawing */
     .games-master-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px; }
     .game-cabinet { border-radius: 24px; padding: 24px; display: flex; flex-direction: column; }
     .cabinet-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
@@ -349,7 +349,7 @@
         <div class="hero-copy">
           <div class="badge-romantic">✦ ARCORE (ITALY) ⇄ BUGO, CDO (PHILIPPINES)</div>
           <h1>Welcome to<br><em>your universe,</em><br>my Patatina.</h1>
-          <p class="hero-sub">Every letter I wrote, our movie theater, our favorite music with direct Spotify & YouTube links, the exact distance, and Tortoro in Bugo — fully in English, made exclusively for you.</p>
+          <p class="hero-sub">Every letter I wrote, our movie theater, our favorite music with direct Spotify & YouTube links, the exact distance, and King Tortoro in Bugo — fully in English, made exclusively for you.</p>
           <div class="hero-actions">
             <a class="btn-romantic" href="#play">Play with Tortoro <span>🐾</span></a>
             <a class="btn-romantic" href="#quiz" style="background:linear-gradient(135deg, #a6466b, #7d2d4c)">Couple Quiz 💖</a>
@@ -483,7 +483,7 @@
         <div id="letter-list" class="envelope-grid"></div>
       </section>
 
-      <!-- VIRTUAL CINEMA (THEATER STYLE WITH ALL FILMS) -->
+      <!-- VIRTUAL CINEMA -->
       <section id="cinema" class="content-section section-shell">
         <div class="section-heading">
           <span class="eyebrow">VIRTUAL MOVIE THEATER</span>
@@ -510,7 +510,7 @@
         </div>
       </section>
 
-      <!-- DISTANCE MAP (GOOGLE MAPS STYLE) -->
+      <!-- DISTANCE MAP -->
       <section id="distance" class="content-section section-shell alt-bg">
         <div class="distance-box glass-panel">
           <span class="eyebrow">GOOGLE MAPS DISTANCE SIMULATOR</span>
@@ -534,7 +534,7 @@
         </div>
       </section>
 
-      <!-- CELESTIAL KISS MOON & VENUS + DRAWING -->
+      <!-- CELESTIAL KISS MOON & VENUS -->
       <section id="space" class="content-section section-shell">
         <div class="space-cabinet">
           <span class="eyebrow" style="color:#ffd6e6">CELESTIAL MEMORY · MOON & VENUS</span>
@@ -548,7 +548,7 @@
         </div>
       </section>
 
-      <!-- ITALIAN ACADEMY (MEDIUM LEVEL) -->
+      <!-- ITALIAN ACADEMY -->
       <section id="italian" class="content-section section-shell alt-bg">
         <div class="section-heading">
           <span class="eyebrow">LANGUAGE ACADEMY</span>
@@ -578,7 +578,7 @@
         </div>
       </section>
 
-      <!-- COUPLE QUIZ (10 QUESTIONS - BRAWL STARS & CHEEKY) -->
+      <!-- COUPLE QUIZ (10 QUESTIONS) -->
       <section id="quiz" class="content-section section-shell">
         <div class="quiz-cabinet glass-panel">
           <div class="cabinet-header">
@@ -595,7 +595,7 @@
         </div>
       </section>
 
-      <!-- TORTORO'S GAMES -->
+      <!-- TORTORO'S GAMES & REAL CAT DRAWING -->
       <section id="play" class="content-section section-shell alt-bg">
         <div class="section-heading">
           <span class="eyebrow">INTERACTIVE ARCADE</span>
@@ -604,7 +604,7 @@
         </div>
 
         <div class="games-master-grid">
-          <!-- GAME 1: COZY ROOM -->
+          <!-- GAME 1: COZY ROOM WITH TORTORO -->
           <div class="game-cabinet glass-panel">
             <div class="cabinet-header">
               <div>
@@ -700,57 +700,47 @@
     (() => {
       const $ = s => document.querySelector(s);
 
-      // ALL LETTERS INCLUDED DIRECTLY HERE
+      // ALL YOUR REAL LETTERS WORD FOR WORD
       const letters = [
-        {
-          month: "Month 1",
-          date: "January 18, 2026",
-          text: "My dearest Chrizza,\n\nOne month since we officially became us, and my heart still smiles every single time I think about that random night on OmeTV. You were in the dark, I used my white T-shirt as a flashlight, and my life changed forever. Thank you for being my peace, my smile, and my home across the oceans."
-        },
         {
           month: "Month 2",
           date: "February 18, 2026",
-          text: "My sweet Patatina,\n\nTwo months of loving you, of sharing movie nights, and late-night calls. Even with thousands of kilometers between Arcore and Bugo, you make me feel like distance doesn't exist. I choose you, always and forever."
+          text: `Happy 2nd monthsary, my Chrizza. 💕\nTwo months with you… and honestly, it feels like you’ve been in my life for much longer in the best way possible. Everything with you feels so natural, so easy, so real. I didn’t expect to find someone who could make me smile the way you do, my beautiful principessa.\n\nMy patatina, you’ve become such an important part of my days. Talking to you, laughing with you, sharing even the smallest things, it all means so much to me.\n\nI know we’re still at the beginning of our story, but I’m serious about us. Whatever comes, I want to face it with you. I CHOOSE U, always.\n\nStay my sweet amore, my patatina, my one and only principessa.\nTi amo tantissimo and u will be in my heart foverever.`
         },
         {
           month: "Month 3",
           date: "March 18, 2026",
-          text: "My love,\n\nThree months. You have become my absolute favorite part of every single day. Every message, every laugh on video call, every game of Brawl Stars together — you are my greatest blessing."
+          text: `Happy 3rd monthsary, my Patatina😋\nIt’s crazy to think how everything started, and now here we are, three months later, still choosing each other every single day. You came into my life in such a simple and weird way ahahah, but you changed it more than you probably realize.\n\nThese three months are only the beginning. I want to keep building something beautiful with you, step by step, with patience and sincerity. No matter how far apart we are, because what I feel for you goes beyond any distance.\n\nEven on normal days, just writing with you is enough to make everything better and you became my favorite part of the day.\n\nKeep being the amazing, sweet, and beautiful person you are. I love u so muchhh chrizza.\nAlways yours Stef💖`
         },
         {
-          month: "Months 4–5",
+          month: "Month 4 & 5",
           date: "May 18, 2026",
-          text: "My dearest Chrizza,\n\nThrough every chapter and every little challenge, we found our way closer to each other. Your love is my strength, my benzina, and my motivation. I can't wait for the day I won't have to say goodbye through a screen."
+          text: `Happy 4th and 5th monthsary, my Babyyy. I know I should’ve written to you on our fourth monthsary too… and I didn’t, but I want to make it up to you with this letter, from the heart.\n\nThese past months with you have meant so much more to me than I can properly put into words. Even with the ups and downs, even with the moments we didn’t understand each other, I’m still here… and you’re still here… and that alone says a lot about what we have.\n\nAnd honestly, I’m so glad we found our way back to each other. Thank god we didn’t give up on us. Because losing you would’ve been losing something truly special.\n\nChrizza, I love you more than Po loves his dumpling 😋, and that’s a lot. The kind of love that’s warm, a little silly, but very real and deep.\n\nYou’re my princess, my patatina, my safe place, and the person I always find myself thinking about no matter what I’m doing. You make even ordinary days feel better just by being there.\n\nI don’t want perfection with you. I just want us learning, growing, and choosing each other again and again, every month, every day.\n\nHappy monthsary, my love. For the fourth, for the fifth, and for all the ones we’re going to celebrate together.\nI love you patatinaaa.`
         },
         {
           month: "Month 6",
           date: "June 18, 2026",
-          text: "Half a year of us!,\n\nSix months of holding your heart in mine. You are my safe place in this crazy world. No matter what happens, knowing I have you makes everything brighter."
+          text: `My dearest Chrizza, mi nena, my patatina, my princess.\nKamusta naman ka?\nHappy 6th monthsary, my love. 💓\n\nSix months may not seem like a long time to some people, but for me, these months have changed so much. They have changed my heart and more important also my mind.\n\nI’ve realized something that I want you to know, you are the right person for me. My heart is yours now, completely. From the moment I wake up until the moment I fall asleep, you are always on my mind. Every day starts and ends with thoughts of you, your smile, your pretty voice that warms my heart, and It's one of my favorite things about you, and that's why falling asleep together on video call feels so special, it makes me feel close to you even when we're miles apart.\n\nEven though the distance is hard, I truly believe that we will make it. No matter how much I miss you every single day. I wish I could kiss you, hug you, smell your perfume, and feel the warmth of your skin. I wish I could hold your hand and simply be beside you (dont worry i will let u stay near the wall😂).\n\nYou have become my safe place, whenever I am going through a difficult moment or feeling anxious, you are there for me. Your words calm me down, your love gives me strength, and somehow you always make me feel better.\n\nThank you for making me feel loved every single day.\nMahal kita my gwapaaa.😋`
         },
         {
           month: "Month 7",
           date: "July 18, 2026",
-          text: "My love,\n\nSeven months. I still remember when the Moon and Venus met in that celestial kiss in the night sky. I looked at it and thought of you, wishing we were looking at the exact same stars side by side."
+          text: `Happy 7th monthsary, my beautiful Chrizza pizza, mi bebe my forever princess.💓\n\nSeven months today. It’s crazy how time flies, but at the same time, every single month with you feels like a whole chapter of a beautiful book we are writing together. My heart still chooses you every single day.\n\nThis month gave us a memory that I don't think I'll ever forget: the rare event in the night sky, the "kiss" between the Moon and Venus. When I looked up and saw them so close, I couldn’t help but think of us. It happened right on our day... We're far apart, but somehow our hearts always find each other.\n\nThis month was also different because we cried together on our video call. Not tears of weakness, but tears of love, missing each other, and carrying the weight of this ldr. With you, I don't have to pretend to be strong all the time. Thank you for holding my heart so gently.\n\nRemember when you sang "Sarà perché ti amo" to me on video call? Ahahah you have no idea how much that warmed my heart. Sarà perché ti amo 😋. \n\nDon't worry, I haven't forgotten my promises... the wedding and the babies are waiting for us in our future. 💓\nFrom your Stefanino`
         },
         {
           month: "Month 8",
           date: "August 18, 2026",
-          text: "My sweet Patatina,\n\nEight months of building our future in our hearts. You understand me like no one else does. Thank you for loving Stefanino with all his quirks and overthinking!"
+          text: `Happy 8th monthsary, my beautiful Chrizza, my patatina, my bella principessa 💓\n\nEight months with you already… and honestly, it feels crazy how much you have become part of my life. Every month I feel like I find another reason to love you, and lately I really feel like I love you more and more every day.\n\nWhen we first met, I was so shy with you. But now look at me. With you I can just be myself. You became my comfort, the person I feel completely comfortable with.\n\nEven when I was in Lloret, one of the things I looked forward to the most was just seeing your face and hearing your voice. Sometimes I really wish you were here beside me instead of being on my screen, but the distance makes me appreciate every little moment even more.\n\nChrizza, you're not just the girl I love anymore. You became a part of my everyday life, my comfort and my home.\n\nHappy 8th monthsary, my love. I love you more than yesterday, and I already know I'll love you even more tomorrow.\nAlways yours, Stefanino 💓`
         },
         {
           month: "Month 9",
           date: "September 18, 2026",
-          text: "My love,\n\nNine months. You are my benzina ⛽ that keeps me going every day. Every time we laugh together, my heart is completely yours."
+          text: `Happy 9th monthsary, my beautiful Chrizza, my patatina, my bella principessa💓.\n\n9 months already… before you I was kind of just living day by day without a real direction. Then you came into my life and somehow you became my benzina ⛽. You gave me motivation and made me want to work harder and mature into a man.\n\nI don't just love the girl I met on OmeTV that night anymore. I love the real Chrizza.\n\nThis month, when you got me that chocolate cake with my name written on it and "Happy Birthday" on top, I honestly didn't know what to say. 🥹❤️ I cried because in that moment I could actually feel how much you love me.\n\nSoon, my love, we're finally going to see each other. After all these months of looking at each other through a screen, soon I'll stand in front of you, hug you, and finally kiss you fr 😂😋.\n\nThank u for everything and thank u for my birthday cake. ❤️\nAlways yours, Stefanino 💓`
         },
         {
           month: "Month 10",
           date: "October 18, 2026",
-          text: "Ten months of us,\n\nEven when distance feels heavy, our bond is heavier and stronger. Choosing each other every day is the easiest decision I have ever made."
-        },
-        {
-          month: "Month 11",
-          date: "November 18, 2026",
-          text: "My dearest Chrizza,\n\nEleven months! We are so close to our one-year milestone and closer to the day I will finally hold you in Bugo. I love you more than words can say."
+          text: `10th monthsary, my Chrizza, my patatina, my bella principessa. 💓\n\nTen months, babyyy. TEN MONTHS. 😭😋 We are ten months later still loving each other, still making memories.\n\nAt the beginning everything was new — the butterflies and nervousness. Now you're the girl I want to tell everything to, the girl I want beside me when things get difficult.\n\nI know that not every moment has been easy. We've had our worries, but this taught me that a relationship isn't about being happy only when everything goes well; it's about learning to understand each other when it's difficult and remembering we're on the same team.\n\nI haven't forgotten that you still owe me a lifetime of love, a wedding and those babies you keep talking about. HEHEHE. Our future wife and mother of my children please take your responsibilities seriously.\n\nThank you for being Chrizza. My beautiful silly sweet stubborn little patatina. \n10Th monthsary, my beautiful wife-to-be. 😋💓\nYour Stefanino, your husband-to-be and your annoying patatino. Muahhh`
         }
       ];
 
@@ -862,7 +852,7 @@
       $("#letter-list").addEventListener("click", e => {
         const btn = e.target.closest("[data-letter]"); if (!btn) return;
         sfxHeart(); const l = letters[Number(btn.dataset.letter)];
-        $("#modal-title").textContent = l.month; $("#modal-letter-body").textContent = l.text;
+        $("#modal-title").textContent = l.month + " — " + l.date; $("#modal-letter-body").textContent = l.text;
         $("#letter-modal").classList.remove("hidden");
       });
       const closeModal = () => $("#letter-modal").classList.add("hidden");
@@ -948,25 +938,64 @@
       });
       renderQuiz();
 
-      // Tortoro Games
+      // Tortoro the Grey Tabby Cat Drawing & Virtual Pet
       const cCanvas = $("#cozy-canvas"), cCtx = cCanvas.getContext("2d");
-      let pet = { x: 280, y: 265, targetX: 280, facing: 1, hunger: 85, happy: 90, energy: 80, state: "idle" };
+      let pet = { x: 300, y: 260, targetX: 300, hunger: 85, happy: 90, energy: 80, state: "idle", isSunset: false };
       cCanvas.addEventListener("pointerdown", e => {
         const rect = cCanvas.getBoundingClientRect();
         const mx = (e.clientX - rect.left) * (cCanvas.width / rect.width);
-        if (Math.hypot(mx - pet.x, 240 - pet.y) < 65) { pet.state = "happy"; sfxHeart(); }
-        else { pet.targetX = Math.max(80, Math.min(520, mx)); pet.state = "run"; }
+        if (Math.hypot(mx - pet.x, 240 - pet.y) < 60) { pet.state = "happy"; sfxHeart(); }
+        else { pet.targetX = Math.max(70, Math.min(530, mx)); pet.state = "walk"; }
       });
       $("#act-feed").addEventListener("click", () => { pet.hunger = Math.min(100, pet.hunger + 15); sfxHeart(); });
       $("#act-toy").addEventListener("click", () => { pet.happy = Math.min(100, pet.happy + 15); sfxJump(); });
       $("#act-sleep").addEventListener("click", () => { pet.state = pet.state === "sleep" ? "idle" : "sleep"; sfxHeart(); });
       $("#act-time").addEventListener("click", () => { pet.isSunset = !pet.isSunset; sfxHeart(); });
 
+      function drawTortoroCat(ctx, x, y, state) {
+        ctx.save();
+        ctx.translate(x, y);
+        // Body (Grey Tabby)
+        ctx.fillStyle = "#8c909c";
+        ctx.beginPath(); ctx.ellipse(0, -15, 32, 22, 0, 0, Math.PI * 2); ctx.fill();
+        // Stripes
+        ctx.strokeStyle = "#5f636e"; ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(-10, -32); ctx.lineTo(-10, -5); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(5, -32); ctx.lineTo(5, -5); ctx.stroke();
+        // Head
+        ctx.fillStyle = "#8c909c";
+        ctx.beginPath(); ctx.arc(22, -28, 18, 0, Math.PI * 2); ctx.fill();
+        // Ears (pointed)
+        ctx.beginPath(); ctx.moveTo(10, -40); ctx.lineTo(16, -55); ctx.lineTo(24, -40); ctx.fill();
+        ctx.beginPath(); ctx.moveTo(26, -40); ctx.lineTo(34, -53); ctx.lineTo(38, -38); ctx.fill();
+        // Inner ears pink
+        ctx.fillStyle = "#f5b7b1";
+        ctx.beginPath(); ctx.moveTo(14, -42); ctx.lineTo(16, -50); ctx.lineTo(20, -42); ctx.fill();
+        ctx.beginPath(); ctx.moveTo(29, -40); ctx.lineTo(33, -48); ctx.lineTo(35, -38); ctx.fill();
+        // Eyes & Whiskers
+        ctx.fillStyle = "#3d2933";
+        ctx.beginPath(); ctx.arc(17, -31, 2.5, 0, Math.PI * 2); ctx.arc(29, -31, 2.5, 0, Math.PI * 2); ctx.fill();
+        // Tail
+        ctx.strokeStyle = "#8c909c"; ctx.lineWidth = 6; ctx.lineCap = "round";
+        ctx.beginPath(); ctx.moveTo(-28, -20); ctx.quadraticCurveTo(-45, -35, -40, -10); ctx.stroke();
+        // State text
+        if (state === "happy") { ctx.font = "16px sans-serif"; ctx.fillText("💖 Purrr...", -15, -60); }
+        if (state === "sleep") { ctx.font = "16px sans-serif"; ctx.fillText("💤 Zzz...", -10, -60); }
+        ctx.restore();
+      }
+
       function updateCozy() {
         cCtx.clearRect(0, 0, 600, 340);
-        cCtx.fillStyle = pet.isSunset ? "#f5d5cb" : "#fdf1f5"; cCtx.fillRect(0, 0, 600, 245);
-        cCtx.fillStyle = pet.isSunset ? "#c99679" : "#deb193"; cCtx.fillRect(0, 245, 600, 95);
-        cCtx.fillStyle = "#9599a3"; cCtx.beginPath(); cCtx.arc(pet.x, pet.y - 20, 22, 0, Math.PI * 2); cCtx.fill();
+        cCtx.fillStyle = pet.isSunset ? "#f5d5cb" : "#fdf1f5"; cCtx.fillRect(0, 0, 600, 240);
+        cCtx.fillStyle = pet.isSunset ? "#c99679" : "#deb193"; cCtx.fillRect(0, 240, 600, 100);
+        
+        // Move towards target
+        if (Math.abs(pet.targetX - pet.x) > 1) {
+          pet.x += (pet.targetX - pet.x) * 0.08;
+        } else if (pet.state === "walk") {
+          pet.state = "idle";
+        }
+        drawTortoroCat(cCtx, pet.x, pet.y, pet.state);
         requestAnimationFrame(updateCozy);
       }
       updateCozy();
@@ -998,7 +1027,7 @@
             return c.x > -40;
           });
         }
-        aCtx.fillStyle = "#9599a3"; aCtx.beginPath(); aCtx.arc(arc.cat.x, arc.cat.y - 18, 18, 0, Math.PI * 2); aCtx.fill();
+        drawTortoroCat(aCtx, arc.cat.x, arc.cat.y, "idle");
         requestAnimationFrame(updateArcade);
       }
       updateArcade();
